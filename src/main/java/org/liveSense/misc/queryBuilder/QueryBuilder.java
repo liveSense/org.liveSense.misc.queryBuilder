@@ -1,4 +1,4 @@
-package org.liveSense.misc.queryBuilder.querybuilder;
+package org.liveSense.misc.queryBuilder;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public abstract class QueryBuilder {
 		if (!(params instanceof Operator)) {
 			params = new AndOperator(params);
 		}
-		return ((Operator)params).process(this);
+		return ((Operator)params).process();
 	}
 
 	public LimitClause getLimit() {

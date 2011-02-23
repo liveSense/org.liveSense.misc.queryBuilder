@@ -1,4 +1,4 @@
-package org.liveSense.misc.queryBuilder.querybuilder;
+package org.liveSense.misc.queryBuilder;
 
 import java.util.List;
 

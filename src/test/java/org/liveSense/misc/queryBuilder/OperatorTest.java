@@ -39,18 +39,18 @@ public class OperatorTest {
 	
 	@Test (expected = QueryBuilderException.class)
 	public void andOperator_withInvalidObject() throws QueryBuilderException {
-		new AndOperator(new Object[]{new Object()}).process(null);
+		new AndOperator(new Object[]{new Object()}).process();
 	}
 	
 	@Test
 	public void andOperator_withValidObjects() {
 		try {
-			assertEquals("Null parameter", "", new AndOperator(null).process(null));
-			assertEquals("Empty object[] parameter", "", new AndOperator(new Object[]{}).process(null));
+			assertEquals("Null parameter", "", new AndOperator(null).process());
+			assertEquals("Empty object[] parameter", "", new AndOperator(new Object[]{}).process());
 			
-			assertEquals("Simple object[] parameter", "(size=12)", new AndOperator(new Object[]{new EqualCriteria<Integer>("size", 12)}).process(null));
+			assertEquals("Simple object[] parameter", "(size=12)", new AndOperator(new Object[]{new EqualCriteria<Integer>("size", 12)}).process());
 			assertEquals("Multiple object[] parameter", "(a1=11 AND name='valami')", new AndOperator(new Object[]{new EqualCriteria<Integer>("a1", 11), 
-					new EqualCriteria<String>("name", "valami"),}).process(null));
+					new EqualCriteria<String>("name", "valami"),}).process());
 			assertEquals("Multiple object[] and Operator parameter", "(size=12 AND (a1=11 AND name='valami') AND test='2000.01.01')", 
 			new AndOperator(
 					new Object[]{
@@ -62,7 +62,7 @@ public class OperatorTest {
 									}), 
 							new EqualCriteria<Date>("test",df.parse("2000.01.01") )
 					}
-			).process(null));
+			).process());
 
 		} catch (QueryBuilderException e) {
 			fail("QueryBuilderException: "+e.getMessage());

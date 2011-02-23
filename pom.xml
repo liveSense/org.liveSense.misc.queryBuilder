@@ -22,6 +22,16 @@
 	<description>liveSense SQL QueryBuilder
 	</description>
 	<build>
+	     <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>

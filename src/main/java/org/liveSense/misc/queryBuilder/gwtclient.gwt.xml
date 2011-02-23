@@ -1,6 +1,5 @@
 <module>
     <!-- Inherit the core Web Toolkit stuff. -->
-    <inherits name='com.google.gwt.user.User'/>
  	<source path="criterias"/>
  	<source path="exception"/>
  	<source path="models"/>

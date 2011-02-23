@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
 import org.liveSense.misc.queryBuilder.exception.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
-import org.liveSense.misc.queryBuilder.querybuilder.QueryBuilder;
 
 public class QueryBuilderTest {
 

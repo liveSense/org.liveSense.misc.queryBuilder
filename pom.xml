@@ -9,9 +9,9 @@
   	</parent>
 
   <scm>
-      <connection>scm:git:git://github.com/liveSense/org.liveSense.misc.queryBuilder</connection>
-      <developerConnection>scm:git:git://github.com/liveSense/org.liveSense.misc.queryBuilder</developerConnection>
-      <url>https://github.com/liveSense/org.liveSense.misc.queryBuilder</url>
+      <connection>scm:git:git://github.com/liveSense/org.liveSense.misc.queryBuilder.git</connection>
+      <developerConnection>scm:git:git://github.com/liveSense/org.liveSense.misc.queryBuilder.git</developerConnection>
+      <url>https://github.com/liveSense/org.liveSense.misc.queryBuilder.git</url>
   </scm>  
   
 	<groupId>org.liveSense</groupId>

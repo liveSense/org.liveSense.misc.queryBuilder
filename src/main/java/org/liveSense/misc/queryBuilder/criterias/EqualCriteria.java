@@ -1,6 +1,6 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
-import org.liveSense.misc.queryBuilder.exception.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.models.Reference;
 
 public class EqualCriteria<K> extends Criteria<K> {

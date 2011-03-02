@@ -2,6 +2,9 @@ package org.liveSense.misc.queryBuilder;
 
 import java.util.List;
 
+import org.liveSense.misc.queryBuilder.clauses.LimitClause;
+import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
+
 public class SimpleSQLQueryBuilder extends QueryBuilder {
 
 	String statement;

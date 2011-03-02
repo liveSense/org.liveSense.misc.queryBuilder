@@ -2,7 +2,9 @@ package org.liveSense.misc.queryBuilder;
 
 import java.util.List;
 
-import org.liveSense.misc.queryBuilder.exception.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.clauses.LimitClause;
+import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
+import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
 import org.liveSense.misc.queryBuilder.operators.Operator;
 

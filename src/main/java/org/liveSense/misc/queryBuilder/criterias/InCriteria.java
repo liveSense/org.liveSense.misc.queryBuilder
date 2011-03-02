@@ -3,7 +3,7 @@ package org.liveSense.misc.queryBuilder.criterias;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.liveSense.misc.queryBuilder.exception.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.models.Reference;
 
 public class InCriteria<K> extends Criteria<K> {

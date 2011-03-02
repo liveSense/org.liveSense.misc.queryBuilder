@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
-import org.liveSense.misc.queryBuilder.exception.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
 
 public class QueryBuilderTest {

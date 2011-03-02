@@ -1,4 +1,4 @@
-package org.liveSense.misc.queryBuilder;
+package org.liveSense.misc.queryBuilder.clauses;
 
 public class OrderByClause {
 	

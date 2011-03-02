@@ -18,7 +18,7 @@ import org.liveSense.misc.queryBuilder.criterias.BetweenCriteria;
 import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
 import org.liveSense.misc.queryBuilder.criterias.InCriteria;
 import org.liveSense.misc.queryBuilder.criterias.LikeCriteria;
-import org.liveSense.misc.queryBuilder.exception.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 
 public class CriteriaTest {
 

@@ -2,7 +2,7 @@ package org.liveSense.misc.queryBuilder.criterias;
 
 import java.util.Date;
 
-import org.liveSense.misc.queryBuilder.exception.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.models.QueryModel;
 import org.liveSense.misc.queryBuilder.models.Reference;
 
@@ -54,9 +54,9 @@ public class LikeCriteria<K> extends Criteria<K> {
 			@SuppressWarnings("unchecked")
 			QueryModel<K> am = (QueryModel<K>)o;
 			if (getCustomReferenceFieldName() == null)  
-				return getAsValue(am.getPrimaryKeyField());
+				return this.getAsValue(am.getPrimaryKeyField()+"%");
 			else
-				return getAsValue(am.getField(this.getCustomReferenceFieldName()));
+				return this.getAsValue(am.getField(this.getCustomReferenceFieldName())+"%");
 		}
 		else o.toString();
 		return "";

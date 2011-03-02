@@ -3,7 +3,7 @@ package org.liveSense.misc.queryBuilder.operators;
 import java.util.List;
 
 import org.liveSense.misc.queryBuilder.criterias.Criteria;
-import org.liveSense.misc.queryBuilder.exception.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 
 
 public abstract class Operator {

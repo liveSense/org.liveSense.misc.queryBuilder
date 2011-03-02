@@ -1,4 +1,4 @@
-package org.liveSense.misc.queryBuilder.exception;
+package org.liveSense.misc.queryBuilder.exceptions;
 
 import java.io.Serializable;
 

@@ -16,7 +16,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.liveSense.misc.queryBuilder.criterias.BetweenCriteria;
 import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
+import org.liveSense.misc.queryBuilder.criterias.GreaterCriteria;
+import org.liveSense.misc.queryBuilder.criterias.GreaterOrEqualCriteria;
 import org.liveSense.misc.queryBuilder.criterias.InCriteria;
+import org.liveSense.misc.queryBuilder.criterias.LessCriteria;
+import org.liveSense.misc.queryBuilder.criterias.LessOrEqualCriteria;
 import org.liveSense.misc.queryBuilder.criterias.LikeCriteria;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 
@@ -179,6 +183,63 @@ public class CriteriaTest {
 			} catch (QueryBuilderException e) {
 				fail("QueryBuilderException"+e.getMessage());
 			}
+	}
+
+	
+	@Test
+	public void LessCriteriaTest() {
+		try {
+			assertEquals("Less Integer", "integer<1", new LessCriteria<Integer>("integer", 1).process());
+			assertEquals("Less Long", "long<1", new LessCriteria<Long>("long", new Long(1)).process());
+			assertEquals("Less String", "string<'str'", new LessCriteria<String>("string", "str").process());
+			assertEquals("Less Date", "date<'2000.12.31'", new LessCriteria<Date>("date", df.parse("2000.12.31")).process());
+		} catch (ParseException e) {
+			fail("ParseException"+e.getMessage());
+		} catch (QueryBuilderException e) {
+			fail("QueryBuilderException"+e.getMessage());
+		}
+	}
+
+	@Test
+	public void LessOrEqualCriteriaTest() {
+		try {
+			assertEquals("LessOrEquals Integer", "integer<=1", new LessOrEqualCriteria<Integer>("integer", 1).process());
+			assertEquals("LessOrEquals Long", "long<=1", new LessOrEqualCriteria<Long>("long", new Long(1)).process());
+			assertEquals("LessOrEquals String", "string<='str'", new LessOrEqualCriteria<String>("string", "str").process());
+			assertEquals("LessOrEquals Date", "date<='2000.12.31'", new LessOrEqualCriteria<Date>("date", df.parse("2000.12.31")).process());
+		} catch (ParseException e) {
+			fail("ParseException"+e.getMessage());
+		} catch (QueryBuilderException e) {
+			fail("QueryBuilderException"+e.getMessage());
+		}
+	}
+
+	@Test
+	public void GreaterCriteriaTest() {
+		try {
+			assertEquals("Greater Integer", "integer>1", new GreaterCriteria<Integer>("integer", 1).process());
+			assertEquals("Greater Long", "long>1", new GreaterCriteria<Long>("long", new Long(1)).process());
+			assertEquals("Greater String", "string>'str'", new GreaterCriteria<String>("string", "str").process());
+			assertEquals("Greater Date", "date>'2000.12.31'", new GreaterCriteria<Date>("date", df.parse("2000.12.31")).process());
+		} catch (ParseException e) {
+			fail("ParseException"+e.getMessage());
+		} catch (QueryBuilderException e) {
+			fail("QueryBuilderException"+e.getMessage());
+		}
+	}
+
+	@Test
+	public void GreaterOrEqualCriteriaTest() {
+		try {
+			assertEquals("GreaterOrEquals Integer", "integer>=1", new GreaterOrEqualCriteria<Integer>("integer", 1).process());
+			assertEquals("GreaterOrEquals Long", "long>=1", new GreaterOrEqualCriteria<Long>("long", new Long(1)).process());
+			assertEquals("GreaterOrEquals String", "string>='str'", new GreaterOrEqualCriteria<String>("string", "str").process());
+			assertEquals("GreaterOrEquals Date", "date>='2000.12.31'", new GreaterOrEqualCriteria<Date>("date", df.parse("2000.12.31")).process());
+		} catch (ParseException e) {
+			fail("ParseException"+e.getMessage());
+		} catch (QueryBuilderException e) {
+			fail("QueryBuilderException"+e.getMessage());
+		}
 	}
 
 }

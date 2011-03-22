@@ -64,6 +64,7 @@
 						<Export-Package>
 							org.liveSense.misc.queryBuilder.*
 						</Export-Package>
+						<Embed-Dependency>commons-beanutils</Embed-Dependency>
 					</instructions>
 				</configuration>
 			</plugin>
@@ -94,6 +95,21 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+    		<groupId>commons-beanutils</groupId>
+    		<artifactId>commons-beanutils</artifactId>
+    		<version>1.8.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.liveSense</groupId>
+			<artifactId>org.liveSense.core</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 </project>

@@ -6,7 +6,7 @@ public class AndOperator extends Operator {
 	
 	public AndOperator(Object params) {
 		super();
-		super.params = params;
+		setParams(params);
 	}
 
 	@Override

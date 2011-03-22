@@ -39,20 +39,20 @@ public class OperatorTest {
 	
 	@Test (expected = QueryBuilderException.class)
 	public void andOperator_withInvalidObject() throws QueryBuilderException {
-		new AndOperator(new Object[]{new Object()}).process();
+		OperatorAndCriteriaProcessor.processOperator(new AndOperator(new Object[]{new Object()}));
 	}
 	
 	@Test
 	public void andOperator_withValidObjects() {
 		try {
-			assertEquals("Null parameter", "", new AndOperator(null).process());
-			assertEquals("Empty object[] parameter", "", new AndOperator(new Object[]{}).process());
+			assertEquals("Null parameter", "", OperatorAndCriteriaProcessor.processOperator(new AndOperator(null)));
+			assertEquals("Empty object[] parameter", "", OperatorAndCriteriaProcessor.processOperator(new AndOperator(new Object[]{})));
 			
-			assertEquals("Simple object[] parameter", "(size=12)", new AndOperator(new Object[]{new EqualCriteria<Integer>("size", 12)}).process());
-			assertEquals("Multiple object[] parameter", "(a1=11 AND name='valami')", new AndOperator(new Object[]{new EqualCriteria<Integer>("a1", 11), 
-					new EqualCriteria<String>("name", "valami"),}).process());
+			assertEquals("Simple object[] parameter", "(size=12)", OperatorAndCriteriaProcessor.processOperator(new AndOperator(new Object[]{new EqualCriteria<Integer>("size", 12)})));
+			assertEquals("Multiple object[] parameter", "(a1=11 AND name='valami')", OperatorAndCriteriaProcessor.processOperator(new AndOperator(new Object[]{new EqualCriteria<Integer>("a1", 11), 
+					new EqualCriteria<String>("name", "valami"),})));
 			assertEquals("Multiple object[] and Operator parameter", "(size=12 AND (a1=11 AND name='valami') AND test='2000.01.01')", 
-			new AndOperator(
+				OperatorAndCriteriaProcessor.processOperator(new AndOperator(
 					new Object[]{
 							new EqualCriteria<Integer>("size", 12), 
 							new AndOperator(
@@ -62,7 +62,7 @@ public class OperatorTest {
 									}), 
 							new EqualCriteria<Date>("test",df.parse("2000.01.01") )
 					}
-			).process());
+			)));
 
 		} catch (QueryBuilderException e) {
 			fail("QueryBuilderException: "+e.getMessage());

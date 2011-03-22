@@ -102,10 +102,10 @@ public class CriteriaTest {
 	@Test
 	public void EqualsCriteriaTest() {
 		try {
-			assertEquals("Equals Integer", "integer=1", new EqualCriteria<Integer>("integer", 1).process());
-			assertEquals("Equals Long", "long=1", new EqualCriteria<Long>("long", new Long(1)).process());
-			assertEquals("Equals String", "string='str'", new EqualCriteria<String>("string", "str").process());
-			assertEquals("Equals Date", "date='2000.12.31'", new EqualCriteria<Date>("date", df.parse("2000.12.31")).process());
+			assertEquals("Equals Integer", "integer=1", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Integer>("integer", 1)));
+			assertEquals("Equals Long", "long=1", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Long>("long", new Long(1))));
+			assertEquals("Equals String", "string='str'", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<String>("string", "str")));
+			assertEquals("Equals Date", "date='2000.12.31'", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Date>("date", df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		} catch (QueryBuilderException e) {
@@ -113,14 +113,14 @@ public class CriteriaTest {
 		}
 
 	}
-	
+
 	@Test
 	public void BetweenCriteriaTest() {
 		try {
-			assertEquals("Between Integer", "integer BETWEEN 1 AND 2", new BetweenCriteria<Integer>("integer", 1, 2).process());
-			assertEquals("Between Long", "long BETWEEN 1 AND 2", new BetweenCriteria<Long>("long", new Long(1), new Long(2)).process());
-			assertEquals("Between String", "string BETWEEN 'str1' AND 'str2'", new BetweenCriteria<String>("string", "str1", "str2").process());
-			assertEquals("Between Date", "date BETWEEN '2000.01.01' AND '2000.12.31'", new BetweenCriteria<Date>("date", df.parse("2000.01.01"), df.parse("2000.12.31")).process());
+			assertEquals("Between Integer", "integer BETWEEN 1 AND 2", OperatorAndCriteriaProcessor.processCriteria(new BetweenCriteria<Integer>("integer", 1, 2)));
+			assertEquals("Between Long", "long BETWEEN 1 AND 2", OperatorAndCriteriaProcessor.processCriteria(new BetweenCriteria<Long>("long", new Long(1), new Long(2))));
+			assertEquals("Between String", "string BETWEEN 'str1' AND 'str2'", OperatorAndCriteriaProcessor.processCriteria(new BetweenCriteria<String>("string", "str1", "str2")));
+			assertEquals("Between Date", "date BETWEEN '2000.01.01' AND '2000.12.31'", OperatorAndCriteriaProcessor.processCriteria(new BetweenCriteria<Date>("date", df.parse("2000.01.01"), df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		} catch (QueryBuilderException e) {
@@ -132,7 +132,7 @@ public class CriteriaTest {
 	@Test
 	public void LikeCriteriaTest() {
 		try {
-			assertEquals("Like String", "string LIKE 'str1%'", new LikeCriteria<String>("string", "str1").process());
+			assertEquals("Like String", "string LIKE 'str1%'", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<String>("string", "str1")));
 		} catch (QueryBuilderException e) {
 			fail("QueryBuilderException"+e.getMessage());
 		}
@@ -140,18 +140,18 @@ public class CriteriaTest {
 
 	@Test (expected = QueryBuilderException.class)
 	public void LikeCriteriaTest_Integer() throws QueryBuilderException {
-			assertEquals("Like Integer", "integer LIKE '1%'", new LikeCriteria<Integer>("integer", 1).process());
+			assertEquals("Like Integer", "integer LIKE '1%'", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Integer>("integer", 1)));
 	}
 
 	@Test (expected = QueryBuilderException.class)
 	public void LikeCriteriaTest_Long() throws QueryBuilderException {
-			assertEquals("Like Long", "integer LIKE '1%'", new LikeCriteria<Long>("long", new Long(1)).process());
+			assertEquals("Like Long", "integer LIKE '1%'", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Long>("long", new Long(1))));
 	}
 
 	@Test (expected = QueryBuilderException.class)
 	public void LikeCriteriaTest_Date() throws QueryBuilderException {
 		try {
-			assertEquals("Like Date", "date LIKE '2000.12.31%'", new LikeCriteria<Date>("date", df.parse("2000.12.31")).process());
+			assertEquals("Like Date", "date LIKE '2000.12.31%'", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Date>("date", df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		}
@@ -160,25 +160,25 @@ public class CriteriaTest {
 	@Test
 	public void InCriteriaTest() {
 			try {
-				assertEquals("In Integer 1 value (List)", "integer IN (1)", new InCriteria<Integer>("integer", intValue1List).process());
-				assertEquals("In Integer 1 value (List)", "integer IN (1)", new InCriteria<Integer>("integer", intValue1Array).process());
-				assertEquals("In Integer multi value (List)", "integer IN (1,2,3)", new InCriteria<Integer>("integer", intValueMultiList).process());
-				assertEquals("In Integer multi value (List)", "integer IN (1,2,3)", new InCriteria<Integer>("integer", intValueMultiArray).process());
+				assertEquals("In Integer 1 value (List)", "integer IN (1)", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Integer>("integer", intValue1List)));
+				assertEquals("In Integer 1 value (List)", "integer IN (1)", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Integer>("integer", intValue1Array)));
+				assertEquals("In Integer multi value (List)", "integer IN (1,2,3)", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Integer>("integer", intValueMultiList)));
+				assertEquals("In Integer multi value (List)", "integer IN (1,2,3)", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Integer>("integer", intValueMultiArray)));
 
-				assertEquals("In Long 1 value (List)", "long IN (1)", new InCriteria<Long>("long", longValue1List).process());
-				assertEquals("In Long 1 value (List)", "long IN (1)", new InCriteria<Long>("long", longValue1Array).process());
-				assertEquals("In Long multi value (List)", "long IN (1,2,3)", new InCriteria<Long>("long", longValueMultiList).process());
-				assertEquals("In Long multi value (List)", "long IN (1,2,3)", new InCriteria<Long>("long", longValueMultiArray).process());
+				assertEquals("In Long 1 value (List)", "long IN (1)", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Long>("long", longValue1List)));
+				assertEquals("In Long 1 value (List)", "long IN (1)", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Long>("long", longValue1Array)));
+				assertEquals("In Long multi value (List)", "long IN (1,2,3)", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Long>("long", longValueMultiList)));
+				assertEquals("In Long multi value (List)", "long IN (1,2,3)", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Long>("long", longValueMultiArray)));
 
-				assertEquals("In String 1 value (List)", "string IN ('str1')", new InCriteria<String>("string", stringValue1List).process());
-				assertEquals("In String 1 value (List)", "string IN ('str1')", new InCriteria<String>("string", stringValue1Array).process());
-				assertEquals("In String multi value (List)", "string IN ('str1','str2','str3')", new InCriteria<String>("string", stringValueMultiList).process());
-				assertEquals("In String multi value (List)", "string IN ('str1','str2','str3')", new InCriteria<String>("string", stringValueMultiArray).process());
+				assertEquals("In String 1 value (List)", "string IN ('str1')", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<String>("string", stringValue1List)));
+				assertEquals("In String 1 value (List)", "string IN ('str1')", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<String>("string", stringValue1Array)));
+				assertEquals("In String multi value (List)", "string IN ('str1','str2','str3')", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<String>("string", stringValueMultiList)));
+				assertEquals("In String multi value (List)", "string IN ('str1','str2','str3')", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<String>("string", stringValueMultiArray)));
 
-				assertEquals("In Date 1 value (List)", "date IN ('2001.12.31')", new InCriteria<Date>("date", dateValue1List).process());
-				assertEquals("In Date 1 value (List)", "date IN ('2001.12.31')", new InCriteria<Date>("date", dateValue1Array).process());
-				assertEquals("In Date multi value (List)", "date IN ('2001.12.31','2002.12.31','2003.12.31')", new InCriteria<Date>("date", dateValueMultiList).process());
-				assertEquals("In Date multi value (List)", "date IN ('2001.12.31','2002.12.31','2003.12.31')", new InCriteria<Date>("date", dateValueMultiArray).process());
+				assertEquals("In Date 1 value (List)", "date IN ('2001.12.31')", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Date>("date", dateValue1List)));
+				assertEquals("In Date 1 value (List)", "date IN ('2001.12.31')", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Date>("date", dateValue1Array)));
+				assertEquals("In Date multi value (List)", "date IN ('2001.12.31','2002.12.31','2003.12.31')", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Date>("date", dateValueMultiList)));
+				assertEquals("In Date multi value (List)", "date IN ('2001.12.31','2002.12.31','2003.12.31')", OperatorAndCriteriaProcessor.processCriteria(new InCriteria<Date>("date", dateValueMultiArray)));
 
 			} catch (QueryBuilderException e) {
 				fail("QueryBuilderException"+e.getMessage());
@@ -189,10 +189,10 @@ public class CriteriaTest {
 	@Test
 	public void LessCriteriaTest() {
 		try {
-			assertEquals("Less Integer", "integer<1", new LessCriteria<Integer>("integer", 1).process());
-			assertEquals("Less Long", "long<1", new LessCriteria<Long>("long", new Long(1)).process());
-			assertEquals("Less String", "string<'str'", new LessCriteria<String>("string", "str").process());
-			assertEquals("Less Date", "date<'2000.12.31'", new LessCriteria<Date>("date", df.parse("2000.12.31")).process());
+			assertEquals("Less Integer", "integer<1", OperatorAndCriteriaProcessor.processCriteria(new LessCriteria<Integer>("integer", 1)));
+			assertEquals("Less Long", "long<1", OperatorAndCriteriaProcessor.processCriteria(new LessCriteria<Long>("long", new Long(1))));
+			assertEquals("Less String", "string<'str'", OperatorAndCriteriaProcessor.processCriteria(new LessCriteria<String>("string", "str")));
+			assertEquals("Less Date", "date<'2000.12.31'", OperatorAndCriteriaProcessor.processCriteria(new LessCriteria<Date>("date", df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		} catch (QueryBuilderException e) {
@@ -203,10 +203,10 @@ public class CriteriaTest {
 	@Test
 	public void LessOrEqualCriteriaTest() {
 		try {
-			assertEquals("LessOrEquals Integer", "integer<=1", new LessOrEqualCriteria<Integer>("integer", 1).process());
-			assertEquals("LessOrEquals Long", "long<=1", new LessOrEqualCriteria<Long>("long", new Long(1)).process());
-			assertEquals("LessOrEquals String", "string<='str'", new LessOrEqualCriteria<String>("string", "str").process());
-			assertEquals("LessOrEquals Date", "date<='2000.12.31'", new LessOrEqualCriteria<Date>("date", df.parse("2000.12.31")).process());
+			assertEquals("LessOrEquals Integer", "integer<=1", OperatorAndCriteriaProcessor.processCriteria(new LessOrEqualCriteria<Integer>("integer", 1)));
+			assertEquals("LessOrEquals Long", "long<=1", OperatorAndCriteriaProcessor.processCriteria(new LessOrEqualCriteria<Long>("long", new Long(1))));
+			assertEquals("LessOrEquals String", "string<='str'", OperatorAndCriteriaProcessor.processCriteria(new LessOrEqualCriteria<String>("string", "str")));
+			assertEquals("LessOrEquals Date", "date<='2000.12.31'", OperatorAndCriteriaProcessor.processCriteria(new LessOrEqualCriteria<Date>("date", df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		} catch (QueryBuilderException e) {
@@ -217,10 +217,10 @@ public class CriteriaTest {
 	@Test
 	public void GreaterCriteriaTest() {
 		try {
-			assertEquals("Greater Integer", "integer>1", new GreaterCriteria<Integer>("integer", 1).process());
-			assertEquals("Greater Long", "long>1", new GreaterCriteria<Long>("long", new Long(1)).process());
-			assertEquals("Greater String", "string>'str'", new GreaterCriteria<String>("string", "str").process());
-			assertEquals("Greater Date", "date>'2000.12.31'", new GreaterCriteria<Date>("date", df.parse("2000.12.31")).process());
+			assertEquals("Greater Integer", "integer>1", OperatorAndCriteriaProcessor.processCriteria(new GreaterCriteria<Integer>("integer", 1)));
+			assertEquals("Greater Long", "long>1", OperatorAndCriteriaProcessor.processCriteria(new GreaterCriteria<Long>("long", new Long(1))));
+			assertEquals("Greater String", "string>'str'", OperatorAndCriteriaProcessor.processCriteria(new GreaterCriteria<String>("string", "str")));
+			assertEquals("Greater Date", "date>'2000.12.31'", OperatorAndCriteriaProcessor.processCriteria(new GreaterCriteria<Date>("date", df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		} catch (QueryBuilderException e) {
@@ -231,15 +231,42 @@ public class CriteriaTest {
 	@Test
 	public void GreaterOrEqualCriteriaTest() {
 		try {
-			assertEquals("GreaterOrEquals Integer", "integer>=1", new GreaterOrEqualCriteria<Integer>("integer", 1).process());
-			assertEquals("GreaterOrEquals Long", "long>=1", new GreaterOrEqualCriteria<Long>("long", new Long(1)).process());
-			assertEquals("GreaterOrEquals String", "string>='str'", new GreaterOrEqualCriteria<String>("string", "str").process());
-			assertEquals("GreaterOrEquals Date", "date>='2000.12.31'", new GreaterOrEqualCriteria<Date>("date", df.parse("2000.12.31")).process());
+			assertEquals("GreaterOrEquals Integer", "integer>=1", OperatorAndCriteriaProcessor.processCriteria(new GreaterOrEqualCriteria<Integer>("integer", 1)));
+			assertEquals("GreaterOrEquals Long", "long>=1", OperatorAndCriteriaProcessor.processCriteria(new GreaterOrEqualCriteria<Long>("long", new Long(1))));
+			assertEquals("GreaterOrEquals String", "string>='str'", OperatorAndCriteriaProcessor.processCriteria(new GreaterOrEqualCriteria<String>("string", "str")));
+			assertEquals("GreaterOrEquals Date", "date>='2000.12.31'", OperatorAndCriteriaProcessor.processCriteria(new GreaterOrEqualCriteria<Date>("date", df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		} catch (QueryBuilderException e) {
 			fail("QueryBuilderException"+e.getMessage());
 		}
+	}
+
+	@Test
+	public void BeanCriteriaTest() {
+		try {
+			assertEquals("Equals cutomerId", "ID_CUSTOMER=1", OperatorAndCriteriaProcessor.processCriteria(TestBean.class, new EqualCriteria<Integer>("customerId",1)));
+		} catch (QueryBuilderException e) {
+			fail("QueryBuilderException"+e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void BeanIdCriteriaTest() {
+		ArrayList<TestBean> beans = new ArrayList<TestBean>();
+		TestBean bean1 = new TestBean();
+		bean1.setId(1);
+		TestBean bean2 = new TestBean();
+		bean2.setId(2);
+		beans.add(bean1);
+		beans.add(bean2);
+		try {
+			assertEquals("Equals cutomerId", "ID_CUSTOMER IN (1,2)", OperatorAndCriteriaProcessor.processCriteria(TestBean.class, new InCriteria<TestBean>("customerId", beans)));
+		} catch (QueryBuilderException e) {
+			fail("QueryBuilderException"+e.getMessage());
+		}
+
 	}
 
 }

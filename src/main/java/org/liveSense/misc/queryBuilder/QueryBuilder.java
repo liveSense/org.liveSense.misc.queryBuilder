@@ -27,11 +27,15 @@ public abstract class QueryBuilder {
 	}
 	
 	public String buildParameters(Object params) throws QueryBuilderException {
+		return buildParameters(null, params);
+	}
+
+	public String buildParameters(Class<?> clazz, Object params) throws QueryBuilderException {
 		if (params == null) return "";
 		if (!(params instanceof Operator)) {
 			params = new AndOperator(params);
 		}
-		return ((Operator)params).process();
+		return OperatorAndCriteriaProcessor.processOperator(clazz, (Operator)params);
 	}
 
 	public LimitClause getLimit() {

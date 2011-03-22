@@ -4,78 +4,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
-import org.liveSense.misc.queryBuilder.models.Reference;
 
 public class InCriteria<K> extends Criteria<K> {
 
 	List<K> values;
 	
-	public InCriteria(Reference reference, String customReferenceFieldName, List<K> values) {
-		this.reference = reference;
+	public InCriteria(List<K> values) {
+		this(null, values);
+	}
+	
+	public InCriteria(String fieldName, List<K> values) {
 		this.values = values;
-		this.customReferenceFieldName = customReferenceFieldName; 
+		setField(fieldName);
 	}
 
-	public InCriteria(final String reference, String customReferenceFieldName, List<K> values) {
-		this(new Reference() {
-
-			public String reference() {
-				return reference;
-			}
-
-			public String foreignKey() {
-				return null;
-			}
-		}, customReferenceFieldName, values);
+	public InCriteria(K[] values) {
+		this(null, values);
 	}
 
-	public InCriteria(Reference reference, String customReferenceFieldName, K[] values) {
-		this(reference, customReferenceFieldName, (List<K>)null);
+	public InCriteria(String fieldName, K[] values) {
 		this.values = new ArrayList<K>();
 		for (int i=0; i<values.length; i++) {
 			this.values.add(values[i]);
 		}
-	}
-
-	public InCriteria(String reference, String customReferenceFieldName, K[] values) {
-		this(reference, customReferenceFieldName, (List<K>)null);
-		this.values = new ArrayList<K>();
-		for (int i=0; i<values.length; i++) {
-			this.values.add(values[i]);
-		}
-	}
-
-	public InCriteria(Reference reference, List<K> values) {
-		this(reference, null, values);
+		setField(fieldName);
 	}
 	
-	public InCriteria(Reference reference, K[] values) {
-		this(reference, null, values);
-	}
 
-	public InCriteria(String reference, List<K> values) {
-		this(reference, null, values);
-	}
 	
-	public InCriteria(String reference, K[] values) {
-		this(reference, (String)null, values);
+	public List<K> getValues() {
+		return values;
 	}
 
+	
+	public void setValues(List<K> values) {
+		this.values = values;
+	}
 
 	@Override
-	public String process() throws QueryBuilderException {
-		if (values != null && values.size()>0) {
-			String ret = reference.reference()+" IN (";
-			int idx = 0;
-			for (Object o : values) {
-				if (idx != 0) ret+=",";
-				ret += this.getAsValue(o);
-				idx ++;
-			}
-			return ret+")";
-		} else {
-			return "";
-		}
+	public String getQueryTemplate() throws QueryBuilderException {
+		return "$field$ IN ($values$)";
 	}
 
 }

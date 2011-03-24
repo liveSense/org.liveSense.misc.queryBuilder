@@ -28,11 +28,15 @@ public abstract class QueryBuilder {
 	}
 	
 	public String buildParameters(Object params) throws QueryBuilderException {
+		return buildParameters(null, params);
+	}
+
+	public String buildParameters(Class<?> clazz, Object params) throws QueryBuilderException {
 		if (params == null) return "";
 		if (!(params instanceof Operator)) {
 			params = new AndOperator(params);
 		}
-		return ((Operator)params).process();
+		return OperatorAndCriteriaProcessor.processOperator(clazz, (Operator)params);
 	}
 
 	public LimitClause getLimit() {
@@ -50,7 +54,7 @@ public abstract class QueryBuilder {
 	public void setOrderBy(List<OrderByClause> orderBy) {
 		this.orderBy = orderBy;
 	}
-	
+
 	public void setOrderBy(OrderByClause[] orderBy) {
 		List<OrderByClause> orderByList = new ArrayList<OrderByClause>();		
 		for (OrderByClause orderByClause : orderBy) {
@@ -64,7 +68,6 @@ public abstract class QueryBuilder {
 		orderByList.add(orderBy);
 		this.orderBy = orderByList;
 	}	
-
 	public abstract String getQuery();
 	
 	

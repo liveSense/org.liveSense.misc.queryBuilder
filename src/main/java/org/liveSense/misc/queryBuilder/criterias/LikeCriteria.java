@@ -1,23 +1,35 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class LikeCriteria<K> extends Criteria<K> {
+public class LikeCriteria<K> extends Criteria<K> {	
+	private K value;
+
 	
-	K value;
-
-	public LikeCriteria(K value) throws QueryBuilderException {
-		this(null, value);
-	}
-
 	public LikeCriteria(String fieldName, K value) throws QueryBuilderException {
+		this("", fieldName, value);
+	}
+	
+	public LikeCriteria(String alias, String fieldName, K value) throws QueryBuilderException {
+		super(alias, fieldName);		
+		this.value = value;
+		
 		if (!(value instanceof String)) {
 			throw new QueryBuilderException("Only string values allowed in LIKE criteria");
-		}
-		this.value = value;
-		setField(fieldName);
+		}		
 	}
+	
+	public LikeCriteria(OperandSource operand, K value) throws QueryBuilderException{
+		super(operand);
+		this.value = value;
+		
+		if (!(value instanceof String)) {
+			throw new QueryBuilderException("Only string values allowed in LIKE criteria");
+		}		
+	}	
 
+	
 	public K getValue() {
 		return value;
 	}
@@ -26,9 +38,10 @@ public class LikeCriteria<K> extends Criteria<K> {
 		this.value = value;
 	}
 
+	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
-		return "$field$ LIKE '$'value'$%'";
+		return "$field$ LIKE '$'value'$'";
 	}
 
 	

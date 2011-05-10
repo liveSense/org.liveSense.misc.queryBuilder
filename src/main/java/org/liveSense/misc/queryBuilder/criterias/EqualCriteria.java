@@ -1,24 +1,25 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class EqualCriteria<K> extends Criteria<K> {
-
-	K value;
-
-	public EqualCriteria(K value) {
-		this(null, value);
-	}
+	private K value;
+	
 
 	public EqualCriteria(String fieldName, K value) {
-		setField(fieldName);
+		this("", fieldName, value);
+	}	
+
+	public EqualCriteria(String alias,String fieldName, K value) {
+		super(alias, fieldName);
 		this.value = value;
 	}
-
-	@Override
-	public String getQueryTemplate() throws QueryBuilderException {
-		return "$field$=$value$";
-	}
+	
+	public EqualCriteria(OperandSource operand, K value){
+		super(operand);
+		this.value = value;		
+	}	
 
 	
 	public K getValue() {
@@ -29,5 +30,12 @@ public class EqualCriteria<K> extends Criteria<K> {
 		K value) {
 		this.value = value;
 	}
+
+	
+	@Override
+	public String getQueryTemplate() throws QueryBuilderException {
+		return "$field$=$value$";
+	}
+	
 	
 }

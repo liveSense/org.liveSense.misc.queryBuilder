@@ -1,17 +1,27 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class GreaterCriteria<K> extends Criteria<K> {
-	
-	K value;
+public class GreaterCriteria<K> extends Criteria<K> {	
+	private K value;
 
 	
 	public GreaterCriteria(String fieldName, K value) {
-		this.value = value;
-		setField(fieldName);
+		this("",fieldName,value);
 	}
+	
+	public GreaterCriteria(String alias, String fieldName, K value) {
+		super(alias, fieldName);
+		this.value = value;		
+	}
+	
+	public GreaterCriteria(OperandSource operand, K value){
+		super(operand);
+		this.value = value;			
+	}		
 
+	
 	public K getValue() {
 		return value;
 	}
@@ -20,6 +30,7 @@ public class GreaterCriteria<K> extends Criteria<K> {
 		this.value = value;
 	}
 
+	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$>$value$";

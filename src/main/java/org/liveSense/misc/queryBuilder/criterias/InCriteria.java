@@ -1,37 +1,42 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class InCriteria<K> extends Criteria<K> {
-
-	List<K> values;
+	private List<K> values;
 	
-	public InCriteria(List<K> values) {
-		this(null, values);
-	}
 	
 	public InCriteria(String fieldName, List<K> values) {
+		this("", fieldName, values);
+	}
+	
+	public InCriteria(String alias, String fieldName, List<K> values) {
+		super(alias, fieldName);
 		this.values = values;
-		setField(fieldName);
 	}
-
-	public InCriteria(K[] values) {
-		this(null, values);
-	}
-
+	
 	public InCriteria(String fieldName, K[] values) {
-		this.values = new ArrayList<K>();
-		for (int i=0; i<values.length; i++) {
-			this.values.add(values[i]);
-		}
-		setField(fieldName);
+		this("", fieldName, Arrays.asList(values));
 	}
 	
-
+	public InCriteria(String alias, String fieldName, K[] values) {
+		this(alias, fieldName, Arrays.asList(values));
+	}
 	
+	public InCriteria(OperandSource operand, List<K> values){
+		super(operand);
+		this.values = values;		
+	}
+	
+	public InCriteria(OperandSource operand, K[]values){
+		this(operand, Arrays.asList(values));		
+	}	
+	
+
 	public List<K> getValues() {
 		return values;
 	}
@@ -41,6 +46,7 @@ public class InCriteria<K> extends Criteria<K> {
 		this.values = values;
 	}
 
+	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$ IN ($values$)";

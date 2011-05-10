@@ -1,19 +1,26 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class LessOrEqualCriteria<K> extends Criteria<K> {
+	private K value;
+
 	
-	K value;
-
-	public LessOrEqualCriteria(K value) {
-		this(null, value);
-	}
-
 	public LessOrEqualCriteria(String fieldName, K value) {
-		this.value = value;
-		setField(fieldName);
+		this("", fieldName, value);
 	}
+
+	public LessOrEqualCriteria(String alias, String fieldName, K value) {
+		super(alias, fieldName);
+		this.value = value;
+	}
+
+	public LessOrEqualCriteria(OperandSource operand, K value){
+		super(operand);
+		this.value = value;			
+	}	
+
 	
 	public K getValue() {
 		return value;
@@ -23,6 +30,7 @@ public class LessOrEqualCriteria<K> extends Criteria<K> {
 		this.value = value;
 	}
 
+	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$<=$value$";

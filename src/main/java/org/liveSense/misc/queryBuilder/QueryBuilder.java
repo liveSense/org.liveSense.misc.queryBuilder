@@ -68,7 +68,12 @@ public abstract class QueryBuilder {
 		orderByList.add(orderBy);
 		this.orderBy = orderByList;
 	}	
+	
 	public abstract String getQuery();
+	
+	public String getQuery(String tableAlias){
+		return getQuery() + " " + tableAlias;
+	}
 	
 	
 }

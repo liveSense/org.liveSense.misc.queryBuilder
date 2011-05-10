@@ -13,6 +13,8 @@ import org.junit.Test;
 import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
+import org.liveSense.misc.queryBuilder.operators.NotOperator;
+import org.liveSense.misc.queryBuilder.operators.OrOperator;
 
 import static org.junit.Assert.*;
 
@@ -70,4 +72,55 @@ public class OperatorTest {
 			fail("ParseException: "+e.getMessage()); 
 		}
 	}
+	
+	@Test (expected = QueryBuilderException.class)
+	public void orOperator_withInvalidObject() throws QueryBuilderException {
+		OperatorAndCriteriaProcessor.processOperator(new OrOperator(new Object[]{new Object()}));
+	}
+	
+	@Test
+	public void orOperator_withValidObjects() {
+		try {
+			assertEquals("Null parameter", "", OperatorAndCriteriaProcessor.processOperator(new OrOperator(null)));
+			assertEquals("Empty object[] parameter", "", OperatorAndCriteriaProcessor.processOperator(new OrOperator(new Object[]{})));
+			
+			assertEquals("Simple object[] parameter", "(size=12)", OperatorAndCriteriaProcessor.processOperator(new OrOperator(new Object[]{new EqualCriteria<Integer>("size", 12)})));
+			assertEquals("Multiple object[] parameter", "(a1=11 OR name='valami')", OperatorAndCriteriaProcessor.processOperator(new OrOperator(new Object[]{new EqualCriteria<Integer>("a1", 11), 
+					new EqualCriteria<String>("name", "valami"),})));
+			assertEquals("Multiple object[] and Operator parameter", "(size=12 OR (a1=11 OR name='valami') OR test='2000.01.01')", 
+				OperatorAndCriteriaProcessor.processOperator(new OrOperator(
+					new Object[]{
+							new EqualCriteria<Integer>("size", 12), 
+							new OrOperator(
+									new Object[] {
+											new EqualCriteria<Integer>("a1", 11), 
+											new EqualCriteria<String>("name", "valami"),
+									}), 
+							new EqualCriteria<Date>("test",df.parse("2000.01.01") )
+					}
+			)));
+
+		} catch (QueryBuilderException e) {
+			fail("QueryBuilderException: "+e.getMessage());
+		} catch (ParseException e) {
+			fail("ParseException: "+e.getMessage()); 
+		}
+	}
+	
+	@Test (expected = QueryBuilderException.class)
+	public void notOperator_withInvalidObject() throws QueryBuilderException {
+		OperatorAndCriteriaProcessor.processOperator(new NotOperator(new Object[]{new Object()}));
+	}
+	
+	@Test
+	public void notOperator_withValidObjects() {
+		try {
+			assertEquals("Null parameter", "", OperatorAndCriteriaProcessor.processOperator(new NotOperator(null)));
+			assertEquals("Empty object[] parameter", "", OperatorAndCriteriaProcessor.processOperator(new NotOperator(new Object[]{})));
+			
+			assertEquals("Simple object[] parameter", "(NOT size=12)", OperatorAndCriteriaProcessor.processOperator(new NotOperator(new Object[]{new EqualCriteria<Integer>("size", 12)})));
+		} catch (QueryBuilderException e) {
+			fail("QueryBuilderException: "+e.getMessage());
+		}
+	}	
 }

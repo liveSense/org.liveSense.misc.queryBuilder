@@ -5,4 +5,6 @@
  	<source path="models"/>
  	<source path="operators"/>
  	<source path="clauses"/>
+ 	<source path="operands"/>
+ 	<source path="jdbcDriver"/>
  </module>

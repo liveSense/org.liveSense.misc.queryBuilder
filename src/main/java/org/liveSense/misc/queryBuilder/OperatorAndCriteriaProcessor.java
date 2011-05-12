@@ -1,15 +1,10 @@
 package org.liveSense.misc.queryBuilder;
 
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
-
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.liveSense.core.BaseAnnotationHelper;
 import org.liveSense.misc.queryBuilder.criterias.Criteria;
@@ -19,9 +14,7 @@ import org.liveSense.misc.queryBuilder.operators.Operator;
 
 
 public class OperatorAndCriteriaProcessor {
-
 	enum Position {FIRST, LAST, MIDDLE};
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 	private static Pattern pattern = Pattern.compile("(\\$[\\w||\\']+\\$)", Pattern.COMMENTS);
 
 	@SuppressWarnings("rawtypes")
@@ -58,9 +51,7 @@ public class OperatorAndCriteriaProcessor {
 			if (matcher.groupCount() != 1) throw new QueryBuilderException("Syntax error in criteria");
 			String variableName = matcher.group(1).replaceAll("\\$", "");
 			try {
-				boolean stringEscape = true;
 				String originalVariableName = variableName;
-				if (variableName.startsWith("'")) stringEscape = false;
 				variableName = variableName.replaceAll("'", "");
 				
 				if (variableName.equalsIgnoreCase("field")) {					
@@ -76,7 +67,7 @@ public class OperatorAndCriteriaProcessor {
 				} 
 				else {
 					Object o = BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(criteria, variableName);
-					ret = ret.replaceAll("\\$"+originalVariableName+"\\$", getAsValue(clazz, o, stringEscape, jdbcDriverClass));					
+					ret = ret.replaceAll("\\$"+originalVariableName+"\\$", getAsValue(clazz, o, jdbcDriverClass));					
 				}
 			}
 			catch (Exception e) {
@@ -163,48 +154,18 @@ public class OperatorAndCriteriaProcessor {
 	}
 	
 	@SuppressWarnings({ "rawtypes" })
-	private static String getAsValue(Class clazz, final Object o, boolean stringEscape, String jdbcDriverClass) throws QueryBuilderException {
-		String apostrphe = "";
-		if (stringEscape) apostrphe = "'";
-		if (o == null) return "";
-		if (o instanceof String) return apostrphe+((String)o).replace("'", "''")+apostrphe;
-		else if (o instanceof Integer) return ((Integer)o).toString();
-		else if (o instanceof Long) return ((Long)o).toString();
-		else if (o instanceof Date) return apostrphe+sdf.format((Date)o)+apostrphe;
-		else if (o instanceof OperandSource) {
-			((OperandSource)o).setJdbcDriverClass(jdbcDriverClass);
-			return ((OperandSource)o).getSourceDefinition(clazz);
-		}
-		else if (o instanceof Object[]) {
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < ((Object[])o).length; i++) {
-				Object o2 = ((Object[])o)[i];
-				if (i!=0) sb.append(",");
-				sb.append(getAsValue(clazz, o2, stringEscape, jdbcDriverClass));
-			}
-			return sb.toString();
-		}
-		else if (o instanceof List) {
-			boolean first = true;
-			StringBuffer sb = new StringBuffer();
-			for (Object o2 : (List)o) {
-				if (first) first = false; else sb.append(",");
-				sb.append(getAsValue(clazz, o2, stringEscape, jdbcDriverClass));
-			}
-			return sb.toString();
-		}
-		else {
-			Field fld = BaseAnnotationHelper.findFieldByAnnotationClass(o.getClass(), Id.class);
-			if (fld != null)
-				try {
-					return getAsValue(clazz, BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(o, fld.getName()),stringEscape, jdbcDriverClass);
+	private static String getAsValue(Class clazz, final Object o, String jdbcDriverClass) throws QueryBuilderException {
+		try {
+			if (o instanceof OperandSource) {
+				if (!((OperandSource)o).isLiteral()) {
+					((OperandSource)o).setJdbcDriverClass(jdbcDriverClass);
+					return ((OperandSource)o).getSourceDefinition();
 				}
-				catch (Exception e) {
-					throw new QueryBuilderException(e);
-				}
-
-			else
-				return o.toString();
+			} 
+			return new ObjectToSQLLiteral(o).getLiteral(jdbcDriverClass);
+		}
+		catch (Exception e) {
+			throw new QueryBuilderException(e);
 		}
 	}	
 }

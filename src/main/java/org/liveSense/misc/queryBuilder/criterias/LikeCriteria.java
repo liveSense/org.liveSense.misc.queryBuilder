@@ -41,7 +41,7 @@ public class LikeCriteria<K> extends Criteria<K> {
 	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
-		return "$field$ LIKE '$'value'$'";
+		return "$field$ LIKE $value$";
 	}
 
 	

@@ -42,7 +42,7 @@ public class StartingWithCriteria<K> extends Criteria<K> {
 	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
-		return "$field$ STARTING WITH '$'value'$'";
+		return "$field$ STARTING WITH $value$";
 	}
 
 	

@@ -164,18 +164,18 @@ public class CriteriaTest {
 
 	@Test (expected = QueryBuilderException.class)
 	public void LikeCriteriaTest_Integer() throws QueryBuilderException {
-			assertEquals("Like Integer", "integer LIKE '1%'", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Integer>("integer", 1)));
+			assertEquals("Like Integer", "integer LIKE 1", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Integer>("integer", 1)));
 	}
 
 	@Test (expected = QueryBuilderException.class)
 	public void LikeCriteriaTest_Long() throws QueryBuilderException {
-			assertEquals("Like Long", "integer LIKE '1%'", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Long>("long", new Long(1))));
+			assertEquals("Like Long", "integer LIKE 1", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Long>("long", new Long(1))));
 	}
 
 	@Test (expected = QueryBuilderException.class)
 	public void LikeCriteriaTest_Date() throws QueryBuilderException {
 		try {
-			assertEquals("Like Date", "date LIKE '2000.12.31%'", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Date>("date", df.parse("2000.12.31"))));
+			assertEquals("Like Date", "date LIKE '2000.12.31'", OperatorAndCriteriaProcessor.processCriteria(new LikeCriteria<Date>("date", df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		}
@@ -410,18 +410,18 @@ public class CriteriaTest {
 
 	@Test (expected = QueryBuilderException.class)
 	public void StartingWithCriteriaTest_Integer() throws QueryBuilderException {
-			assertEquals("Starting with Integer", "integer STARTING WITH '1'", OperatorAndCriteriaProcessor.processCriteria(new StartingWithCriteria<Integer>("integer", 1)));
+			assertEquals("Starting with Integer", "integer STARTING WITH 1", OperatorAndCriteriaProcessor.processCriteria(new StartingWithCriteria<Integer>("integer", 1)));
 	}
 
 	@Test (expected = QueryBuilderException.class)
 	public void StartingWithCriteriaTest_Long() throws QueryBuilderException {
-			assertEquals("Starting with Long", "integer STARTING WITH '1'", OperatorAndCriteriaProcessor.processCriteria(new StartingWithCriteria<Long>("long", new Long(1))));
+			assertEquals("Starting with Long", "integer STARTING WITH 1", OperatorAndCriteriaProcessor.processCriteria(new StartingWithCriteria<Long>("long", new Long(1))));
 	}
 
 	@Test (expected = QueryBuilderException.class)
 	public void StartingWithCriteriaTest_Date() throws QueryBuilderException {
 		try {
-			assertEquals("Starting with Date", "date STARTING WITH '2000.12.31%'", OperatorAndCriteriaProcessor.processCriteria(new StartingWithCriteria<Date>("date", df.parse("2000.12.31"))));
+			assertEquals("Starting with Date", "date STARTING WITH '2000.12.31'", OperatorAndCriteriaProcessor.processCriteria(new StartingWithCriteria<Date>("date", df.parse("2000.12.31"))));
 		} catch (ParseException e) {
 			fail("ParseException"+e.getMessage());
 		}
@@ -460,6 +460,18 @@ public class CriteriaTest {
 			assertEquals("equals", "b.CODE=UPPER('D''oh!')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>("b", "code", new UpperOperand("D'oh!"))));
 			
 			assertEquals("equals", "UPPER(b.CODE)=UPPER('Homer')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>(new UpperOperand("b", "code", false), new UpperOperand("Homer")), JdbcDrivers.FIREBIRD.getDriverClass()));
+			
+			assertEquals("equals", "double=0.00001", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Double>("double", 0.00001)));
+			assertEquals("equals", "double=0.00001", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("double", new OperandSource(0.00001))));
+			
+			assertEquals("equals", "double=1000000000", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Double>("double", 1000000000.0)));
+			assertEquals("equals", "double=1000000000", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("double", new OperandSource(1000000000.0))));			
+			
+			assertEquals("equals", "double=-0.00001", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Double>("double", -0.00001)));
+			assertEquals("equals", "double=-0.00001", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("double", new OperandSource(-0.00001))));
+			
+			assertEquals("equals", "double=-1000000000", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Double>("double", -1000000000.0)));
+			assertEquals("equals", "double=-1000000000", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("double", new OperandSource(-1000000000.0))));
 		} catch (QueryBuilderException e) {
 			fail("QueryBuilderException"+e.getMessage());
 		}

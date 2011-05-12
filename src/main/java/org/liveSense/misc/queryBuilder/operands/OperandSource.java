@@ -1,14 +1,14 @@
 package org.liveSense.misc.queryBuilder.operands;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.persistence.Column;
 
 import org.liveSense.core.BaseAnnotationHelper;
+import org.liveSense.misc.queryBuilder.ObjectToSQLLiteral;
 
 
-public class OperandSource {	
+public class OperandSource {		
 	private String qualifier;
 	private Object source;
 	private boolean literal = true;
@@ -53,15 +53,9 @@ public class OperandSource {
 
 	
 	@SuppressWarnings("rawtypes")
-	private String getSrc(Class clazz) {
+	private String getSrc(Class clazz) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		if (literal) {
-			if (source instanceof String) {
-				return "'" + source.toString().replace("'", "''") + "'";
-			} else 
-			if (source instanceof Date) {
-				return "'" + new SimpleDateFormat("yyyy.MM.dd").format((Date)source) + "'";
-			} 
-			else return source.toString();
+			return new ObjectToSQLLiteral(source).getLiteral(jdbcDriverClass);
 		}
 		else {
 			String fieldName = source.toString();
@@ -75,12 +69,12 @@ public class OperandSource {
 		}			
 	}
 	
-	public String getSourceDefinition(){
+	public String getSourceDefinition() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		return getSourceDefinition(null); 
 	}
 		
 	@SuppressWarnings("rawtypes")
-	public String getSourceDefinition(Class clazz){
+	public String getSourceDefinition(Class clazz) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		if ((qualifier == null) || (qualifier.equals(""))) {
 			return getSrc(clazz);
 		} 

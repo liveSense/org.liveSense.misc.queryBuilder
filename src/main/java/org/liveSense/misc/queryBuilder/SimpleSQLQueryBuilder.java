@@ -29,7 +29,7 @@ public class SimpleSQLQueryBuilder extends QueryBuilder {
 		this.statement = statement;
 		setLimit(limit);
 		setOrderBy(orderBy);
-		setParams(parameters);
+		setWhere(parameters);
 	}
 
 	@Override

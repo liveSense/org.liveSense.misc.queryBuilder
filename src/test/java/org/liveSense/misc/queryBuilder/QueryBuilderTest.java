@@ -43,8 +43,8 @@ public class QueryBuilderTest {
 	@Test
 	public void testBuild() {
 		try {
-			assertEquals("Simple query without parameters", "", sampleQueryBuilder.buildParameters());
-			assertEquals("Simple query with parameters", "(size=12)", sampleQueryBuilder.buildParameters(params));
+			assertEquals("Simple query without parameters", "", sampleQueryBuilder.buildWhere());
+			assertEquals("Simple query with parameters", "(size=12)", sampleQueryBuilder.buildWhere(params));
 		} catch (QueryBuilderException e) {
 			fail("QueryBuilderException: "+e.getMessage());
 		}

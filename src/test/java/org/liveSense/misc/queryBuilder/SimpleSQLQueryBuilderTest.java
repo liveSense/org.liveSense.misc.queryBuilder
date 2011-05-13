@@ -34,7 +34,7 @@ public class SimpleSQLQueryBuilderTest {
 	@Test
 	public void testGetBaseQuery() {
 		try {
-			assertEquals("Simple query without parameters", "", (new SimpleSQLQueryBuilder(null)).buildParameters());
+			assertEquals("Simple query without parameters", "", (new SimpleSQLQueryBuilder(null)).buildWhere());
 		} catch (QueryBuilderException e) {
 			fail("QueryBuilderException: " + e.getMessage());
 		}
@@ -43,9 +43,9 @@ public class SimpleSQLQueryBuilderTest {
 	@Test
 	public void testSimpleSQLQueryBuilderString() {
 		try {
-			assertEquals("Simple query with empty parameter", "", (new SimpleSQLQueryBuilder(null, null)).buildParameters());			
-			assertEquals("Simple query with single parameter", "(size=12)", (new SimpleSQLQueryBuilder(null, params)).buildParameters());
-			assertEquals("Simple query with single parameter", "(size=12)", (new SimpleSQLQueryBuilder(null)).buildParameters(params));
+			assertEquals("Simple query with empty parameter", "", (new SimpleSQLQueryBuilder(null, null)).buildWhere());			
+			assertEquals("Simple query with single parameter", "(size=12)", (new SimpleSQLQueryBuilder(null, params)).buildWhere());
+			assertEquals("Simple query with single parameter", "(size=12)", (new SimpleSQLQueryBuilder(null)).buildWhere(params));
 		} catch (QueryBuilderException e) {
 			fail("QueryBuilderException: " + e.getMessage());
 		}

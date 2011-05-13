@@ -1,7 +1,8 @@
 package org.liveSense.misc.queryBuilder;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.liveSense.misc.queryBuilder.clauses.LimitClause;
 import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
@@ -11,34 +12,20 @@ import org.liveSense.misc.queryBuilder.operators.Operator;
 
 public abstract class QueryBuilder {
 	
-	private Object params;
+	private Object where;
 	private LimitClause limit = new LimitClause(-1, -1);
-	private List<OrderByClause> orderBy;
+	private List<OrderByClause> orderBy;	
+	private Map<String, Object> parameters; 
 		
-	public Object getParams() {
-		return params;
+	
+	public Object getWhere() {
+		return where;
 	}
 	
-	public void setParams(Object params) {
-		this.params = params;
-	}
-
-	public String buildParameters() throws QueryBuilderException {
-		return buildParameters(params);
+	public void setWhere(Object where) {
+		this.where = where;
 	}
 	
-	public String buildParameters(Object params) throws QueryBuilderException {
-		return buildParameters(null, params);
-	}
-
-	public String buildParameters(Class<?> clazz, Object params) throws QueryBuilderException {
-		if (params == null) return "";
-		if (!(params instanceof Operator)) {
-			params = new AndOperator(params);
-		}
-		return OperatorAndCriteriaProcessor.processOperator(clazz, (Operator)params);
-	}
-
 	public LimitClause getLimit() {
 		return limit;
 	}
@@ -55,19 +42,41 @@ public abstract class QueryBuilder {
 		this.orderBy = orderBy;
 	}
 
-	public void setOrderBy(OrderByClause[] orderBy) {
-		List<OrderByClause> orderByList = new ArrayList<OrderByClause>();		
-		for (OrderByClause orderByClause : orderBy) {
-			orderByList.add(orderByClause);
+	public Map<String, Object> getParameters() {
+		return parameters;
+	}
+	
+	public void setParameters(
+		Map<String, Object> parameters) {
+		this.parameters = parameters;
+	}
+
+
+	public String buildWhere() throws QueryBuilderException {
+		return buildWhere(where);
+	}
+	
+	public String buildWhere(Object where) throws QueryBuilderException {
+		return buildWhere(null, where);
+	}
+
+	public String buildWhere(Class<?> clazz, Object where) throws QueryBuilderException {
+		if (where == null) return "";
+		if (!(where instanceof Operator)) {
+			where = new AndOperator(where);
 		}
-		this.orderBy = orderByList;
+		return OperatorAndCriteriaProcessor.processOperator(clazz, (Operator)where);
+	}
+
+
+	public void setOrderBy(OrderByClause[] orderBy) {
+		this.orderBy = Arrays.asList(orderBy);
 	}
 	
 	public void setOrderBy(OrderByClause orderBy) {
-		List<OrderByClause> orderByList = new ArrayList<OrderByClause>();		
-		orderByList.add(orderBy);
-		this.orderBy = orderByList;
-	}	
+		setOrderBy(new OrderByClause[] {orderBy});
+	}
+	
 	
 	public abstract String getQuery();
 	

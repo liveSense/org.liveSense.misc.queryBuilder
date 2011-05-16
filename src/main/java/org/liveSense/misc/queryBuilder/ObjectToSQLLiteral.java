@@ -1,7 +1,7 @@
 package org.liveSense.misc.queryBuilder;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -14,7 +14,11 @@ import org.liveSense.core.BaseAnnotationHelper;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 
-public class ObjectToSQLLiteral {
+public class ObjectToSQLLiteral implements Serializable {
+
+	private static final long serialVersionUID = -4343828568186305082L;
+	
+	
 	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy.MM.dd");
 	private static final DecimalFormat decimalFormatter = new DecimalFormat("#.###############");
 	
@@ -34,12 +38,12 @@ public class ObjectToSQLLiteral {
 	}
 	
 	
-	public String getLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public String getLiteral() throws Exception {
 		return getLiteral(null);
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public String getLiteral(String jdbcDriverClass) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public String getLiteral(String jdbcDriverClass) throws Exception {
 		String s = "'";
 		
 		if (obj == null) 
@@ -76,7 +80,7 @@ public class ObjectToSQLLiteral {
 			}
 			return sb.toString();
 		}
-		else {
+		else {		
 			Field fld = BaseAnnotationHelper.findFieldByAnnotationClass(obj.getClass(), Id.class);
 			if (fld != null)
 				return new ObjectToSQLLiteral(BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(obj, fld.getName())).getLiteral(jdbcDriverClass);

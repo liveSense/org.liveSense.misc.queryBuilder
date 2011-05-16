@@ -1,6 +1,5 @@
 package org.liveSense.misc.queryBuilder;
 
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,24 +23,24 @@ public class ObjectToSQLLiteralTest {
 	
 
 	@Test
-	public void NullLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void NullLiteral() throws Exception {
 		assertTrue(new ObjectToSQLLiteral(null).getLiteral().equals("NULL"));		
 	}
 	
 	@Test
-	public void StringLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void StringLiteral() throws Exception {
 		assertTrue(new ObjectToSQLLiteral("Homer").getLiteral().equals("'Homer'"));		
 		assertTrue(new ObjectToSQLLiteral("D'oh!").getLiteral().equals("'D''oh!'"));
 	}
 	
 	@Test
-	public void IntegerLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void IntegerLiteral() throws Exception {
 		assertTrue(new ObjectToSQLLiteral(10).getLiteral().equals("10"));		
 		assertTrue(new ObjectToSQLLiteral(-10).getLiteral().equals("-10"));
 	}	
 	
 	@Test
-	public void RealLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {		
+	public void RealLiteral() throws Exception {		
 		assertTrue(new ObjectToSQLLiteral(0.00001).getLiteral().equals("0.00001"));
 		assertTrue(new ObjectToSQLLiteral(-0.00001).getLiteral().equals("-0.00001"));
 		assertTrue(new ObjectToSQLLiteral(1000000000.01).getLiteral().equals("1000000000.01"));
@@ -49,13 +48,13 @@ public class ObjectToSQLLiteralTest {
 	}
 	
 	@Test
-	public void DateLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParseException {
+	public void DateLiteral() throws Exception, ParseException {
 		assertTrue(new ObjectToSQLLiteral(new SimpleDateFormat("yyyy/MM/dd").parse("2011/05/12")).getLiteral().equals("'2011.05.12'"));		
 		assertTrue(new ObjectToSQLLiteral(java.sql.Date.valueOf("2011-05-12")).getLiteral().equals("'2011.05.12'"));		
 	}
 	
 	@Test
-	public void OperandSourceLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParseException {
+	public void OperandSourceLiteral() throws Exception, ParseException {
 		assertTrue(new ObjectToSQLLiteral(new OperandSource("", "Homer", true)).getLiteral().equals("'Homer'"));
 		assertTrue(new ObjectToSQLLiteral(new OperandSource("", "Homer", false)).getLiteral() == null);
 		assertTrue(new ObjectToSQLLiteral(new OperandSource("", "D'oh!", true)).getLiteral().equals("'D''oh!'"));
@@ -82,12 +81,12 @@ public class ObjectToSQLLiteralTest {
 	}
 	
 	@Test
-	public void OperandSourceFeatureLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ParseException {
+	public void OperandSourceFeatureLiteral() throws Exception, ParseException {
 		assertTrue(new ObjectToSQLLiteral(new UpperOperand("", "Homer", true)).getLiteral().equals("UPPER('Homer')"));		
 	}
 	
 	@Test
-	public void ListLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void ListLiteral() throws Exception {
 		List<String> list = new ArrayList<String>();
 		list.add("Homer");
 		list.add("D'oh!");
@@ -96,7 +95,7 @@ public class ObjectToSQLLiteralTest {
 	}
 	
 	@Test
-	public void ArrayLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void ArrayLiteral() throws Exception {
 		String[] list = new String[2];
 		list[0] = "Homer";
 		list[1] = "D'oh!";
@@ -105,7 +104,7 @@ public class ObjectToSQLLiteralTest {
 	}
 	
 	@Test
-	public void BeanLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void BeanLiteral() throws Exception {
 		TestBean bean = new TestBean();
 		bean.setId(10);
 		
@@ -113,7 +112,7 @@ public class ObjectToSQLLiteralTest {
 	}
 	
 	@Test
-	public void ObjectLiteral() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void ObjectLiteral() throws Exception {
 		Obj o = new Obj();
 		o.setFld("xxx");
 		

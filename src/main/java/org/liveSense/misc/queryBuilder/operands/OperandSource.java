@@ -1,7 +1,5 @@
 package org.liveSense.misc.queryBuilder.operands;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.persistence.Column;
 
 import org.liveSense.core.BaseAnnotationHelper;
@@ -53,7 +51,7 @@ public class OperandSource {
 
 	
 	@SuppressWarnings("rawtypes")
-	private String getSrc(Class clazz) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	private String getSrc(Class clazz) throws Exception {
 		if (literal) {
 			return new ObjectToSQLLiteral(source).getLiteral(jdbcDriverClass);
 		}
@@ -69,12 +67,12 @@ public class OperandSource {
 		}			
 	}
 	
-	public String getSourceDefinition() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+	public String getSourceDefinition() throws Exception {
 		return getSourceDefinition(null); 
 	}
 		
 	@SuppressWarnings("rawtypes")
-	public String getSourceDefinition(Class clazz) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+	public String getSourceDefinition(Class clazz) throws Exception {
 		if ((qualifier == null) || (qualifier.equals(""))) {
 			return getSrc(clazz);
 		} 

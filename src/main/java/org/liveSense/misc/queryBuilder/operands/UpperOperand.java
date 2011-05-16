@@ -1,7 +1,5 @@
 package org.liveSense.misc.queryBuilder.operands;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class UpperOperand extends OperandSource{
 
 	
@@ -19,7 +17,7 @@ public class UpperOperand extends OperandSource{
 	
 	@SuppressWarnings("rawtypes")
 	@Override
-	public String getSourceDefinition(Class clazz) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+	public String getSourceDefinition(Class clazz) throws Exception {
 		return "UPPER(" + super.getSourceDefinition(clazz)+ ")";		
 	}	
 

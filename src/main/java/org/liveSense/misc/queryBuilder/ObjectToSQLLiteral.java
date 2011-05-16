@@ -1,6 +1,5 @@
 package org.liveSense.misc.queryBuilder;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -14,10 +13,8 @@ import org.liveSense.core.BaseAnnotationHelper;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 
-public class ObjectToSQLLiteral implements Serializable {
+public class ObjectToSQLLiteral {
 
-	private static final long serialVersionUID = -4343828568186305082L;
-	
 	
 	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy.MM.dd");
 	private static final DecimalFormat decimalFormatter = new DecimalFormat("#.###############");
@@ -58,9 +55,8 @@ public class ObjectToSQLLiteral implements Serializable {
 			return s + dateFormatter.format((java.util.Date)obj) + s;
 		else if (obj instanceof OperandSource) {
 			if (((OperandSource)obj).isLiteral()) {
-				((OperandSource)obj).setJdbcDriverClass(jdbcDriverClass);
-				return ((OperandSource)obj).getSourceDefinition();
-			}			
+				return OperandProcessor.getOperandSource( ((OperandSource)obj), null, jdbcDriverClass);
+			}
 		} 
 		else if (obj instanceof Object[]) {
 			StringBuffer sb = new StringBuffer();

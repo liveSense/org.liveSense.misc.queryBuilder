@@ -29,7 +29,7 @@ public class OperatorAndCriteriaProcessor {
 		}
 		return clause;
 	}
-
+	
 	public static String processCriteria(Criteria<?> criteria) throws QueryBuilderException {
 		return processCriteria(null, criteria, null);
 	}
@@ -54,8 +54,8 @@ public class OperatorAndCriteriaProcessor {
 				String originalVariableName = variableName;
 				variableName = variableName.replaceAll("'", "");
 				
-				if (variableName.equalsIgnoreCase("field")) {					
-					String fieldName = criteria.getOperand().getSourceDefinition(clazz);
+				if (variableName.equalsIgnoreCase("field")) {
+					String fieldName = OperandProcessor.getOperandSource(criteria.getOperand(), clazz, jdbcDriverClass);
 					
 					if (clazz != null) {
 						Object[] annotations = BaseAnnotationHelper.findFieldAnnotationByAnnotationClass(clazz, fieldName, Column.class);
@@ -158,8 +158,7 @@ public class OperatorAndCriteriaProcessor {
 		try {
 			if (o instanceof OperandSource) {
 				if (!((OperandSource)o).isLiteral()) {
-					((OperandSource)o).setJdbcDriverClass(jdbcDriverClass);
-					return ((OperandSource)o).getSourceDefinition();
+					return OperandProcessor.getOperandSource(((OperandSource)o), clazz, jdbcDriverClass);
 				}
 			} 
 			return new ObjectToSQLLiteral(o).getLiteral(jdbcDriverClass);

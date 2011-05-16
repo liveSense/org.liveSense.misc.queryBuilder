@@ -1,24 +1,23 @@
 package org.liveSense.misc.queryBuilder.operands;
 
-public class UpperOperand extends OperandSource{
 
-	
-	public UpperOperand(String source) {
-		super(source);		
+public class UpperOperand
+	extends OperandSource {
+
+	public UpperOperand(Object source){
+		this("", source);		
 	}
 	
-	public UpperOperand(String qualifier, String source){
-		super(qualifier, source);		
-	}	
+	public UpperOperand(String qualifier, Object source){
+		this(qualifier, source, true);		
+	}
 	
-	public UpperOperand(String qualifier, String source, boolean asIs){
-		super(qualifier, source, asIs);		
-	}	
+	public UpperOperand(String qualifier, Object source, boolean literal){
+		this(qualifier, source, literal, "UPPER");
+	}
 	
-	@SuppressWarnings("rawtypes")
-	@Override
-	public String getSourceDefinition(Class clazz) throws Exception {
-		return "UPPER(" + super.getSourceDefinition(clazz)+ ")";		
+	private UpperOperand(String qualifier, Object source, boolean literal, String function){
+		super(qualifier, source, literal, function);
 	}	
 
 }

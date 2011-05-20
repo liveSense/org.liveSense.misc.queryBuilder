@@ -82,7 +82,7 @@ public class ObjectToSQLLiteralTest {
 	
 	@Test
 	public void OperandSourceFeatureLiteral() throws Exception, ParseException {
-		assertTrue(new ObjectToSQLLiteral(new UpperOperand("", "Homer", true)).getLiteral().equals("UPPER('Homer')"));		
+		assertTrue(new ObjectToSQLLiteral(new UpperOperand("", (Object)"Homer", true)).getLiteral().equals("UPPER('Homer')"));		
 	}
 	
 	@Test

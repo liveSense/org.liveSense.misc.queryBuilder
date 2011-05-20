@@ -452,14 +452,14 @@ public class CriteriaTest {
 		try {
 			assertEquals("equals", "integer=1", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("integer", new OperandSource(1))));
 			assertEquals("equals", "a.dbfield1=b.dbfield2", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("a", "dbfield1", new OperandSource("b", "dbfield2", false))));			
-			assertEquals("equals", "a.dbfield1=UPPER(b.dbfield2)", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("a", "dbfield1", new UpperOperand("b", "dbfield2", false))));			
+			assertEquals("equals", "a.dbfield1=UPPER(b.dbfield2)", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("a", "dbfield1", new UpperOperand("b", (Object)"dbfield2", false))));			
 			assertEquals("equals", "b.ID_CUSTOMER=1", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>("b", "customerId", new OperandSource(1))));
 			assertEquals("equals", "b.CODE=UPPER('Homer')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>("b", "code", new UpperOperand("Homer"))));
-			assertEquals("equals", "UPPER(b.CODE)=UPPER('Homer')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>(new UpperOperand("b", "code", false), new UpperOperand("Homer"))));
+			assertEquals("equals", "UPPER(b.CODE)=UPPER('Homer')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>(new UpperOperand("b", (Object)"code", false), new UpperOperand("Homer"))));
 			
 			assertEquals("equals", "b.CODE=UPPER('D''oh!')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>("b", "code", new UpperOperand("D'oh!"))));
 			
-			assertEquals("equals", "UPPER(b.CODE)=UPPER('Homer')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>(new UpperOperand("b", "code", false), new UpperOperand("Homer")), JdbcDrivers.FIREBIRD.getDriverClass()));
+			assertEquals("equals", "UPPER(b.CODE)=UPPER('Homer')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>(new UpperOperand("b", (Object)"code", false), new UpperOperand("Homer")), JdbcDrivers.FIREBIRD.getDriverClass()));
 			
 			assertEquals("equals", "double=0.00001", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Double>("double", 0.00001)));
 			assertEquals("equals", "double=0.00001", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("double", new OperandSource(0.00001))));

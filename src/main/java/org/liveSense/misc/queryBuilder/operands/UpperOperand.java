@@ -1,9 +1,15 @@
 package org.liveSense.misc.queryBuilder.operands;
 
+import java.io.Serializable;
+
 
 public class UpperOperand
-	extends OperandSource {
+	extends OperandSource implements Serializable {
 
+	public UpperOperand() {
+		super();
+	}
+	
 	public UpperOperand(Object source){
 		this("", source);		
 	}

@@ -1,7 +1,9 @@
 package org.liveSense.misc.queryBuilder.operators;
 
+import java.io.Serializable;
 
-public abstract class Operator {
+
+public abstract class Operator implements Serializable {
 
 	
 	Object params;

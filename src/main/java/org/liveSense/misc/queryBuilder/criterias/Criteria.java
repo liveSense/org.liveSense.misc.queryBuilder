@@ -1,13 +1,18 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
+import java.io.Serializable;
+
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 
-public abstract class Criteria<K> {
+public abstract class Criteria<K> implements Serializable {
 	private OperandSource operand;
 	private String jdbcDriverClass;
 
+	public Criteria() {
+		
+	}
 	
 	public Criteria(String field){
 		this("", field);		

@@ -1,11 +1,16 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
+import java.io.Serializable;
+
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class NotEqualCriteria<K> extends Criteria<K> {
+public class NotEqualCriteria<K> extends Criteria<K> implements Serializable {
 	private K value;
 	
+	public NotEqualCriteria() {
+		super();
+	}
 
 	public NotEqualCriteria(String fieldName, K value) {
 		this("",fieldName,value);

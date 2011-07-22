@@ -1,13 +1,17 @@
 package org.liveSense.misc.queryBuilder.operands;
 
+import java.io.Serializable;
 
-public class OperandSource {		
+
+public class OperandSource implements Serializable {		
 	private String qualifier;
 	private Object source;
 	private boolean literal = true;
 	private String function;
 	
-	
+	public OperandSource() {
+		
+	}
 	
 	public OperandSource(Object source){
 		this("", source);		

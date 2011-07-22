@@ -1,10 +1,15 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
+import java.io.Serializable;
+
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class IsNotNullCriteria<K> extends Criteria<K> {
+public class IsNotNullCriteria<K> extends Criteria<K> implements Serializable {
 	
+	public IsNotNullCriteria() {
+		super();
+	}
 
 	public IsNotNullCriteria(String fieldName) {
 		this("",fieldName);

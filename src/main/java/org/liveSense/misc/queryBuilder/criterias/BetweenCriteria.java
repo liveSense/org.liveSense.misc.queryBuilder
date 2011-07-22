@@ -1,12 +1,17 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
+import java.io.Serializable;
+
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class BetweenCriteria<K> extends Criteria<K> {	
+public class BetweenCriteria<K> extends Criteria<K> implements Serializable {	
 	private K value1;
 	private K value2;
 
+	public BetweenCriteria() {
+		super();
+	}
 	
 	public BetweenCriteria(String fieldName, K value1, K value2) {
 		this("", fieldName, value1, value2);

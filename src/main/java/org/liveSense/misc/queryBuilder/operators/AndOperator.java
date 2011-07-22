@@ -1,8 +1,13 @@
 package org.liveSense.misc.queryBuilder.operators;
 
+import java.io.Serializable;
 
-public class AndOperator extends Operator {
 
+public class AndOperator extends Operator implements Serializable {
+
+	public AndOperator() {
+		super();
+	}
 	
 	public AndOperator(Object params) {
 		super();

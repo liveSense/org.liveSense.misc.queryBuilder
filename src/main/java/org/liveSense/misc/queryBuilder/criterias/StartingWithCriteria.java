@@ -1,11 +1,16 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
+import java.io.Serializable;
+
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class StartingWithCriteria<K> extends Criteria<K> {	
+public class StartingWithCriteria<K> extends Criteria<K> implements Serializable {	
 	private K value;
 
+	public StartingWithCriteria() {
+		super();
+	}
 	
 	public StartingWithCriteria(String fieldName, K value) throws QueryBuilderException {
 		this("", fieldName, value);

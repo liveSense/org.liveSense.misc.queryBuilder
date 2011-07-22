@@ -1,14 +1,18 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class InCriteria<K> extends Criteria<K> {
+public class InCriteria<K> extends Criteria<K> implements Serializable {
 	private List<K> values;
 	
+	public InCriteria() {
+		super();
+	}
 	
 	public InCriteria(String fieldName, List<K> values) {
 		this("", fieldName, values);

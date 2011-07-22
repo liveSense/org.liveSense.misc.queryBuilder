@@ -1,9 +1,15 @@
 package org.liveSense.misc.queryBuilder.clauses;
 
-public class OrderByClause {
+import java.io.Serializable;
+
+public class OrderByClause implements Serializable {
 	
 	String fieldName;
 	Boolean sortDesc;
+	
+	public OrderByClause() {
+		
+	}
 	
 	public String getFieldName() {
 		return fieldName;

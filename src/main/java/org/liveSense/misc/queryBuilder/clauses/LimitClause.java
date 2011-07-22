@@ -1,8 +1,13 @@
 package org.liveSense.misc.queryBuilder.clauses;
 
-public class LimitClause {
+import java.io.Serializable;
+
+public class LimitClause implements Serializable {
 	Integer limit;
 	Integer offset;
+	
+	public LimitClause() {
+	}
 	
 	public Integer getLimit() {
 		return limit;

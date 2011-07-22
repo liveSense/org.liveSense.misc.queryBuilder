@@ -1,8 +1,13 @@
 package org.liveSense.misc.queryBuilder.operators;
 
+import java.io.Serializable;
 
-public class NotOperator extends Operator {
 
+public class NotOperator extends Operator implements Serializable {
+
+	public NotOperator() {
+		super();
+	}
 	
 	public NotOperator(Object params) {
 		super();

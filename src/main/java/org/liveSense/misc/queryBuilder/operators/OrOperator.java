@@ -1,8 +1,13 @@
 package org.liveSense.misc.queryBuilder.operators;
 
+import java.io.Serializable;
 
-public class OrOperator extends Operator {
 
+public class OrOperator extends Operator implements Serializable {
+
+	public OrOperator() {
+		super();
+	}
 	
 	public OrOperator(Object params) {
 		super();

@@ -12,11 +12,22 @@ import org.liveSense.misc.queryBuilder.operators.Operator;
 
 public abstract class QueryBuilder {
 	
+	@SuppressWarnings("rawtypes")
+	private Class clazz;
 	private Object where;
 	private LimitClause limit = new LimitClause(-1, -1);
 	private List<OrderByClause> orderBy;	
 	private Map<String, Object> parameters; 
-		
+	
+	@SuppressWarnings("rawtypes")
+	public Class getClazz() {
+		return clazz;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void setClazz(Class clazz) {
+		this.clazz = clazz;
+	}
 	
 	public Object getWhere() {
 		return where;
@@ -60,12 +71,16 @@ public abstract class QueryBuilder {
 		return buildWhere(null, where);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public String buildWhere(Class<?> clazz, Object where) throws QueryBuilderException {
 		if (where == null) return "";
 		if (!(where instanceof Operator)) {
 			where = new AndOperator(where);
 		}
-		return OperatorAndCriteriaProcessor.processOperator(clazz, (Operator)where);
+		Class localClass = clazz;
+		if (localClass == null)
+			localClass = this.clazz;
+		return OperatorAndCriteriaProcessor.processOperator(localClass, (Operator)where);
 	}
 
 

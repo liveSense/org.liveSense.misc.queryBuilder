@@ -17,6 +17,7 @@ public abstract class QueryBuilder {
 	//fields
 	@SuppressWarnings("rawtypes")
 	private Class clazz;	
+	private String tableAlias;
 	private QueryBuilderData data = new QueryBuilderData();
 	
 	
@@ -29,6 +30,15 @@ public abstract class QueryBuilder {
 	@SuppressWarnings("rawtypes")
 	public void setClazz(Class clazz) {
 		this.clazz = clazz;
+	}
+	
+	public String getTableAlias() {
+		return tableAlias;
+	}
+	
+	public void setTableAlias(
+		String tableAlias) {
+		this.tableAlias = tableAlias;
 	}
 	
 	public QueryBuilderData getData() {
@@ -73,15 +83,6 @@ public abstract class QueryBuilder {
 		Map<String, Object> parameters) {
 		data.setParameters(parameters);
 	}
-	
-	public String getTableAlias() {
-		return data.getTableAlias();
-	}
-	
-	public void setTableAlias(
-		String tableAlias) {
-		data.setTableAlias(tableAlias);
-	}
 
 	public void setOrderBy(OrderByClause[] orderBy) {
 		data.setOrderBy(Arrays.asList(orderBy));
@@ -118,7 +119,7 @@ public abstract class QueryBuilder {
 		
 		String localTableAlias = tableAlias;
 		if (localTableAlias == null)
-			localTableAlias = data.getTableAlias();
+			localTableAlias = this.tableAlias;
 		if (localTableAlias == null)
 			localTableAlias = "";
 		return getQuery() + " " + localTableAlias;

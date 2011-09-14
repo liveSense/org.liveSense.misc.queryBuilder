@@ -6,8 +6,17 @@ import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class StartingWithCriteria<K> extends Criteria<K> implements Serializable {	
+
+	
+	//consts
+	private static final long serialVersionUID = 5905150362616460328L;
+	
+	
+	//fields
 	private K value;
 
+	
+	//constructors
 	public StartingWithCriteria() {
 		super();
 	}
@@ -25,7 +34,7 @@ public class StartingWithCriteria<K> extends Criteria<K> implements Serializable
 		}		
 	}
 	
-	public StartingWithCriteria(OperandSource operand, K value) throws QueryBuilderException {
+	public StartingWithCriteria(OperandSource<K> operand, K value) throws QueryBuilderException {
 		super(operand);
 		this.value = value;
 		
@@ -34,8 +43,8 @@ public class StartingWithCriteria<K> extends Criteria<K> implements Serializable
 		}
 	}		
 	
-
 	
+	//getters and setters
 	public K getValue() {
 		return value;
 	}
@@ -44,7 +53,8 @@ public class StartingWithCriteria<K> extends Criteria<K> implements Serializable
 		this.value = value;
 	}
 
-	
+
+	//methods
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$ STARTING WITH $value$";

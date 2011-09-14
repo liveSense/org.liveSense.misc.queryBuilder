@@ -4,13 +4,23 @@ import java.io.Serializable;
 
 public class OrderByClause implements Serializable {
 	
-	String fieldName;
-	Boolean sortDesc;
 	
+	//consts
+	private static final long serialVersionUID = 7113488053788586852L;
+	
+	
+	//fields
+	private String fieldName;
+	private Boolean sortDesc;
+	
+	
+	//constructors
 	public OrderByClause() {
 		
 	}
 	
+	
+	//getters and setters
 	public String getFieldName() {
 		return fieldName;
 	}

@@ -3,17 +3,24 @@ package org.liveSense.misc.queryBuilder.operators;
 import java.io.Serializable;
 
 
-public class NotOperator extends Operator implements Serializable {
+public class NotOperator<T> extends Operator<T> implements Serializable {
 
+	
+	//consts
+	private static final long serialVersionUID = 1583783660683119788L;
+
+	
+	//constructors
 	public NotOperator() {
 		super();
 	}
 	
-	public NotOperator(Object params) {
+	public NotOperator(T params) {
 		super();
 		setParams(params);
 	}
 
+	//methods
 	@Override
 	public String getParamPreOperation() {
 		return "(";

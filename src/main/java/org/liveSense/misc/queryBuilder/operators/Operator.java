@@ -3,11 +3,17 @@ package org.liveSense.misc.queryBuilder.operators;
 import java.io.Serializable;
 
 
-public abstract class Operator implements Serializable {
+public abstract class Operator<T> implements Serializable {
+
+	//consts
+	private static final long serialVersionUID = -2732125099200342642L;
+	
+	
+	//fields
+	private T params;
 
 	
-	Object params;
-
+	//methods
 	public abstract String getParamPreOperation();
 	public abstract String getParamPostOperation();
 	public abstract String getFirstParamPreOperation();
@@ -17,11 +23,13 @@ public abstract class Operator implements Serializable {
 	public abstract String getMiddleParamPostOperation();
 	public abstract String getLastParamPostOperation();
 	
-	public void setParams(Object params) {
+	
+	//getters and setters
+	public void setParams(T params) {
 		this.params = params;
 	}
 	
-	public Object getParams() {
+	public T getParams() {
 		return this.params;
 	}
 

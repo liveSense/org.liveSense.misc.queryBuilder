@@ -7,27 +7,38 @@ import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 
 public abstract class Criteria<K> implements Serializable {
-	private OperandSource operand;
+
+	
+	//consts
+	private static final long serialVersionUID = -5374353872807395900L;
+	
+	
+	//fields
+	private OperandSource<K> operand;
 	private String jdbcDriverClass;
 
+	
+	//constructors
 	public Criteria() {
 		
 	}
-	
+		
 	public Criteria(String field){
 		this("", field);		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Criteria(String alias, String field){		
-		operand = new OperandSource(alias, field, false);		
+		operand = (OperandSource<K>) new OperandSource<String>(alias, field, false);		
 	}
 	
-	public Criteria(OperandSource operand){
+	public Criteria(OperandSource<K> operand){
 		this.operand = operand;		
 	}	
 
 	
-	public OperandSource getOperand() {
+	//getters and setters
+	public OperandSource<K> getOperand() {
 		return operand;
 	}	
 	
@@ -42,6 +53,7 @@ public abstract class Criteria<K> implements Serializable {
 		this.jdbcDriverClass = driverClass;
 	}
 	
+	//methods
 	public abstract String getQueryTemplate() throws QueryBuilderException;
 		
 

@@ -3,12 +3,23 @@ package org.liveSense.misc.queryBuilder.clauses;
 import java.io.Serializable;
 
 public class LimitClause implements Serializable {
-	Integer limit;
-	Integer offset;
 	
+	
+	//consts
+	private static final long serialVersionUID = -4380904853559629125L;
+	
+	
+	//fields
+	private Integer limit;
+	private Integer offset;
+	
+	
+	//constructors
 	public LimitClause() {
 	}
 	
+	
+	//getters and setters
 	public Integer getLimit() {
 		return limit;
 	}

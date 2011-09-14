@@ -77,10 +77,12 @@ public class OperatorAndCriteriaProcessor {
 		return ret;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static String processOperator(Operator operator) throws QueryBuilderException {
 		return processOperator(null, operator);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static String processOperator(Class<?> clazz, Operator operator) throws QueryBuilderException {
 		String ret = "";
 		if (operator.getParams() == null) return "";

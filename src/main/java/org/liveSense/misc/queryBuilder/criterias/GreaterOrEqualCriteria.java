@@ -5,9 +5,18 @@ import java.io.Serializable;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class GreaterOrEqualCriteria<K> extends Criteria<K> implements Serializable {	
+public class GreaterOrEqualCriteria<K> extends Criteria<K> implements Serializable {
+	
+	
+	//consts
+	private static final long serialVersionUID = -3300740876974711458L;
+	
+	
+	//fields
 	private K value;
 
+	
+	//constructors
 	public GreaterOrEqualCriteria() {
 		super();
 	}
@@ -21,12 +30,13 @@ public class GreaterOrEqualCriteria<K> extends Criteria<K> implements Serializab
 		this.value = value;
 	}
 	
-	public GreaterOrEqualCriteria(OperandSource operand, K value){
+	public GreaterOrEqualCriteria(OperandSource<K> operand, K value){
 		super(operand);
 		this.value = value;		
 	}	
 
 	
+	//getters and setters
 	public K getValue() {
 		return value;
 	}
@@ -36,6 +46,7 @@ public class GreaterOrEqualCriteria<K> extends Criteria<K> implements Serializab
 	}
 
 	
+	//methods	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$>=$value$";

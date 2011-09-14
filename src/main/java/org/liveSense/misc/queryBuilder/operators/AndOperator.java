@@ -3,17 +3,25 @@ package org.liveSense.misc.queryBuilder.operators;
 import java.io.Serializable;
 
 
-public class AndOperator extends Operator implements Serializable {
+public class AndOperator<T> extends Operator<T> implements Serializable {
 
+	
+	//consts
+	private static final long serialVersionUID = -6429259979979372988L;
+
+	
+	//constructors
 	public AndOperator() {
 		super();
 	}
 	
-	public AndOperator(Object params) {
+	public AndOperator(T params) {
 		super();
 		setParams(params);
 	}
 
+	
+	//methods
 	@Override
 	public String getParamPreOperation() {
 		return "(";

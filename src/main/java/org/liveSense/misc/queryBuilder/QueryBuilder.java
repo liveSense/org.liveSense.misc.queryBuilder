@@ -18,7 +18,6 @@ public abstract class QueryBuilder {
 	@SuppressWarnings("rawtypes")
 	private Class clazz;	
 	private String tableAlias;
-	@SuppressWarnings("rawtypes")
 	private QueryBuilderData data = new QueryBuilderData();
 	
 	
@@ -42,12 +41,10 @@ public abstract class QueryBuilder {
 		this.tableAlias = tableAlias;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public QueryBuilderData getData() {
 		return data;		
 	}	
 	
-	@SuppressWarnings("rawtypes")
 	public void setData(
 		QueryBuilderData data) {	
 		this.data = data;
@@ -58,7 +55,6 @@ public abstract class QueryBuilder {
 		return data.getWhere();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void setWhere(Object where) {
 		data.setWhere(where);
 	}
@@ -71,28 +67,23 @@ public abstract class QueryBuilder {
 		data.setLimit(limit);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<OrderByClause> getOrderBy() {
 		return data.getOrderBy();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void setOrderBy(List<OrderByClause> orderBy) {
 		data.setOrderBy(orderBy);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Map<String, Object> getParameters() {
 		return data.getParameters();
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void setParameters(
 		Map<String, Object> parameters) {
 		data.setParameters(parameters);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void setOrderBy(OrderByClause[] orderBy) {
 		data.setOrderBy(Arrays.asList(orderBy));
 	}
@@ -110,7 +101,7 @@ public abstract class QueryBuilder {
 		return buildWhere(null, where);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings("rawtypes")
 	public String buildWhere(Class<?> clazz, Object where) throws QueryBuilderException {
 		if (where == null) return "";
 		if (!(where instanceof Operator)) {

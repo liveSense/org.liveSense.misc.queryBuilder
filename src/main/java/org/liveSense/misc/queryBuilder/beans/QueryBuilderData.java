@@ -1,6 +1,7 @@
 package org.liveSense.misc.queryBuilder.beans;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -8,26 +9,22 @@ import org.liveSense.misc.queryBuilder.clauses.LimitClause;
 import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
 
 
-public class QueryBuilderData<T> implements Serializable{
-	
-	
-	//consts
-	private static final long serialVersionUID = -1250034376010372533L;
+public class QueryBuilderData implements Serializable{
 	
 	
 	//fields
-	private T where;
+	private Object where;
 	private LimitClause limit = new LimitClause(-1, -1);
 	private List<OrderByClause> orderBy;	
 	private Map<String, Object> parameters;
 	
 	
 	//getters and setters
-	public T getWhere() {
+	public Object getWhere() {
 		return where;
 	}
 	
-	public void setWhere(T where) {
+	public void setWhere(Object where) {
 		this.where = where;
 	}
 	
@@ -54,6 +51,17 @@ public class QueryBuilderData<T> implements Serializable{
 	public void setParameters(
 		Map<String, Object> parameters) {
 		this.parameters = parameters;
+	}
+
+
+
+	//alternate getters and setters
+	public void setOrderBy(OrderByClause[] orderBy) {
+		this.orderBy = Arrays.asList(orderBy);
+	}
+	
+	public void setOrderBy(OrderByClause orderBy) {
+		setOrderBy(new OrderByClause[] {orderBy});
 	}
 
 

@@ -6,17 +6,8 @@ import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class LessOrEqualCriteria<K> extends Criteria<K> implements Serializable {
-	
-	
-	//consts
-	private static final long serialVersionUID = 7745562981297379660L;
-	
-	
-	//fields
 	private K value;
 
-	
-	//constructors
 	public LessOrEqualCriteria() {
 		super();
 	}
@@ -30,13 +21,12 @@ public class LessOrEqualCriteria<K> extends Criteria<K> implements Serializable 
 		this.value = value;
 	}
 
-	public LessOrEqualCriteria(OperandSource<K> operand, K value){
+	public LessOrEqualCriteria(OperandSource operand, K value){
 		super(operand);
 		this.value = value;			
 	}	
 
-
-	//getters and setters
+	
 	public K getValue() {
 		return value;
 	}
@@ -45,8 +35,7 @@ public class LessOrEqualCriteria<K> extends Criteria<K> implements Serializable 
 		this.value = value;
 	}
 
-
-	//methods
+	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$<=$value$";

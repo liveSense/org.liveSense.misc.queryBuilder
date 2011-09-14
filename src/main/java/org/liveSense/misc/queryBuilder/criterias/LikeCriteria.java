@@ -5,18 +5,9 @@ import java.io.Serializable;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class LikeCriteria<K> extends Criteria<K> implements Serializable {
-	
-	
-	//consts
-	private static final long serialVersionUID = 5292924355401481200L;
-	
-	
-	//fields
+public class LikeCriteria<K> extends Criteria<K> implements Serializable {	
 	private K value;
 
-	
-	//constructors
 	public LikeCriteria() {
 		super();
 	}
@@ -34,7 +25,7 @@ public class LikeCriteria<K> extends Criteria<K> implements Serializable {
 		}		
 	}
 	
-	public LikeCriteria(OperandSource<K> operand, K value) throws QueryBuilderException{
+	public LikeCriteria(OperandSource operand, K value) throws QueryBuilderException{
 		super(operand);
 		this.value = value;
 		
@@ -44,7 +35,6 @@ public class LikeCriteria<K> extends Criteria<K> implements Serializable {
 	}	
 
 	
-	//getters and setters
 	public K getValue() {
 		return value;
 	}
@@ -54,7 +44,6 @@ public class LikeCriteria<K> extends Criteria<K> implements Serializable {
 	}
 
 	
-	//methods
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$ LIKE $value$";

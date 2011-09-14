@@ -6,17 +6,8 @@ import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class DistinctFromCriteria<K> extends Criteria<K> implements Serializable {
-
-	
-	//consts
-	private static final long serialVersionUID = 7942500504705044717L;
-	
-	
-	//fields
 	private K value;
 	
-	
-	//constructors
 	public DistinctFromCriteria() {
 		super();
 	}
@@ -30,13 +21,12 @@ public class DistinctFromCriteria<K> extends Criteria<K> implements Serializable
 		this.value = value;
 	}
 	
-	public DistinctFromCriteria(OperandSource<K> operand, K value){
+	public DistinctFromCriteria(OperandSource operand, K value){
 		super(operand);
 		this.value = value;		
 	}
 
 	
-	//getters and setters
 	public K getValue() {
 		return value;
 	}
@@ -47,7 +37,6 @@ public class DistinctFromCriteria<K> extends Criteria<K> implements Serializable
 	}
 
 	
-	//methods
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$ IS DISTINCT FROM $value$";

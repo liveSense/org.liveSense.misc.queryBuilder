@@ -8,17 +8,8 @@ import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class InCriteria<K> extends Criteria<K> implements Serializable {
-	
-	
-	//consts
-	private static final long serialVersionUID = -9070375106519936395L;
-	
-	
-	//fields
 	private List<K> values;
 	
-	
-	//constructors
 	public InCriteria() {
 		super();
 	}
@@ -40,17 +31,16 @@ public class InCriteria<K> extends Criteria<K> implements Serializable {
 		this(alias, fieldName, Arrays.asList(values));
 	}
 	
-	public InCriteria(OperandSource<K> operand, List<K> values){
+	public InCriteria(OperandSource operand, List<K> values){
 		super(operand);
 		this.values = values;		
 	}
 	
-	public InCriteria(OperandSource<K> operand, K[]values){
+	public InCriteria(OperandSource operand, K[]values){
 		this(operand, Arrays.asList(values));		
 	}	
 	
 
-	//gettes and setters
 	public List<K> getValues() {
 		return values;
 	}
@@ -60,8 +50,7 @@ public class InCriteria<K> extends Criteria<K> implements Serializable {
 		this.values = values;
 	}
 
-
-	//methods
+	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$ IN ($values$)";

@@ -3,7 +3,6 @@ package org.liveSense.misc.queryBuilder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -56,34 +55,34 @@ public class ObjectToSQLLiteralTest {
 	
 	@Test
 	public void OperandSourceLiteral() throws Exception, ParseException {
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<String>("", "Homer", true)).getLiteral().equals("'Homer'"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<String>("", "Homer", false)).getLiteral() == null);
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<String>("", "D'oh!", true)).getLiteral().equals("'D''oh!'"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<String>("", "D'oh!", false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", "Homer", true)).getLiteral().equals("'Homer'"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", "Homer", false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", "D'oh!", true)).getLiteral().equals("'D''oh!'"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", "D'oh!", false)).getLiteral() == null);
 		
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Integer>("", 10, true)).getLiteral().equals("10"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Integer>("", -10, true)).getLiteral().equals("-10"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Integer>("", 10, false)).getLiteral() == null);
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Integer>("", -10, false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", 10, true)).getLiteral().equals("10"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", -10, true)).getLiteral().equals("-10"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", 10, false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", -10, false)).getLiteral() == null);
 		
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Double>("", 0.00001, true)).getLiteral().equals("0.00001"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Double>("", -0.00001, true)).getLiteral().equals("-0.00001"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Double>("", 0.00001, false)).getLiteral() == null);
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Double>("", -0.00001, false)).getLiteral() == null);
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Double>("", 1000000000.01, true)).getLiteral().equals("1000000000.01"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Double>("", -1000000000.01, true)).getLiteral().equals("-1000000000.01"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Double>("", 1000000000.01, false)).getLiteral() == null);
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Double>("", -1000000000.01, false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", 0.00001, true)).getLiteral().equals("0.00001"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", -0.00001, true)).getLiteral().equals("-0.00001"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", 0.00001, false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", -0.00001, false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", 1000000000.01, true)).getLiteral().equals("1000000000.01"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", -1000000000.01, true)).getLiteral().equals("-1000000000.01"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", 1000000000.01, false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", -1000000000.01, false)).getLiteral() == null);
 		
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Date>("", new SimpleDateFormat("yyyy/MM/dd").parse("2011/05/12"), true)).getLiteral().equals("'2011.05.12'"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Date>("", new SimpleDateFormat("yyyy/MM/dd").parse("2011/05/12"), false)).getLiteral() == null);		
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Date>("", java.sql.Date.valueOf("2011-05-12"), true)).getLiteral().equals("'2011.05.12'"));
-		assertTrue(new ObjectToSQLLiteral(new OperandSource<Date>("", java.sql.Date.valueOf("2011-05-12"), false)).getLiteral() == null);
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", new SimpleDateFormat("yyyy/MM/dd").parse("2011/05/12"), true)).getLiteral().equals("'2011.05.12'"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", new SimpleDateFormat("yyyy/MM/dd").parse("2011/05/12"), false)).getLiteral() == null);		
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", java.sql.Date.valueOf("2011-05-12"), true)).getLiteral().equals("'2011.05.12'"));
+		assertTrue(new ObjectToSQLLiteral(new OperandSource("", java.sql.Date.valueOf("2011-05-12"), false)).getLiteral() == null);
 	}
 	
 	@Test
 	public void OperandSourceFeatureLiteral() throws Exception, ParseException {
-		assertTrue(new ObjectToSQLLiteral(new UpperOperand<String>("", "Homer", true)).getLiteral().equals("UPPER('Homer')"));		
+		assertTrue(new ObjectToSQLLiteral(new UpperOperand("", (Object)"Homer", true)).getLiteral().equals("UPPER('Homer')"));		
 	}
 	
 	@Test

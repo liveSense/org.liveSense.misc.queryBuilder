@@ -10,7 +10,6 @@ import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class SimpleSQLQueryBuilderTest {
 
 	private Object params;

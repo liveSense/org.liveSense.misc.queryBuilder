@@ -18,7 +18,6 @@ import org.liveSense.misc.queryBuilder.operators.OrOperator;
 
 import static org.junit.Assert.*;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class OperatorTest {
 
 	private SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd");
@@ -39,7 +38,6 @@ public class OperatorTest {
 	public void tearDown() throws Exception {
 	}
 
-	
 	
 	@Test (expected = QueryBuilderException.class)
 	public void andOperator_withInvalidObject() throws QueryBuilderException {

@@ -6,18 +6,9 @@ import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class BetweenCriteria<K> extends Criteria<K> implements Serializable {	
-
-	
-	//consts	
-	private static final long serialVersionUID = 7162173479356129628L;
-	
-	
-	//fields
 	private K value1;
 	private K value2;
 
-	
-	//constructors
 	public BetweenCriteria() {
 		super();
 	}
@@ -32,14 +23,13 @@ public class BetweenCriteria<K> extends Criteria<K> implements Serializable {
 		this.value2 = value2;				
 	}
 	
-	public BetweenCriteria(OperandSource<K> operand, K value1, K value2){
+	public BetweenCriteria(OperandSource operand, K value1, K value2){
 		super(operand);
 		this.value1 = value1;
 		this.value2 = value2;		
 	}	
 	
 	
-	//getters and setters
 	public K getValue1() {
 		return value1;
 	}
@@ -59,7 +49,6 @@ public class BetweenCriteria<K> extends Criteria<K> implements Serializable {
 	}
 
 	
-	//methods
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$ BETWEEN $value1$ AND $value2$";

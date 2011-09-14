@@ -6,17 +6,8 @@ import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class NotEqualCriteria<K> extends Criteria<K> implements Serializable {
-	
-	
-	//consts
-	private static final long serialVersionUID = -5572839823016023449L;
-	
-	
-	//fields
 	private K value;
 	
-	
-	//constructors
 	public NotEqualCriteria() {
 		super();
 	}
@@ -30,13 +21,12 @@ public class NotEqualCriteria<K> extends Criteria<K> implements Serializable {
 		this.value = value;
 	}
 	
-	public NotEqualCriteria(OperandSource<K> operand, K value) {
+	public NotEqualCriteria(OperandSource operand, K value) {
 		super(operand);
 		this.value = value;		
 	}		
 
 	
-	//getters and setters
 	public K getValue() {
 		return value;
 	}
@@ -47,7 +37,6 @@ public class NotEqualCriteria<K> extends Criteria<K> implements Serializable {
 	}
 
 	
-	//methods
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$<>$value$";

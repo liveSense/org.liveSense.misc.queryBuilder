@@ -3,38 +3,29 @@ package org.liveSense.misc.queryBuilder.operands;
 import java.io.Serializable;
 
 
-public class OperandSource<T> implements Serializable {
-	
-	
-	//consts
-	private static final long serialVersionUID = -3177822162121106408L;
-	
-	
-	//fields
+public class OperandSource implements Serializable {		
 	private String qualifier;
-	private T source;
+	private Object source;
 	private boolean literal = true;
 	private String function;
 	
-	
-	//constructors
 	public OperandSource() {
 		
 	}
 	
-	public OperandSource(T source){
+	public OperandSource(Object source){
 		this("", source);		
 	}
 	
-	public OperandSource(String qualifier, T source){
+	public OperandSource(String qualifier, Object source){
 		this(qualifier, source, true);		
 	}
 	
-	public OperandSource(String qualifier, T source, boolean literal){
+	public OperandSource(String qualifier, Object source, boolean literal){
 		this(qualifier, source, literal, "");
 	}
 	
-	protected OperandSource(String qualifier, T source, boolean literal, String function){
+	public OperandSource(String qualifier, Object source, boolean literal, String function){
 		this.qualifier = qualifier;
 		this.source = source;
 		this.literal = literal;
@@ -42,12 +33,11 @@ public class OperandSource<T> implements Serializable {
 	}	
 
 	
-	//getters and setters
 	public String getQualifier() {	
 		return qualifier;
 	}
 	
-	public T getSource() {	
+	public Object getSource() {	
 		return source;
 	}
 		

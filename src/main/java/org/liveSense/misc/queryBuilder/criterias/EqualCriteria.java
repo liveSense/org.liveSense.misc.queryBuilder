@@ -1,21 +1,13 @@
 package org.liveSense.misc.queryBuilder.criterias;
 
 import java.io.Serializable;
+
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 public class EqualCriteria<K> extends Criteria<K> implements Serializable {
-	
-	
-	//consts
-	private static final long serialVersionUID = -5761103957522310945L;
-	
-	
-	//fields
 	private K value;
 
-	
-	//constructors
 	public EqualCriteria() {
 		super();
 	}
@@ -29,14 +21,12 @@ public class EqualCriteria<K> extends Criteria<K> implements Serializable {
 		this.value = value;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public EqualCriteria(OperandSource operand, K value){
 		super(operand);
 		this.value = value;		
 	}	
 
 	
-	//getters and setters
 	public K getValue() {
 		return value;
 	}
@@ -46,8 +36,7 @@ public class EqualCriteria<K> extends Criteria<K> implements Serializable {
 		this.value = value;
 	}
 
-
-	//methods
+	
 	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$=$value$";

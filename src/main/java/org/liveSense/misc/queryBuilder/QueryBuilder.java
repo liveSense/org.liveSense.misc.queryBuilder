@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.liveSense.misc.queryBuilder.beans.QueryBuilderData;
 import org.liveSense.misc.queryBuilder.clauses.LimitClause;
 import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
@@ -18,8 +17,11 @@ public abstract class QueryBuilder {
 	@SuppressWarnings("rawtypes")
 	private Class clazz;	
 	private String tableAlias;
-	private QueryBuilderData data = new QueryBuilderData();
-	
+	private Object where;
+	private LimitClause limit = new LimitClause(-1, -1);
+	private List<OrderByClause> orderBy;	
+	private Map<String, Object> parameters;
+
 	
 	//getters and setters
 	@SuppressWarnings("rawtypes")
@@ -41,60 +43,53 @@ public abstract class QueryBuilder {
 		this.tableAlias = tableAlias;
 	}
 	
-	public QueryBuilderData getData() {
-		return data;		
-	}	
-	
-	public void setData(
-		QueryBuilderData data) {	
-		this.data = data;
-	}
-	
-	//alternate getters and setters (backward compatibility)
 	public Object getWhere() {
-		return data.getWhere();
+		return where;
 	}
 	
 	public void setWhere(Object where) {
-		data.setWhere(where);
+		this.where = where;
 	}
 	
 	public LimitClause getLimit() {
-		return data.getLimit();
+		return limit;
 	}
 
 	public void setLimit(LimitClause limit) {
-		data.setLimit(limit);
+		this.limit = limit;
 	}
 
 	public List<OrderByClause> getOrderBy() {
-		return data.getOrderBy();
+		return orderBy;
 	}
 
 	public void setOrderBy(List<OrderByClause> orderBy) {
-		data.setOrderBy(orderBy);
+		this.orderBy = orderBy;
 	}
 
 	public Map<String, Object> getParameters() {
-		return data.getParameters();
+		return parameters;
 	}
 	
 	public void setParameters(
 		Map<String, Object> parameters) {
-		data.setParameters(parameters);
+		this.parameters = parameters;
 	}
 
+	
+	//alternate getters and setters
 	public void setOrderBy(OrderByClause[] orderBy) {
-		data.setOrderBy(Arrays.asList(orderBy));
+		this.orderBy = Arrays.asList(orderBy);
 	}
 	
 	public void setOrderBy(OrderByClause orderBy) {
 		setOrderBy(new OrderByClause[] {orderBy});
-	}	
+	}
 
+	
 	//methods
 	public String buildWhere() throws QueryBuilderException {
-		return buildWhere(data.getWhere());
+		return buildWhere(getWhere());
 	}
 	
 	public String buildWhere(Object where) throws QueryBuilderException {

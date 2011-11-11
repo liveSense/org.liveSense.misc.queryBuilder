@@ -10,6 +10,7 @@ import javax.persistence.Id;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.liveSense.core.BaseAnnotationHelper;
+import org.liveSense.misc.queryBuilder.jdbcDriver.JdbcDrivers;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 
@@ -40,7 +41,7 @@ public class ObjectToSQLLiteral {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public String getLiteral(String jdbcDriverClass) throws Exception {
+	public String getLiteral(JdbcDrivers jdbcDriver) throws Exception {
 		String s = "'";
 		
 		if (obj == null) 
@@ -55,7 +56,7 @@ public class ObjectToSQLLiteral {
 			return s + dateFormatter.format((java.util.Date)obj) + s;
 		else if (obj instanceof OperandSource) {
 			if (((OperandSource)obj).isLiteral()) {
-				return OperandProcessor.getOperandSource( ((OperandSource)obj), null, jdbcDriverClass);
+				return OperandProcessor.getOperandSource( ((OperandSource)obj), null, jdbcDriver);
 			}
 		} 
 		else if (obj instanceof Object[]) {
@@ -63,7 +64,7 @@ public class ObjectToSQLLiteral {
 			for (int i = 0; i < ((Object[])obj).length; i++) {
 				Object obj2 = ((Object[])obj)[i];
 				if (i!=0) sb.append(",");
-				sb.append(new ObjectToSQLLiteral(obj2).getLiteral(jdbcDriverClass));
+				sb.append(new ObjectToSQLLiteral(obj2).getLiteral(jdbcDriver));
 			}
 			return sb.toString();
 		}
@@ -72,14 +73,14 @@ public class ObjectToSQLLiteral {
 			StringBuffer sb = new StringBuffer();
 			for (Object obj2 : (List)obj) {
 				if (first) first = false; else sb.append(",");
-				sb.append(new ObjectToSQLLiteral(obj2).getLiteral(jdbcDriverClass));
+				sb.append(new ObjectToSQLLiteral(obj2).getLiteral(jdbcDriver));
 			}
 			return sb.toString();
 		}
 		else {		
 			Field fld = BaseAnnotationHelper.findFieldByAnnotationClass(obj.getClass(), Id.class);
 			if (fld != null)
-				return new ObjectToSQLLiteral(BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(obj, fld.getName())).getLiteral(jdbcDriverClass);
+				return new ObjectToSQLLiteral(BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(obj, fld.getName())).getLiteral(jdbcDriver);
 			else
 				return obj.toString();
 		}

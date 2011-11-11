@@ -3,6 +3,7 @@ package org.liveSense.misc.queryBuilder;
 import javax.persistence.Column;
 
 import org.liveSense.core.BaseAnnotationHelper;
+import org.liveSense.misc.queryBuilder.jdbcDriver.JdbcDrivers;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 
@@ -10,10 +11,10 @@ public class OperandProcessor {
 	
 	
 	@SuppressWarnings("rawtypes")
-	public static String getOperandSource(OperandSource operand, Class clazz, String jdbcDriverClass) throws Exception {
+	public static String getOperandSource(OperandSource operand, Class clazz, JdbcDrivers jdbcDriver) throws Exception {
 		String source;		
 		if (operand.isLiteral()) {
-			source = new ObjectToSQLLiteral(operand.getSource()).getLiteral(jdbcDriverClass);
+			source = new ObjectToSQLLiteral(operand.getSource()).getLiteral(jdbcDriver);
 		}
 		else {
 			String fieldName = operand.getSource().toString();

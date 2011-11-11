@@ -9,6 +9,7 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.liveSense.core.BaseAnnotationHelper;
 import org.liveSense.misc.queryBuilder.criterias.Criteria;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.jdbcDriver.JdbcDrivers;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 import org.liveSense.misc.queryBuilder.operators.Operator;
 
@@ -34,16 +35,16 @@ public class OperatorAndCriteriaProcessor {
 		return processCriteria(null, criteria, null);
 	}
 	
-	public static String processCriteria(Criteria<?> criteria, String jdbcDriverClass) throws QueryBuilderException {
-		return processCriteria(null, criteria, jdbcDriverClass);
+	public static String processCriteria(Criteria<?> criteria, JdbcDrivers jdbcDriver) throws QueryBuilderException {
+		return processCriteria(null, criteria, jdbcDriver);
 	}
 	
 	public static String processCriteria(Class<?> clazz, Criteria<?> criteria) throws QueryBuilderException {
 		return processCriteria(clazz, criteria, null);
 	}
 
-	public static String processCriteria(Class<?> clazz, Criteria<?> criteria, String jdbcDriverClass) throws QueryBuilderException {
-		criteria.setDriverClass(jdbcDriverClass);
+	public static String processCriteria(Class<?> clazz, Criteria<?> criteria, JdbcDrivers jdbcDriver) throws QueryBuilderException {
+		criteria.setDriverClass(jdbcDriver);
 		
 		Matcher matcher = pattern.matcher(criteria.getQueryTemplate());		
 		String ret = criteria.getQueryTemplate();
@@ -55,7 +56,7 @@ public class OperatorAndCriteriaProcessor {
 				variableName = variableName.replaceAll("'", "");
 				
 				if (variableName.equalsIgnoreCase("field")) {
-					String fieldName = OperandProcessor.getOperandSource(criteria.getOperand(), clazz, jdbcDriverClass);
+					String fieldName = OperandProcessor.getOperandSource(criteria.getOperand(), clazz, jdbcDriver);
 					
 					if (clazz != null) {
 						Object[] annotations = BaseAnnotationHelper.findFieldAnnotationByAnnotationClass(clazz, fieldName, Column.class);
@@ -67,7 +68,7 @@ public class OperatorAndCriteriaProcessor {
 				} 
 				else {
 					Object o = BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(criteria, variableName);
-					ret = ret.replaceAll("\\$"+originalVariableName+"\\$", getAsValue(clazz, o, jdbcDriverClass));					
+					ret = ret.replaceAll("\\$"+originalVariableName+"\\$", getAsValue(clazz, o, jdbcDriver));					
 				}
 			}
 			catch (Exception e) {
@@ -154,14 +155,14 @@ public class OperatorAndCriteriaProcessor {
 	}
 	
 	@SuppressWarnings({ "rawtypes" })
-	private static String getAsValue(Class clazz, final Object o, String jdbcDriverClass) throws QueryBuilderException {
+	private static String getAsValue(Class clazz, final Object o, JdbcDrivers jdbcDriver) throws QueryBuilderException {
 		try {
 			if (o instanceof OperandSource) {
 				if (!((OperandSource)o).isLiteral()) {
-					return OperandProcessor.getOperandSource(((OperandSource)o), clazz, jdbcDriverClass);
+					return OperandProcessor.getOperandSource(((OperandSource)o), clazz, jdbcDriver);
 				}
 			} 
-			return new ObjectToSQLLiteral(o).getLiteral(jdbcDriverClass);
+			return new ObjectToSQLLiteral(o).getLiteral(jdbcDriver);
 		}
 		catch (Exception e) {
 			throw new QueryBuilderException(e);

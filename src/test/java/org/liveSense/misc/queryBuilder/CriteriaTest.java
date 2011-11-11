@@ -459,7 +459,7 @@ public class CriteriaTest {
 			
 			assertEquals("equals", "b.CODE=UPPER('D''oh!')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>("b", "code", new UpperOperand("D'oh!"))));
 			
-			assertEquals("equals", "UPPER(b.CODE)=UPPER('Homer')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>(new UpperOperand("b", (Object)"code", false), new UpperOperand("Homer")), JdbcDrivers.FIREBIRD.getDriverClass()));
+			assertEquals("equals", "UPPER(b.CODE)=UPPER('Homer')", OperatorAndCriteriaProcessor.processCriteria(TestBean.class,new EqualCriteria<OperandSource>(new UpperOperand("b", (Object)"code", false), new UpperOperand("Homer")), JdbcDrivers.FIREBIRD));
 			
 			assertEquals("equals", "double=0.00001", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<Double>("double", 0.00001)));
 			assertEquals("equals", "double=0.00001", OperatorAndCriteriaProcessor.processCriteria(new EqualCriteria<OperandSource>("double", new OperandSource(0.00001))));

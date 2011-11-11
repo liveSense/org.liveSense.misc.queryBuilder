@@ -3,12 +3,13 @@ package org.liveSense.misc.queryBuilder.criterias;
 import java.io.Serializable;
 
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.jdbcDriver.JdbcDrivers;
 import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 
 public abstract class Criteria<K> implements Serializable {
 	private OperandSource operand;
-	private String jdbcDriverClass;
+	private JdbcDrivers jdbcDriver;
 
 	public Criteria() {
 		
@@ -31,15 +32,15 @@ public abstract class Criteria<K> implements Serializable {
 		return operand;
 	}	
 	
-	public String getDriverClass() {
+	public JdbcDrivers getDriverClass() {
 	
-		return jdbcDriverClass;
+		return jdbcDriver;
 	}
 	
 	public void setDriverClass(
-		String driverClass) {
+		JdbcDrivers driver) {
 	
-		this.jdbcDriverClass = driverClass;
+		this.jdbcDriver = driver;
 	}
 	
 	public abstract String getQueryTemplate() throws QueryBuilderException;

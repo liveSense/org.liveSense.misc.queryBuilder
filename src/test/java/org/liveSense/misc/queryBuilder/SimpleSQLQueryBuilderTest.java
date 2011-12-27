@@ -9,10 +9,11 @@ import org.junit.Test;
 import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
+import org.liveSense.misc.queryBuilder.operators.Operator;
 
 public class SimpleSQLQueryBuilderTest {
 
-	private Object params;
+	private Operator params;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -43,7 +44,7 @@ public class SimpleSQLQueryBuilderTest {
 	@Test
 	public void testSimpleSQLQueryBuilderString() {
 		try {
-			assertEquals("Simple query with empty parameter", "", (new SimpleSQLQueryBuilder(null, null)).buildWhere());			
+			assertEquals("Simple query with empty parameter", "", (new SimpleSQLQueryBuilder(null, (Operator)null)).buildWhere());			
 			assertEquals("Simple query with single parameter", "(size=12)", (new SimpleSQLQueryBuilder(null, params)).buildWhere());
 			assertEquals("Simple query with single parameter", "(size=12)", (new SimpleSQLQueryBuilder(null)).buildWhere(params));
 		} catch (QueryBuilderException e) {

@@ -10,11 +10,12 @@ import org.junit.Test;
 import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
+import org.liveSense.misc.queryBuilder.operators.Operator;
 
 public class QueryBuilderTest {
 
 	private QueryBuilder sampleQueryBuilder;
-	private Object params;
+	private Operator params;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

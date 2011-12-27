@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.liveSense.misc.queryBuilder.clauses.LimitClause;
 import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
+import org.liveSense.misc.queryBuilder.operators.Operator;
 
 public class SimpleSQLQueryBuilder extends QueryBuilder {
 
@@ -13,7 +14,7 @@ public class SimpleSQLQueryBuilder extends QueryBuilder {
 		this(statement, null, null, null);
 	}
 
-	public SimpleSQLQueryBuilder(String statement, Object parameters) {
+	public SimpleSQLQueryBuilder(String statement, Operator parameters) {
 		this(statement, parameters, null, null);
 	}
 
@@ -21,11 +22,11 @@ public class SimpleSQLQueryBuilder extends QueryBuilder {
 		this(statement, null, limit, null);
 	}
 
-	public SimpleSQLQueryBuilder(String statement, Object parameters, LimitClause limit) {
+	public SimpleSQLQueryBuilder(String statement, Operator parameters, LimitClause limit) {
 		this(statement, parameters, limit, null);
 	}
 
-	public SimpleSQLQueryBuilder(String statement, Object parameters, LimitClause limit, List<OrderByClause> orderBy) {
+	public SimpleSQLQueryBuilder(String statement, Operator parameters, LimitClause limit, List<OrderByClause> orderBy) {
 		this.statement = statement;
 		setLimit(limit);
 		setOrderBy(orderBy);

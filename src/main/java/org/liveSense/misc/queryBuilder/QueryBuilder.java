@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.liveSense.misc.queryBuilder.clauses.LimitClause;
 import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
+import org.liveSense.misc.queryBuilder.criterias.Criteria;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
 import org.liveSense.misc.queryBuilder.operators.Operator;
@@ -17,7 +18,7 @@ public abstract class QueryBuilder {
 	@SuppressWarnings("rawtypes")
 	private Class clazz;	
 	private String tableAlias;
-	private Object where;
+	private Operator where;
 	private LimitClause limit = new LimitClause(-1, -1);
 	private List<OrderByClause> orderBy;	
 	private Map<String, Object> parameters;
@@ -43,14 +44,18 @@ public abstract class QueryBuilder {
 		this.tableAlias = tableAlias;
 	}
 	
-	public Object getWhere() {
+	public Operator getWhere() {
 		return where;
 	}
 	
-	public void setWhere(Object where) {
+	public void setWhere(Operator where) {
 		this.where = where;
 	}
-	
+
+	public void setWhere(@SuppressWarnings("rawtypes") Criteria where) {
+		this.where = new AndOperator(where);
+	}
+
 	public LimitClause getLimit() {
 		return limit;
 	}
@@ -86,18 +91,21 @@ public abstract class QueryBuilder {
 		setOrderBy(new OrderByClause[] {orderBy});
 	}
 
-	
 	//methods
 	public String buildWhere() throws QueryBuilderException {
 		return buildWhere(getWhere());
 	}
 	
-	public String buildWhere(Object where) throws QueryBuilderException {
+	public String buildWhere(Operator where) throws QueryBuilderException {
 		return buildWhere(null, where);
 	}
 
+	public String buildWhere(@SuppressWarnings("rawtypes") Criteria where) throws QueryBuilderException {
+		return buildWhere(null, where);
+	}
+	
 	@SuppressWarnings("rawtypes")
-	public String buildWhere(Class<?> clazz, Object where) throws QueryBuilderException {
+	public String buildWhere(Class<?> clazz, Operator where) throws QueryBuilderException {
 		if (where == null) return "";
 		if (!(where instanceof Operator)) {
 			where = new AndOperator(where);
@@ -107,6 +115,14 @@ public abstract class QueryBuilder {
 			localClass = this.clazz;
 		return OperatorAndCriteriaProcessor.processOperator(localClass, (Operator)where);
 	}	
+
+	@SuppressWarnings("rawtypes")
+	public String buildWhere(Class<?> clazz, Criteria where) throws QueryBuilderException {
+		if (where == null) return "";
+		Operator cond = new AndOperator(where);
+		return buildWhere(clazz, cond);
+	}	
+
 	
 	public abstract String getQuery();
 	

@@ -1,13 +1,14 @@
 package org.liveSense.misc.queryBuilder;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.liveSense.misc.queryBuilder.clauses.LimitClause;
-import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
+import org.liveSense.misc.queryBuilder.clauses.DefaultLimitClause;
 import org.liveSense.misc.queryBuilder.domains.Criteria;
+import org.liveSense.misc.queryBuilder.domains.LimitClause;
 import org.liveSense.misc.queryBuilder.domains.Operator;
+import org.liveSense.misc.queryBuilder.domains.OrderByClause;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
 
@@ -19,7 +20,7 @@ public abstract class QueryBuilder {
 	private Class clazz;	
 	private String tableAlias;
 	private Operator where;
-	private LimitClause limit = new LimitClause(-1, -1);
+	private LimitClause limit = new DefaultLimitClause(-1, -1);
 	private List<OrderByClause> orderBy;	
 	private Map<String, Object> parameters;
 
@@ -84,7 +85,10 @@ public abstract class QueryBuilder {
 	
 	//alternate getters and setters
 	public void setOrderBy(OrderByClause[] orderBy) {
-		this.orderBy = Arrays.asList(orderBy);
+		this.orderBy = new ArrayList<OrderByClause>();
+		for (int i = 0; i < orderBy.length; i++) {
+			this.orderBy.add(orderBy[i]);
+		}
 	}
 	
 	public void setOrderBy(OrderByClause orderBy) {

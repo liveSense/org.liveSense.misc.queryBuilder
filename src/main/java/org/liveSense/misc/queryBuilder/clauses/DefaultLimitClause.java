@@ -2,11 +2,15 @@ package org.liveSense.misc.queryBuilder.clauses;
 
 import java.io.Serializable;
 
-public class LimitClause implements Serializable {
+import org.liveSense.misc.queryBuilder.domains.LimitClause;
+
+public class DefaultLimitClause implements Serializable, LimitClause {
+	private static final long serialVersionUID = 6632319600472528501L;
+
 	Integer limit;
 	Integer offset;
 	
-	public LimitClause() {
+	public DefaultLimitClause() {
 	}
 	
 	public Integer getLimit() {
@@ -22,7 +26,7 @@ public class LimitClause implements Serializable {
 		this.offset = offset;
 	}
 	
-	public LimitClause(Integer limit, Integer offset) {
+	public DefaultLimitClause(Integer limit, Integer offset) {
 		this.limit = limit;
 		this.offset = offset;
 	}

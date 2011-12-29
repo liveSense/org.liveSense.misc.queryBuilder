@@ -8,5 +8,6 @@
  	<source path="operators"/>
  	<source path="clauses"/> 	
  	<source path="domains"/> 	
+ 	<source path="beans"/> 	
 
  </module>

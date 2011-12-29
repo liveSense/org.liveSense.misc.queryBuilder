@@ -1,12 +1,13 @@
 package org.liveSense.misc.queryBuilder.beans;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
 
-public class Value implements ValueDomain {
-
+public class Value implements ValueDomain, Serializable {
+	private static final long serialVersionUID = -3184057249131641791L;
 	Object value;
 
 	private void setObjectValue(Object value) {

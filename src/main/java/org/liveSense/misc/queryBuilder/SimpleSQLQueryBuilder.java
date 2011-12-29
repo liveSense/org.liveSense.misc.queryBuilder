@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.liveSense.misc.queryBuilder.clauses.LimitClause;
 import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
-import org.liveSense.misc.queryBuilder.operators.Operator;
+import org.liveSense.misc.queryBuilder.domains.Operator;
 
 public class SimpleSQLQueryBuilder extends QueryBuilder {
 

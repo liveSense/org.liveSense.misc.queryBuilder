@@ -7,9 +7,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
+import org.liveSense.misc.queryBuilder.domains.Operator;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
-import org.liveSense.misc.queryBuilder.operators.Operator;
 
 public class SimpleSQLQueryBuilderTest {
 
@@ -25,7 +25,7 @@ public class SimpleSQLQueryBuilderTest {
 
 	@Before
 	public void setUp() throws Exception {
-		params = new AndOperator(new Object[]{new EqualCriteria<Integer>("size", 12)});
+		params = new AndOperator(new Object[]{new EqualCriteria("size", 12)});
 	}
 
 	@After

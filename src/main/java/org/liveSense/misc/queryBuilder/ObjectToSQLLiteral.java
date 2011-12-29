@@ -10,8 +10,9 @@ import javax.persistence.Id;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.liveSense.core.BaseAnnotationHelper;
+import org.liveSense.misc.queryBuilder.beans.Value;
+import org.liveSense.misc.queryBuilder.domains.Operand;
 import org.liveSense.misc.queryBuilder.jdbcDriver.JdbcDrivers;
-import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
 
 public class ObjectToSQLLiteral {
@@ -36,16 +37,14 @@ public class ObjectToSQLLiteral {
 	}
 	
 	
-	public String getLiteral() throws Exception {
-		return getLiteral(null);
-	}
-	
 	@SuppressWarnings("rawtypes")
-	public String getLiteral(JdbcDrivers jdbcDriver) throws Exception {
+	public String getLiteral() throws Exception {
 		String s = "'";
 		
 		if (obj == null) 
 			return "NULL";		
+		else if (obj instanceof Value)
+			return new ObjectToSQLLiteral(ValueProcessor.processValue((Value)obj)).getLiteral();
 		else if (obj instanceof String) 
 			return s + ((String)obj).replace("'", "''") + s;
 		else if (obj instanceof Number) 
@@ -54,9 +53,9 @@ public class ObjectToSQLLiteral {
 			return s + dateFormatter.format((java.sql.Date)obj) + s;
 		else if (obj instanceof java.util.Date) 
 			return s + dateFormatter.format((java.util.Date)obj) + s;
-		else if (obj instanceof OperandSource) {
-			if (((OperandSource)obj).isLiteral()) {
-				return OperandProcessor.getOperandSource( ((OperandSource)obj), null, jdbcDriver);
+		else if (obj instanceof Operand) {
+			if (((Operand)obj).isLiteral()) {
+				return OperandProcessor.getOperandSource( ((Operand)obj), null);
 			}
 		} 
 		else if (obj instanceof Object[]) {
@@ -64,7 +63,7 @@ public class ObjectToSQLLiteral {
 			for (int i = 0; i < ((Object[])obj).length; i++) {
 				Object obj2 = ((Object[])obj)[i];
 				if (i!=0) sb.append(",");
-				sb.append(new ObjectToSQLLiteral(obj2).getLiteral(jdbcDriver));
+				sb.append(new ObjectToSQLLiteral(obj2).getLiteral());
 			}
 			return sb.toString();
 		}
@@ -73,14 +72,14 @@ public class ObjectToSQLLiteral {
 			StringBuffer sb = new StringBuffer();
 			for (Object obj2 : (List)obj) {
 				if (first) first = false; else sb.append(",");
-				sb.append(new ObjectToSQLLiteral(obj2).getLiteral(jdbcDriver));
+				sb.append(new ObjectToSQLLiteral(obj2).getLiteral());
 			}
 			return sb.toString();
 		}
 		else {		
 			Field fld = BaseAnnotationHelper.findFieldByAnnotationClass(obj.getClass(), Id.class);
 			if (fld != null)
-				return new ObjectToSQLLiteral(BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(obj, fld.getName())).getLiteral(jdbcDriver);
+				return new ObjectToSQLLiteral(BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(obj, fld.getName())).getLiteral();
 			else
 				return obj.toString();
 		}

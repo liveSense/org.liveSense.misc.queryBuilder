@@ -6,10 +6,10 @@ import java.util.Map;
 
 import org.liveSense.misc.queryBuilder.clauses.LimitClause;
 import org.liveSense.misc.queryBuilder.clauses.OrderByClause;
-import org.liveSense.misc.queryBuilder.criterias.Criteria;
+import org.liveSense.misc.queryBuilder.domains.Criteria;
+import org.liveSense.misc.queryBuilder.domains.Operator;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
-import org.liveSense.misc.queryBuilder.operators.Operator;
 
 public abstract class QueryBuilder {
 
@@ -52,7 +52,7 @@ public abstract class QueryBuilder {
 		this.where = where;
 	}
 
-	public void setWhere(@SuppressWarnings("rawtypes") Criteria where) {
+	public void setWhere(Criteria where) {
 		this.where = new AndOperator(where);
 	}
 
@@ -100,7 +100,7 @@ public abstract class QueryBuilder {
 		return buildWhere(null, where);
 	}
 
-	public String buildWhere(@SuppressWarnings("rawtypes") Criteria where) throws QueryBuilderException {
+	public String buildWhere(Criteria where) throws QueryBuilderException {
 		return buildWhere(null, where);
 	}
 	

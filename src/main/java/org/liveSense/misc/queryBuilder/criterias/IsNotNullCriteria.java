@@ -2,10 +2,10 @@ package org.liveSense.misc.queryBuilder.criterias;
 
 import java.io.Serializable;
 
+import org.liveSense.misc.queryBuilder.domains.Operand;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
-import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class IsNotNullCriteria<K> extends Criteria<K> implements Serializable {
+public class IsNotNullCriteria extends AbstractCriteria implements Serializable {
 	
 	public IsNotNullCriteria() {
 		super();
@@ -19,15 +19,12 @@ public class IsNotNullCriteria<K> extends Criteria<K> implements Serializable {
 		super(alias, fieldName);
 	}
 	
-	public IsNotNullCriteria(OperandSource operand){
+	public IsNotNullCriteria(Operand operand){
 		super(operand);		
 	}	
 	
-	
-	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$ IS NOT NULL";
 	}
-	
 	
 }

@@ -7,4 +7,6 @@
  	<source path="operands"/> 	
  	<source path="operators"/>
  	<source path="clauses"/> 	
+ 	<source path="domains"/> 	
+
  </module>

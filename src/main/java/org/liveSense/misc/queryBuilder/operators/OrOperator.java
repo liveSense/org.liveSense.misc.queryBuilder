@@ -3,7 +3,9 @@ package org.liveSense.misc.queryBuilder.operators;
 import java.io.Serializable;
 
 
-public class OrOperator extends Operator implements Serializable {
+public class OrOperator extends AbstractOperator implements Serializable {
+
+	private static final long serialVersionUID = -5401575277269366543L;
 
 	public OrOperator() {
 		super();
@@ -14,42 +16,34 @@ public class OrOperator extends Operator implements Serializable {
 		setParams(params);
 	}
 
-	@Override
 	public String getParamPreOperation() {
 		return "(";
 	}
 
-	@Override
 	public String getParamPostOperation() {
 		return ")";
 	}
 
-	@Override
 	public String getFirstParamPreOperation() {
 		return "";
 	}
 
-	@Override
 	public String getMiddleParamPreOperation() {
 		return "";
 	}
 
-	@Override
 	public String getLastParamPreOperation() {
 		return "";
 	}
 
-	@Override
 	public String getFirstParamPostOperation() {
 		return " OR ";
 	}
 
-	@Override
 	public String getMiddleParamPostOperation() {
 		return " OR ";
 	}
 
-	@Override
 	public String getLastParamPostOperation() {
 		return "";
 	}

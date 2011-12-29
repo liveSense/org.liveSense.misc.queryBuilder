@@ -7,11 +7,11 @@ import java.util.regex.Pattern;
 import javax.persistence.Column;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.liveSense.core.BaseAnnotationHelper;
-import org.liveSense.misc.queryBuilder.criterias.Criteria;
+import org.liveSense.misc.queryBuilder.beans.Value;
+import org.liveSense.misc.queryBuilder.domains.Criteria;
+import org.liveSense.misc.queryBuilder.domains.Operand;
+import org.liveSense.misc.queryBuilder.domains.Operator;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
-import org.liveSense.misc.queryBuilder.jdbcDriver.JdbcDrivers;
-import org.liveSense.misc.queryBuilder.operands.OperandSource;
-import org.liveSense.misc.queryBuilder.operators.Operator;
 
 
 public class OperatorAndCriteriaProcessor {
@@ -31,20 +31,12 @@ public class OperatorAndCriteriaProcessor {
 		return clause;
 	}
 	
-	public static String processCriteria(Criteria<?> criteria) throws QueryBuilderException {
-		return processCriteria(null, criteria, null);
+	public static String processCriteria(Criteria criteria) throws QueryBuilderException {
+		return processCriteria(null, criteria);
 	}
 	
-	public static String processCriteria(Criteria<?> criteria, JdbcDrivers jdbcDriver) throws QueryBuilderException {
-		return processCriteria(null, criteria, jdbcDriver);
-	}
-	
-	public static String processCriteria(Class<?> clazz, Criteria<?> criteria) throws QueryBuilderException {
-		return processCriteria(clazz, criteria, null);
-	}
-
-	public static String processCriteria(Class<?> clazz, Criteria<?> criteria, JdbcDrivers jdbcDriver) throws QueryBuilderException {
-		criteria.setDriverClass(jdbcDriver);
+	public static String processCriteria(Class<?> clazz, Criteria criteria) throws QueryBuilderException {
+		//criteria.setDriverClass(jdbcDriver);
 		
 		Matcher matcher = pattern.matcher(criteria.getQueryTemplate());		
 		String ret = criteria.getQueryTemplate();
@@ -56,7 +48,7 @@ public class OperatorAndCriteriaProcessor {
 				variableName = variableName.replaceAll("'", "");
 				
 				if (variableName.equalsIgnoreCase("field")) {
-					String fieldName = OperandProcessor.getOperandSource(criteria.getOperand(), clazz, jdbcDriver);
+					String fieldName = OperandProcessor.getOperandSource(criteria.getOperand(), clazz);
 					
 					if (clazz != null) {
 						Object[] annotations = BaseAnnotationHelper.findFieldAnnotationByAnnotationClass(clazz, fieldName, Column.class);
@@ -68,7 +60,8 @@ public class OperatorAndCriteriaProcessor {
 				} 
 				else {
 					Object o = BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(criteria, variableName);
-					ret = ret.replaceAll("\\$"+originalVariableName+"\\$", getAsValue(clazz, o, jdbcDriver));					
+					if (o instanceof Value) o = ((Value) o).getValueAsObject();
+					ret = ret.replaceAll("\\$"+originalVariableName+"\\$", getAsValue(clazz, o));					
 				}
 			}
 			catch (Exception e) {
@@ -85,9 +78,9 @@ public class OperatorAndCriteriaProcessor {
 	public static String processOperator(Class<?> clazz, Operator operator) throws QueryBuilderException {
 		String ret = "";
 		if (operator.getParams() == null) return "";
-		
+		if (operator.getParams().size() == 0) return "";
 
-		if (operator.getParams() instanceof List<?>) {
+		if (operator.getParams().size() > 1) {
 			ret = operator.getParamPreOperation();
 			if (((List<?>) operator.getParams()).size() == 0) {
 				ret = "";
@@ -116,53 +109,28 @@ public class OperatorAndCriteriaProcessor {
 					}
 				}		
 			}
-		} else if (operator.getParams() instanceof Object[]) {
-			if (((Object[]) operator.getParams()).length == 0) { 
-				ret = "";
-			} else if (((Object[])operator.getParams()).length == 1) {
-				ret = operator.getParamPreOperation()+
-				operator.getFirstParamPreOperation()+
-				processOperatorParams(clazz, ((Object[])operator.getParams())[0], Position.MIDDLE)+
-				operator.getLastParamPostOperation()+
-				operator.getParamPostOperation();
-			} else {
-				for (int i=0; i<((Object[])operator.getParams()).length; i++) {
-					if (i == 0) {
-						ret = operator.getParamPreOperation()+
-						operator.getFirstParamPreOperation()+
-						processOperatorParams(clazz, ((Object[])operator.getParams())[i], Position.FIRST)+
-						operator.getFirstParamPostOperation();
-					} else if (i == ((Object[])operator.getParams()).length-1) {
-						ret += operator.getLastParamPostOperation()+
-						processOperatorParams(clazz, ((Object[])operator.getParams())[i], Position.LAST)+
-						operator.getLastParamPostOperation()+
-						operator.getParamPostOperation();
-					} else {
-						ret += operator.getMiddleParamPreOperation()+
-						processOperatorParams(clazz, ((Object[])operator.getParams())[i], Position.MIDDLE)+
-						operator.getMiddleParamPostOperation();		
-					}
-				}
-			}
-		} else if (operator.getParams() instanceof Object) {
+		} else {
 			ret = operator.getParamPreOperation() + 
-			operator.getFirstParamPreOperation()+
-			processOperatorParams(clazz, operator.getParams(), Position.MIDDLE)+
-			operator.getLastParamPostOperation()+
-			operator.getParamPostOperation();
-		} 
+					operator.getFirstParamPreOperation()+
+					processOperatorParams(clazz, operator.getParams().get(0), Position.MIDDLE)+
+					operator.getLastParamPostOperation()+
+					operator.getParamPostOperation();
+
+		}
 		return ret;
 	}
 	
 	@SuppressWarnings({ "rawtypes" })
-	private static String getAsValue(Class clazz, final Object o, JdbcDrivers jdbcDriver) throws QueryBuilderException {
+	private static String getAsValue(Class clazz, final Object o) throws QueryBuilderException {
 		try {
-			if (o instanceof OperandSource) {
-				if (!((OperandSource)o).isLiteral()) {
-					return OperandProcessor.getOperandSource(((OperandSource)o), clazz, jdbcDriver);
+			if (o instanceof Operand) {
+				if (!((Operand)o).isLiteral()) {
+					return OperandProcessor.getOperandSource(((Operand)o), clazz);
 				}
-			} 
-			return new ObjectToSQLLiteral(o).getLiteral(jdbcDriver);
+			} else if (o instanceof Value) {
+				return new ObjectToSQLLiteral(ValueProcessor.processValue((Value)o)).getLiteral();
+			}
+			return new ObjectToSQLLiteral(o).getLiteral();
 		}
 		catch (Exception e) {
 			throw new QueryBuilderException(e);

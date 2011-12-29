@@ -2,50 +2,63 @@ package org.liveSense.misc.queryBuilder.criterias;
 
 import java.io.Serializable;
 
+import org.liveSense.misc.queryBuilder.beans.Value;
+import org.liveSense.misc.queryBuilder.beans.ValueDomain.ValueTypes;
+import org.liveSense.misc.queryBuilder.domains.Operand;
 import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
-import org.liveSense.misc.queryBuilder.operands.OperandSource;
 
-public class StartingWithCriteria<K> extends Criteria<K> implements Serializable {	
-	private K value;
+public class StartingWithCriteria extends AbstractCriteria implements Serializable {	
+	private Value value;
 
 	public StartingWithCriteria() {
 		super();
 	}
 	
-	public StartingWithCriteria(String fieldName, K value) throws QueryBuilderException {
+	public StartingWithCriteria(String fieldName, Value value) throws QueryBuilderException {
 		this("", fieldName, value);
 	}
 	
-	public StartingWithCriteria(String alias, String fieldName, K value) throws QueryBuilderException {
+	public StartingWithCriteria(String alias, String fieldName, Value value) throws QueryBuilderException {
 		super(alias, fieldName);		
 		this.value = value;
 		
-		if (!(value instanceof String)) {
+		if (value.getType() != ValueTypes.String) {
 			throw new QueryBuilderException("Only string values allowed in STARTING WITH criteria");
 		}		
 	}
 	
-	public StartingWithCriteria(OperandSource operand, K value) throws QueryBuilderException {
+	public StartingWithCriteria(Operand operand, Value value) throws QueryBuilderException {
 		super(operand);
 		this.value = value;
 		
-		if (!(value instanceof String)) {
+		if (value.getType() != ValueTypes.String) {
 			throw new QueryBuilderException("Only string values allowed in STARTING WITH criteria");
 		}
 	}		
+
+	public StartingWithCriteria(String fieldName, String value) throws QueryBuilderException {
+		this("", fieldName, value);
+	}
+	
+	public StartingWithCriteria(String alias, String fieldName, String value) throws QueryBuilderException {
+		super(alias, fieldName);		
+		this.value = new Value(value);
+	}
+	
+	public StartingWithCriteria(Operand operand, String value) throws QueryBuilderException {
+		super(operand);
+		this.value = new Value(value);
+	}		
 	
 
-	
-	public K getValue() {
+	public Value getValue() {
 		return value;
 	}
 
-	public void setValue(K value) {
+	public void setValue(Value value) {
 		this.value = value;
 	}
 
-	
-	@Override
 	public String getQueryTemplate() throws QueryBuilderException {
 		return "$field$ STARTING WITH $value$";
 	}

@@ -3,21 +3,23 @@ package org.liveSense.misc.queryBuilder;
 import javax.persistence.Column;
 
 import org.liveSense.core.BaseAnnotationHelper;
-import org.liveSense.misc.queryBuilder.jdbcDriver.JdbcDrivers;
-import org.liveSense.misc.queryBuilder.operands.OperandSource;
-
+import org.liveSense.misc.queryBuilder.domains.Operand;
 
 public class OperandProcessor {
-	
+
+
+	public static Object getOperandValue(Operand operand) {
+		return ValueProcessor.processValue(operand.getSource());
+	}
 	
 	@SuppressWarnings("rawtypes")
-	public static String getOperandSource(OperandSource operand, Class clazz, JdbcDrivers jdbcDriver) throws Exception {
+	public static String getOperandSource(Operand operand, Class clazz) throws Exception {
 		String source;		
 		if (operand.isLiteral()) {
-			source = new ObjectToSQLLiteral(operand.getSource()).getLiteral(jdbcDriver);
+			source = new ObjectToSQLLiteral(getOperandValue(operand)).getLiteral();
 		}
 		else {
-			String fieldName = operand.getSource().toString();
+			String fieldName = (String) getOperandValue(operand);
 			if (clazz != null) {
 				Object[] annotations = BaseAnnotationHelper.findFieldAnnotationByAnnotationClass(clazz, fieldName, Column.class);
 				if (annotations != null && annotations.length > 0) {

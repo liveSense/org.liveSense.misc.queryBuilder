@@ -14,15 +14,21 @@ public interface Operator {
 	public String getFirstParamPostOperation();
 	public String getMiddleParamPostOperation();
 	public String getLastParamPostOperation();
-	@SuppressWarnings("rawtypes")
 	public Operator addCriteria(Criteria criteria);
 	public Operator addOperator(Operator operator);
-	@SuppressWarnings("rawtypes")
 	public Operator addCriterias(Criteria[] criteria);
 	public Operator addOperators(Operator[] operator);
-	@SuppressWarnings("rawtypes")
-	public Operator addParams(List criteria);
-	@SuppressWarnings("rawtypes")
+	public Operator addCriterias(List<Criteria> criteria);
+	public Operator addOperators(List<Operator> operator);
+	public Operator addParams(List<?> params);
+	public Operator setCriteria(Criteria criteria);
+	public Operator setOperator(Operator operator);
+	public Operator setCriterias(Criteria[] criteria);
+	public Operator setOperators(Operator[] operator);
+	public Operator setCriterias(List<Criteria> criteria);
+	public Operator setOperators(List<Operator> operator);
+	public Operator setParams(List<?> params);
+
 	public List getParams();
 	
 }

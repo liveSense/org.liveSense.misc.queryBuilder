@@ -1,6 +1,9 @@
 package org.liveSense.misc.queryBuilder.operators;
 
 import java.io.Serializable;
+import java.util.List;
+
+import org.liveSense.misc.queryBuilder.domains.Operator;
 
 
 public class AndOperator extends AbstractOperator implements Serializable {
@@ -47,5 +50,4 @@ public class AndOperator extends AbstractOperator implements Serializable {
 	public String getLastParamPostOperation() {
 		return "";
 	}
-
 }

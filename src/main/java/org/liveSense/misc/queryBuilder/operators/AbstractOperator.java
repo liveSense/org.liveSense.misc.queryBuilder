@@ -15,7 +15,7 @@ public abstract class AbstractOperator implements Operator {
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void addParams(Object params) {
+	public void addParamsObject(Object params) {
 		if (params == null) return;
 		if (params instanceof List) {
 			this.params.addAll((List)params);
@@ -30,7 +30,7 @@ public abstract class AbstractOperator implements Operator {
 
 	public void setParams(Object params) {
 		this.params.clear();
-		addParams(params);
+		addParamsObject(params);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -38,33 +38,86 @@ public abstract class AbstractOperator implements Operator {
 		return params;
 	}
 
-	@SuppressWarnings({ "rawtypes" })
 	public Operator addCriteria(Criteria criteria) {
-		addParams(criteria);
+		addParamsObject(criteria);
 		return this;
 	}
 
 	public Operator addOperator(Operator operators) {
-		addParams(operators);
+		addParamsObject(operators);
 		return this;
 	}
 
-	@SuppressWarnings({ "rawtypes" })
 	public Operator addCriterias(Criteria[] criteria) {
-		addParams(criteria);
+		addParamsObject(criteria);
 		return this;
 	}
 
 	public Operator addOperators(Operator[] operators) {
-		addParams(operators);
+		addParamsObject(operators);
 		return this;
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public Operator addParams(List params) {
-		addParams(params);
+	public Operator addCriterias(List<Criteria> criterias) {
+		addParamsObject(params);
 		return this;
 	}
 
+	public Operator addOperators(List<Operator> operators) {
+		addParamsObject(params);
+		return this;
+	}
+
+	public Operator addParams(List<?> params) {
+		addParamsObject(params);
+		return this;
+	}
 	
+	@SuppressWarnings("rawtypes")
+	public Operator setCriteria(Criteria criteria) {
+		params = new ArrayList();
+		addParamsObject(criteria);
+		return this;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public Operator setOperator(Operator operators) {
+		params = new ArrayList();
+		addParamsObject(operators);
+		return this;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Operator setCriterias(Criteria[] criteria) {
+		params = new ArrayList();
+		addParamsObject(criteria);
+		return this;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Operator setOperators(Operator[] operators) {
+		params = new ArrayList();
+		addParamsObject(operators);
+		return this;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public Operator setCriterias(List<Criteria> criterias) {
+		params = new ArrayList();
+		addParamsObject(params);
+		return this;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public Operator setOperators(List<Operator> operators) {
+		params = new ArrayList();
+		addParamsObject(params);
+		return this;
+	}
+
+	public Operator setParams(List<?> params) {
+		addParamsObject(params);
+		return this;
+	}
+
 }

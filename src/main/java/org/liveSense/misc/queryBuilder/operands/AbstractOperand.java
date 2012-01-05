@@ -1,9 +1,6 @@
 package org.liveSense.misc.queryBuilder.operands;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
 
 import org.liveSense.misc.queryBuilder.beans.Value;
 import org.liveSense.misc.queryBuilder.domains.Operand;

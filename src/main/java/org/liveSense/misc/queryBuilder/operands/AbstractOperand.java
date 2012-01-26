@@ -53,7 +53,6 @@ public class AbstractOperand implements Operand, Serializable {
 		return function;
 	}
 
-	@SuppressWarnings("unused")
 	public void setSource(Object source) {
 		this.source = new Value(source);
 	}

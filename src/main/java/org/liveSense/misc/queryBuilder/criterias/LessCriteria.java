@@ -3,10 +3,10 @@ package org.liveSense.misc.queryBuilder.criterias;
 import java.io.Serializable;
 
 import org.liveSense.misc.queryBuilder.beans.Value;
-import org.liveSense.misc.queryBuilder.domains.Operand;
-import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.domains.Criteria;
+import org.liveSense.misc.queryBuilder.operands.AbstractOperand;
 
-public class LessCriteria extends AbstractCriteria implements Serializable {	
+public class LessCriteria extends AbstractCriteria implements Serializable, Criteria {	
 	private static final long serialVersionUID = -1736289212413096101L;
 
 	private Value value;
@@ -24,7 +24,7 @@ public class LessCriteria extends AbstractCriteria implements Serializable {
 		this.value = value;		
 	}
 	
-	public LessCriteria(Operand operand, Value value){
+	public LessCriteria(AbstractOperand operand, Value value){
 		super(operand);
 		this.value = value;			
 	}	
@@ -38,7 +38,7 @@ public class LessCriteria extends AbstractCriteria implements Serializable {
 		this.value = new Value(value);		
 	}
 	
-	public LessCriteria(Operand operand, Object value){
+	public LessCriteria(AbstractOperand operand, Object value){
 		super(operand);
 		this.value = new Value(value);			
 	}	
@@ -51,7 +51,7 @@ public class LessCriteria extends AbstractCriteria implements Serializable {
 		this.value = value;
 	}
 
-	public String getQueryTemplate() throws QueryBuilderException {
+	public String getQueryTemplate() {
 		return "$field$<$value$";
 	}
 

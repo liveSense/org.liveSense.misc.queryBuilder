@@ -1,11 +1,12 @@
 package org.liveSense.misc.queryBuilder;
 
 import org.liveSense.misc.queryBuilder.beans.Value;
+import org.liveSense.misc.queryBuilder.beans.ValueDomain;
 import org.liveSense.misc.queryBuilder.beans.ValueDomain.ValueTypes;
 
 public class ValueProcessor {
 
-	public static Object processValue(Value value) {
+	public static Object processValue(ValueDomain value) {
 		if (value.getType() == ValueTypes.Integer) return value.getValueAsInteger();
 		else if (value.getType() == ValueTypes.Long) return value.getValueAsLong();
 		else if (value.getType() == ValueTypes.String) return value.getValueAsString();
@@ -16,7 +17,7 @@ public class ValueProcessor {
 		else if (value.getType() == ValueTypes.BigInteger) return value.getValueAsBigInteger();
 		else if (value.getType() == ValueTypes.Enum) return value.getValueAsEnum();
 		else if (value.getType() == ValueTypes.Float) return value.getValueAsFloat();
-		else return value.getValueAsObject();
+		else return ((Value)value).getValueAsObject();
 	}
 
 }

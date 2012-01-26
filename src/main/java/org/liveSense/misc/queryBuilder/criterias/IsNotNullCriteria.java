@@ -2,11 +2,12 @@ package org.liveSense.misc.queryBuilder.criterias;
 
 import java.io.Serializable;
 
-import org.liveSense.misc.queryBuilder.domains.Operand;
-import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.domains.Criteria;
+import org.liveSense.misc.queryBuilder.operands.AbstractOperand;
 
-public class IsNotNullCriteria extends AbstractCriteria implements Serializable {
-	
+public class IsNotNullCriteria extends AbstractCriteria implements Serializable, Criteria {
+	private static final long serialVersionUID = -1918626129018546873L;
+
 	public IsNotNullCriteria() {
 		super();
 	}
@@ -19,11 +20,11 @@ public class IsNotNullCriteria extends AbstractCriteria implements Serializable 
 		super(alias, fieldName);
 	}
 	
-	public IsNotNullCriteria(Operand operand){
+	public IsNotNullCriteria(AbstractOperand operand){
 		super(operand);		
 	}	
 	
-	public String getQueryTemplate() throws QueryBuilderException {
+	public String getQueryTemplate() {
 		return "$field$ IS NOT NULL";
 	}
 	

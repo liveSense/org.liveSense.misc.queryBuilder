@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.liveSense.misc.queryBuilder.beans.Value;
+import org.liveSense.misc.queryBuilder.domains.Criteria;
 import org.liveSense.misc.queryBuilder.domains.Operand;
-import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
 
-public class InCriteria extends AbstractCriteria implements Serializable {
+public class InCriteria extends AbstractCriteria implements Serializable, Criteria {
 	private static final long serialVersionUID = 1442158199666534479L;
 
 	private List<Value> values;
@@ -39,6 +39,7 @@ public class InCriteria extends AbstractCriteria implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public InCriteria(Operand operand, String alias, String fieldName, Value[] values) {
 		this(operand, "", fieldName, (List)null);
 		this.values = new ArrayList<Value>();
@@ -47,6 +48,7 @@ public class InCriteria extends AbstractCriteria implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public InCriteria(Operand operand, String alias, String fieldName, Object[] values) {
 		this(operand, alias, fieldName, (List)null);
 		this.values = new ArrayList<Value>();
@@ -97,7 +99,7 @@ public class InCriteria extends AbstractCriteria implements Serializable {
 		this.values = values;
 	}
 
-	public String getQueryTemplate() throws QueryBuilderException {
+	public String getQueryTemplate() {
 		return "$field$ IN ($values$)";
 	}
 

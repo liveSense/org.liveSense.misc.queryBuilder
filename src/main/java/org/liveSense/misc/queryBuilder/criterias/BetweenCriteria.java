@@ -3,10 +3,11 @@ package org.liveSense.misc.queryBuilder.criterias;
 import java.io.Serializable;
 
 import org.liveSense.misc.queryBuilder.beans.Value;
-import org.liveSense.misc.queryBuilder.domains.Operand;
-import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.domains.Criteria;
+import org.liveSense.misc.queryBuilder.operands.AbstractOperand;
 
-public class BetweenCriteria extends AbstractCriteria implements Serializable {	
+public class BetweenCriteria extends AbstractCriteria implements Serializable, Criteria {	
+	private static final long serialVersionUID = -2435717315492292274L;
 	private Value value1;
 	private Value value2;
 
@@ -24,7 +25,7 @@ public class BetweenCriteria extends AbstractCriteria implements Serializable {
 		this.value2 = value2;				
 	}
 	
-	public BetweenCriteria(Operand operand, Value value1, Value value2){
+	public BetweenCriteria(AbstractOperand operand, Value value1, Value value2){
 		super(operand);
 		this.value1 = value1;
 		this.value2 = value2;		
@@ -38,7 +39,7 @@ public class BetweenCriteria extends AbstractCriteria implements Serializable {
 		this(alias, fieldName, new Value(value1), new Value(value2));
 	}
 	
-	public BetweenCriteria(Operand operand, Object value1, Object value2){
+	public BetweenCriteria(AbstractOperand operand, Object value1, Object value2){
 		this(operand, new Value(value1), new Value(value2));
 	}	
 
@@ -60,7 +61,7 @@ public class BetweenCriteria extends AbstractCriteria implements Serializable {
 		this.value2 = value2;
 	}
 
-	public String getQueryTemplate() throws QueryBuilderException {
+	public String getQueryTemplate() {
 		return "$field$ BETWEEN $value1$ AND $value2$";
 	}
 

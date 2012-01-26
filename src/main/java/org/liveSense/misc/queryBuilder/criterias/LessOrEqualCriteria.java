@@ -3,10 +3,11 @@ package org.liveSense.misc.queryBuilder.criterias;
 import java.io.Serializable;
 
 import org.liveSense.misc.queryBuilder.beans.Value;
-import org.liveSense.misc.queryBuilder.domains.Operand;
-import org.liveSense.misc.queryBuilder.exceptions.QueryBuilderException;
+import org.liveSense.misc.queryBuilder.domains.Criteria;
+import org.liveSense.misc.queryBuilder.operands.AbstractOperand;
 
-public class LessOrEqualCriteria extends AbstractCriteria implements Serializable {
+public class LessOrEqualCriteria extends AbstractCriteria implements Serializable, Criteria {
+	private static final long serialVersionUID = -7351790208739679712L;
 	private Value value;
 
 	public LessOrEqualCriteria() {
@@ -22,7 +23,7 @@ public class LessOrEqualCriteria extends AbstractCriteria implements Serializabl
 		this.value = value;
 	}
 
-	public LessOrEqualCriteria(Operand operand, Value value){
+	public LessOrEqualCriteria(AbstractOperand operand, Value value){
 		super(operand);
 		this.value = value;			
 	}	
@@ -36,7 +37,7 @@ public class LessOrEqualCriteria extends AbstractCriteria implements Serializabl
 		this.value = new Value(value);
 	}
 
-	public LessOrEqualCriteria(Operand operand, Object value){
+	public LessOrEqualCriteria(AbstractOperand operand, Object value){
 		super(operand);
 		this.value = new Value(value);			
 	}	
@@ -50,7 +51,7 @@ public class LessOrEqualCriteria extends AbstractCriteria implements Serializabl
 		this.value = value;
 	}
 
-	public String getQueryTemplate() throws QueryBuilderException {
+	public String getQueryTemplate() {
 		return "$field$<=$value$";
 	}
 

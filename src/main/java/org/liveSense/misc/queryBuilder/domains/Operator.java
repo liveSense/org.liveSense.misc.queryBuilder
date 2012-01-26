@@ -2,6 +2,11 @@ package org.liveSense.misc.queryBuilder.domains;
 
 import java.util.List;
 
+import org.liveSense.misc.queryBuilder.criterias.AbstractCriteria;
+import org.liveSense.misc.queryBuilder.operators.AndOperator;
+import org.liveSense.misc.queryBuilder.operators.NotOperator;
+import org.liveSense.misc.queryBuilder.operators.OrOperator;
+
 
 
 public interface Operator {
@@ -21,7 +26,10 @@ public interface Operator {
 	public Operator addCriterias(List<Criteria> criteria);
 	public Operator addOperators(List<Operator> operator);
 	public Operator addParams(List<?> params);
-	public Operator setCriteria(Criteria criteria);
+	public void setCriteria(AbstractCriteria criteria);
+	public void setOperator(AndOperator operator);
+	public void setOperator(OrOperator operator);
+	public void setOperator(NotOperator operator);
 	public Operator setOperator(Operator operator);
 	public Operator setCriterias(Criteria[] criteria);
 	public Operator setOperators(Operator[] operator);

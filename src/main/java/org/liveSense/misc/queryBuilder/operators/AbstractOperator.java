@@ -1,14 +1,13 @@
 package org.liveSense.misc.queryBuilder.operators;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+import org.liveSense.misc.queryBuilder.criterias.AbstractCriteria;
 import org.liveSense.misc.queryBuilder.domains.Criteria;
 import org.liveSense.misc.queryBuilder.domains.Operator;
 
-public abstract class AbstractOperator implements Operator {
+public class AbstractOperator implements Operator {
 
 	@SuppressWarnings("rawtypes")
 	List params = new ArrayList();
@@ -48,6 +47,21 @@ public abstract class AbstractOperator implements Operator {
 		return this;
 	}
 
+	public Operator addOperator(AndOperator operators) {
+		addParamsObject(operators);
+		return this;
+	}
+	
+	public Operator addOperator(NotOperator operators) {
+		addParamsObject(operators);
+		return this;
+	}
+
+	public Operator addOperator(OrOperator operators) {
+		addParamsObject(operators);
+		return this;
+	}
+
 	public Operator addCriterias(Criteria[] criteria) {
 		addParamsObject(criteria);
 		return this;
@@ -74,19 +88,42 @@ public abstract class AbstractOperator implements Operator {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public Operator setCriteria(Criteria criteria) {
+	public void setCriteria(AbstractCriteria criteria) {
 		params = new ArrayList();
 		addParamsObject(criteria);
-		return this;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Operator setOperator(Operator operators) {
+	public AbstractOperator setOperator(Operator operators) {
 		params = new ArrayList();
 		addParamsObject(operators);
 		return this;
 	}
-	
+
+	@SuppressWarnings("rawtypes")
+	public void setOperator(AndOperator operators) {
+		params = new ArrayList();
+		addParamsObject(operators);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void setOperator(AbstractOperator operators) {
+		params = new ArrayList();
+		addParamsObject(operators);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void setOperator(OrOperator operators) {
+		params = new ArrayList();
+		addParamsObject(operators);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void setOperator(NotOperator operators) {
+		params = new ArrayList();
+		addParamsObject(operators);
+	}
+
 	@SuppressWarnings("rawtypes")
 	public Operator setCriterias(Criteria[] criteria) {
 		params = new ArrayList();
@@ -118,6 +155,38 @@ public abstract class AbstractOperator implements Operator {
 	public Operator setParams(List<?> params) {
 		addParamsObject(params);
 		return this;
+	}
+
+	public String getParamPreOperation() {
+		return null;
+	}
+
+	public String getParamPostOperation() {
+		return null;
+	}
+
+	public String getFirstParamPreOperation() {
+		return null;
+	}
+
+	public String getMiddleParamPreOperation() {
+		return null;
+	}
+
+	public String getLastParamPreOperation() {
+		return null;
+	}
+
+	public String getFirstParamPostOperation() {
+		return null;
+	}
+
+	public String getMiddleParamPostOperation() {
+		return null;
+	}
+
+	public String getLastParamPostOperation() {
+		return null;
 	}
 
 }

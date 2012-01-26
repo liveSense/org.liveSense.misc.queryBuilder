@@ -10,6 +10,9 @@ public class Value implements ValueDomain, Serializable {
 	private static final long serialVersionUID = -3184057249131641791L;
 	Object value;
 
+	public Value() {
+	}
+
 	private void setObjectValue(Object value) {
 		this.value = value;
 	}

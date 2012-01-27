@@ -3,6 +3,7 @@ package org.liveSense.misc.queryBuilder.domains;
 import java.util.List;
 
 import org.liveSense.misc.queryBuilder.criterias.AbstractCriteria;
+import org.liveSense.misc.queryBuilder.operators.AbstractOperator;
 import org.liveSense.misc.queryBuilder.operators.AndOperator;
 import org.liveSense.misc.queryBuilder.operators.NotOperator;
 import org.liveSense.misc.queryBuilder.operators.OrOperator;
@@ -19,23 +20,23 @@ public interface Operator {
 	public String getFirstParamPostOperation();
 	public String getMiddleParamPostOperation();
 	public String getLastParamPostOperation();
-	public Operator addCriteria(Criteria criteria);
-	public Operator addOperator(Operator operator);
-	public Operator addCriterias(Criteria[] criteria);
-	public Operator addOperators(Operator[] operator);
-	public Operator addCriterias(List<Criteria> criteria);
-	public Operator addOperators(List<Operator> operator);
-	public Operator addParams(List<?> params);
+	public AbstractOperator addCriteria(AbstractCriteria criteria);
+	public AbstractOperator addOperator(AbstractOperator operator);
+	public AbstractOperator addCriterias(AbstractCriteria[] criteria);
+	public AbstractOperator addOperators(AbstractOperator[] operator);
+	public AbstractOperator addCriterias(List<AbstractCriteria> criteria);
+	public AbstractOperator addOperators(List<AbstractOperator> operator);
+	public AbstractOperator addParams(List<?> params);
 	public void setCriteria(AbstractCriteria criteria);
 	public void setOperator(AndOperator operator);
 	public void setOperator(OrOperator operator);
 	public void setOperator(NotOperator operator);
-	public Operator setOperator(Operator operator);
-	public Operator setCriterias(Criteria[] criteria);
-	public Operator setOperators(Operator[] operator);
-	public Operator setCriterias(List<Criteria> criteria);
-	public Operator setOperators(List<Operator> operator);
-	public Operator setParams(List<?> params);
+	public void setOperator(AbstractOperator operator);
+	public AbstractOperator setCriterias(AbstractCriteria[] criteria);
+	public AbstractOperator setOperators(AbstractOperator[] operator);
+	public void setCriterias(List<AbstractCriteria> criteria);
+	public void setOperators(List<AbstractOperator> operator);
+	public AbstractOperator setParams(List<?> params);
 
 	public List getParams();
 	

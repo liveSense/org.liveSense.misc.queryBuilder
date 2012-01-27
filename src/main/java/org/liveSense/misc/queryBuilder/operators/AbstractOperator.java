@@ -37,52 +37,52 @@ public class AbstractOperator implements Operator {
 		return params;
 	}
 
-	public Operator addCriteria(Criteria criteria) {
+	public AbstractOperator addCriteria(AbstractCriteria criteria) {
 		addParamsObject(criteria);
 		return this;
 	}
 
-	public Operator addOperator(Operator operators) {
+	public AbstractOperator addOperator(AbstractOperator operators) {
 		addParamsObject(operators);
 		return this;
 	}
 
-	public Operator addOperator(AndOperator operators) {
+	public AbstractOperator addOperator(AndOperator operators) {
 		addParamsObject(operators);
 		return this;
 	}
 	
-	public Operator addOperator(NotOperator operators) {
+	public AbstractOperator addOperator(NotOperator operators) {
 		addParamsObject(operators);
 		return this;
 	}
 
-	public Operator addOperator(OrOperator operators) {
+	public AbstractOperator addOperator(OrOperator operators) {
 		addParamsObject(operators);
 		return this;
 	}
 
-	public Operator addCriterias(Criteria[] criteria) {
+	public AbstractOperator addCriterias(AbstractCriteria[] criteria) {
 		addParamsObject(criteria);
 		return this;
 	}
 
-	public Operator addOperators(Operator[] operators) {
+	public AbstractOperator addOperators(AbstractOperator[] operators) {
 		addParamsObject(operators);
 		return this;
 	}
 
-	public Operator addCriterias(List<Criteria> criterias) {
+	public AbstractOperator addCriterias(List<AbstractCriteria> criterias) {
 		addParamsObject(params);
 		return this;
 	}
 
-	public Operator addOperators(List<Operator> operators) {
+	public AbstractOperator addOperators(List<AbstractOperator> operators) {
 		addParamsObject(params);
 		return this;
 	}
 
-	public Operator addParams(List<?> params) {
+	public AbstractOperator addParams(List<?> params) {
 		addParamsObject(params);
 		return this;
 	}
@@ -125,34 +125,32 @@ public class AbstractOperator implements Operator {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Operator setCriterias(Criteria[] criteria) {
+	public AbstractOperator setCriterias(AbstractCriteria[] criteria) {
 		params = new ArrayList();
 		addParamsObject(criteria);
 		return this;
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public Operator setOperators(Operator[] operators) {
+	public AbstractOperator setOperators(AbstractOperator[] operators) {
 		params = new ArrayList();
 		addParamsObject(operators);
 		return this;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Operator setCriterias(List<Criteria> criterias) {
+	public void setCriterias(List<AbstractCriteria> criterias) {
 		params = new ArrayList();
 		addParamsObject(params);
-		return this;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Operator setOperators(List<Operator> operators) {
+	public void setOperators(List<AbstractOperator> operators) {
 		params = new ArrayList();
 		addParamsObject(params);
-		return this;
 	}
 
-	public Operator setParams(List<?> params) {
+	public AbstractOperator setParams(List<?> params) {
 		addParamsObject(params);
 		return this;
 	}

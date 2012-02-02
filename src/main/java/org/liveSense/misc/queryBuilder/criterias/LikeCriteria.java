@@ -61,6 +61,15 @@ public class LikeCriteria extends AbstractCriteria implements Serializable, Crit
 		this.value = value;
 	}
 
+	public Value getValueValue() {
+		return value;
+	}
+	
+	public void setValueValue(
+		Value value) {
+		this.value = value;
+	}
+
 	public String getQueryTemplate() {
 		return "$field$ LIKE $value$";
 	}

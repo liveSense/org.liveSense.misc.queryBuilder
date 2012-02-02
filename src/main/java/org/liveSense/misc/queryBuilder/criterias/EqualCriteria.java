@@ -50,6 +50,15 @@ public class EqualCriteria extends AbstractCriteria implements Serializable, Cri
 		this.value = value;
 	}
 
+	public Value getValueValue() {
+		return value;
+	}
+	
+	public void setValueValue(
+		Value value) {
+		this.value = value;
+	}
+
 	public String getQueryTemplate()  {
 		return "$field$=$value$";
 	}

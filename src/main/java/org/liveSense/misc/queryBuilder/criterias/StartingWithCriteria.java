@@ -61,6 +61,15 @@ public class StartingWithCriteria extends AbstractCriteria implements Serializab
 		this.value = value;
 	}
 
+	public Value getValueValue() {
+		return value;
+	}
+	
+	public void setValueValue(
+		Value value) {
+		this.value = value;
+	}
+
 	public String getQueryTemplate() {
 		return "$field$ STARTING WITH $value$";
 	}

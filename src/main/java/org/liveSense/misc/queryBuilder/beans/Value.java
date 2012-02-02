@@ -101,6 +101,42 @@ public class Value implements ValueDomain, Serializable {
 		setObjectValue(value);
 	}
 
+	public void setValueAsString(String value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsBoolean(Boolean value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsInteger(Integer value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsLong(Long value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsDouble(Double value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsFloat(Float value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsDate(Date value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsBigInteger(BigInteger value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsBigDecimal(BigDecimal value) {
+		setObjectValue(value);
+	}
+
 	public String getValueAsString() {
 		if (getType() == ValueTypes.String) return (String)value; else return null;
 	}

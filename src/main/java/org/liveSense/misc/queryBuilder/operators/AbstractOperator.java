@@ -89,64 +89,64 @@ public class AbstractOperator implements Operator {
 	
 	@SuppressWarnings("rawtypes")
 	public void setCriteria(AbstractCriteria criteria) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(criteria);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public AbstractOperator setOperator(Operator operators) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(operators);
 		return this;
 	}
 
 	@SuppressWarnings("rawtypes")
 	public void setOperator(AndOperator operators) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(operators);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public void setOperator(AbstractOperator operators) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(operators);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public void setOperator(OrOperator operators) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(operators);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public void setOperator(NotOperator operators) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(operators);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public AbstractOperator setCriterias(AbstractCriteria[] criteria) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(criteria);
 		return this;
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public AbstractOperator setOperators(AbstractOperator[] operators) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(operators);
 		return this;
 	}
 
 	@SuppressWarnings("rawtypes")
 	public void setCriterias(List<AbstractCriteria> criterias) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(params);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public void setOperators(List<AbstractOperator> operators) {
-		params = new ArrayList();
+		//params = new ArrayList();
 		addParamsObject(params);
 	}
 
@@ -184,6 +184,24 @@ public class AbstractOperator implements Operator {
 	}
 
 	public String getLastParamPostOperation() {
+		return null;
+	}
+
+	
+	public AbstractCriteria getCriteria() {
+		return null;
+	}
+	
+	public List<AbstractCriteria> getCriterias() {
+		return null;
+	
+	}
+	
+	public AbstractOperator getOperator() {
+		return null;	
+	}
+
+	public List<AbstractOperator> getOperators() {
 		return null;
 	}
 

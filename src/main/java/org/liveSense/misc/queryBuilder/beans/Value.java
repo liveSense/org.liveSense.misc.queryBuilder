@@ -5,16 +5,20 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-
 public class Value implements ValueDomain, Serializable {
 	private static final long serialVersionUID = -3184057249131641791L;
-	Object value;
 
+	Class type;
+	Object value;
+	
 	public Value() {
 	}
 
 	private void setObjectValue(Object value) {
-		this.value = value;
+		if (value != null) { 
+			type = value.getClass();
+			this.value = value;
+		}
 	}
 
 	public Value(Object value) {
@@ -137,54 +141,61 @@ public class Value implements ValueDomain, Serializable {
 		setObjectValue(value);
 	}
 
+	
 	public String getValueAsString() {
-		if (getType() == ValueTypes.String) return (String)value; else return null;
+		if (getType() == ValueTypes.String) return (String)getValueAsObject(); else return null;
 	}
 
 	public Boolean getValueAsBoolean() {
-		if (getType() == ValueTypes.Boolean) return (Boolean)value; else return null;
+		if (getType() == ValueTypes.Boolean) return (Boolean)getValueAsObject(); else return null;
 	}
 
 	public Integer getValueAsInteger() {
-		if (getType() == ValueTypes.Integer) return (Integer)value; else return null;
+		if (getType() == ValueTypes.Integer) return (Integer)getValueAsObject(); else return null;
 	}
 
 	public Long getValueAsLong() {
-		if (getType() == ValueTypes.Long) return (Long)value; else return null;
+		if (getType() == ValueTypes.Long) return (Long)getValueAsObject(); else return null;
 	}
 
 	public Double getValueAsDouble() {
-		if (getType() == ValueTypes.Double) return (Double)value; else return null;
+		if (getType() == ValueTypes.Double) return (Double)getValueAsObject(); else return null;
 	}
 
 	public Float getValueAsFloat() {
-		if (getType() == ValueTypes.Float) return (Float)value; else return null;
+		if (getType() == ValueTypes.Float) return (Float)getValueAsObject(); else return null;
 	}
 
 	public Date getValueAsDate() {
-		if (getType() == ValueTypes.Date) return (Date)value; else return null;
+		if (getType() == ValueTypes.Date) return (Date)getValueAsObject(); else return null;
 	}
 
 	public Enum getValueAsEnum() {
-		if (getType() == ValueTypes.Enum) return (Enum)value; else return null;
+		if (getType() == ValueTypes.Enum) return (Enum)getValueAsObject(); else return null;
 	}
 
 	public BigInteger getValueAsBigInteger() {
-		if (getType() == ValueTypes.BigInteger) return (BigInteger)value; else return null;
+		if (getType() == ValueTypes.BigInteger) return (BigInteger)getValueAsObject(); else return null;
 	}
 
 	public BigDecimal getValueAsBigDecimal() {
-		if (getType() == ValueTypes.BigDecimal) return (BigDecimal)value; else return null;
+		if (getType() == ValueTypes.BigDecimal) return (BigDecimal)getValueAsObject(); else return null;
 	}
 
 	public Object getValueAsObject() {
 		return value;
 	}
 
+	public void setType(ValueTypes type) {
+	}
+	
 	public ValueTypes getType() {
 		if (value == null) {
 			return ValueTypes.None;
 		} else {
+			if (value instanceof Value)
+				value = ((Value) value).getValueAsObject();
+			
 			if (value instanceof Date) {
 				return ValueTypes.Date;
 			} else if (value instanceof BigDecimal) {

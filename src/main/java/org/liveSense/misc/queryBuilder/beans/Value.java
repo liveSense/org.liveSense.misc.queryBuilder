@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 public class Value implements ValueDomain, Serializable {
 	private static final long serialVersionUID = -3184057249131641791L;
@@ -97,6 +98,10 @@ public class Value implements ValueDomain, Serializable {
 		setObjectValue(value);
 	}
 
+	public void setValue(Object value) {
+		setObjectValue(value);
+	}
+
 	public void setValue(BigInteger value) {
 		setObjectValue(value);
 	}
@@ -141,7 +146,22 @@ public class Value implements ValueDomain, Serializable {
 		setObjectValue(value);
 	}
 
-	
+	public void setValue(List value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsObject(Object value) {
+		setObjectValue(value);
+	}
+
+	public void setValueAsList(List<Value> value) {
+		setObjectValue(value);
+	}
+
+	public Object getValue() {
+		return getValueAsObject(); 
+	}
+
 	public String getValueAsString() {
 		if (getType() == ValueTypes.String) return (String)getValueAsObject(); else return null;
 	}
@@ -182,6 +202,10 @@ public class Value implements ValueDomain, Serializable {
 		if (getType() == ValueTypes.BigDecimal) return (BigDecimal)getValueAsObject(); else return null;
 	}
 
+	public List<Value> getValueAsList() {
+		if (getType() == ValueTypes.List) return (List<Value>)getValueAsObject(); else return null;
+	}
+
 	public Object getValueAsObject() {
 		return value;
 	}
@@ -216,10 +240,11 @@ public class Value implements ValueDomain, Serializable {
 				return ValueTypes.Long;
 			} else if (value instanceof String) {
 				return ValueTypes.String;
+			} else if (value instanceof List) {
+				return ValueTypes.List;
 			} else {
 				return ValueTypes.Unknown;			
 			}
 		}
 	}
-
 }

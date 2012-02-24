@@ -12,7 +12,7 @@ public class AndOperator extends AbstractOperator implements Serializable {
 	
 	public AndOperator(Object params) {
 		super();
-		setParams(params);
+		addParamsObject(params);
 	}
 
 	public String getParamPreOperation() {

@@ -13,7 +13,7 @@ public class NotOperator extends AbstractOperator implements Serializable {
 	
 	public NotOperator(Object params) {
 		super();
-		setParams(params);
+		addParamsObject(params);
 	}
 
 	public String getParamPreOperation() {

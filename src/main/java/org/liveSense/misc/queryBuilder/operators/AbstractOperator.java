@@ -4,6 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.liveSense.misc.queryBuilder.criterias.AbstractCriteria;
+import org.liveSense.misc.queryBuilder.criterias.BetweenCriteria;
+import org.liveSense.misc.queryBuilder.criterias.DistinctFromCriteria;
+import org.liveSense.misc.queryBuilder.criterias.EqualCriteria;
+import org.liveSense.misc.queryBuilder.criterias.GreaterCriteria;
+import org.liveSense.misc.queryBuilder.criterias.GreaterOrEqualCriteria;
+import org.liveSense.misc.queryBuilder.criterias.InCriteria;
+import org.liveSense.misc.queryBuilder.criterias.IsNotNullCriteria;
+import org.liveSense.misc.queryBuilder.criterias.IsNullCriteria;
+import org.liveSense.misc.queryBuilder.criterias.LessCriteria;
+import org.liveSense.misc.queryBuilder.criterias.LessOrEqualCriteria;
+import org.liveSense.misc.queryBuilder.criterias.LikeCriteria;
+import org.liveSense.misc.queryBuilder.criterias.NotEqualCriteria;
+import org.liveSense.misc.queryBuilder.criterias.StartingWithCriteria;
 import org.liveSense.misc.queryBuilder.domains.Criteria;
 import org.liveSense.misc.queryBuilder.domains.Operator;
 
@@ -11,27 +24,30 @@ public class AbstractOperator implements Operator {
 
 	@SuppressWarnings("rawtypes")
 	List params = new ArrayList();
-	
+
+//	List<Criteria> criterias = new ArrayList<Criteria>();
+//	List<Operator> operators = new ArrayList<Operator>();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addParamsObject(Object params) {
 		if (params == null) return;
 		if (params instanceof List) {
-			this.params.addAll((List)params);
+			for (Object  o: (List)params) {
+				addParamsObject(o);
+			}
 		} else if (params instanceof Object[]) {
 			for (int i = 0; i < ((Object[])params).length; i++) {
-				this.params.add(((Object[])params)[i]);
-			}			
+				addParamsObject(((Object[])params)[i]);
+			}
+//		} else if (params instanceof Criteria) {
+//			criterias.add((Criteria)params);
+//		} else if (params instanceof Operator) {
+//			operators.add((Operator)params);
 		} else {
 			this.params.add(params);
 		}
 	}
-
-	public void setParams(Object params) {
-		this.params.clear();
-		addParamsObject(params);
-	}
-
+	
 	@SuppressWarnings("rawtypes")
 	public List getParams() {
 		return params;
@@ -89,51 +105,95 @@ public class AbstractOperator implements Operator {
 	
 	@SuppressWarnings("rawtypes")
 	public void setCriteria(AbstractCriteria criteria) {
-		//params = new ArrayList();
+		addParamsObject(criteria);
+	}
+
+	public void setBetweenCriteria(BetweenCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setDistinctFromCriteria(DistinctFromCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setEqualCriteria(EqualCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setGreaterCriteria(GreaterCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setGreaterOrEqualCriteria(GreaterOrEqualCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setInCriteria(InCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setIsNotNullCriteria(IsNotNullCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setIsNullCriteria(IsNullCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setLessCriteria(LessCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setLessOrEqualCriteria(LessOrEqualCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setLikeCriteria(LikeCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setNotEqualCriteria(NotEqualCriteria criteria) {
+		addParamsObject(criteria);
+	}
+
+	public void setStartingWithCriteria(StartingWithCriteria criteria) {
 		addParamsObject(criteria);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public AbstractOperator setOperator(Operator operators) {
-		//params = new ArrayList();
 		addParamsObject(operators);
 		return this;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void setOperator(AndOperator operators) {
-		//params = new ArrayList();
+	public void setAndOperator(AndOperator operators) {
 		addParamsObject(operators);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public void setOperator(AbstractOperator operators) {
-		//params = new ArrayList();
 		addParamsObject(operators);
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void setOperator(OrOperator operators) {
-		//params = new ArrayList();
+	public void setOrOperator(OrOperator operators) {
 		addParamsObject(operators);
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void setOperator(NotOperator operators) {
-		//params = new ArrayList();
+	public void setNotOperator(NotOperator operators) {
 		addParamsObject(operators);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public AbstractOperator setCriterias(AbstractCriteria[] criteria) {
-		//params = new ArrayList();
 		addParamsObject(criteria);
 		return this;
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public AbstractOperator setOperators(AbstractOperator[] operators) {
-		//params = new ArrayList();
 		addParamsObject(operators);
 		return this;
 	}
@@ -191,13 +251,81 @@ public class AbstractOperator implements Operator {
 	public AbstractCriteria getCriteria() {
 		return null;
 	}
-	
-	public List<AbstractCriteria> getCriterias() {
+
+	public BetweenCriteria getBetweenCriteria() {
 		return null;
-	
+	}
+
+	public DistinctFromCriteria getDistinctFromCriteria() {
+		return null;
+	}
+
+	public EqualCriteria getEqualCriteria() {
+		return null;
+	}
+
+	public GreaterCriteria getGreaterCriteria() {
+		return null;
+	}
+
+	public GreaterOrEqualCriteria getGreaterOrEqualCriteria() {
+		return null;
+	}
+
+	public InCriteria getInCriteria() {
+		return null;
+	}
+
+	public IsNotNullCriteria getIsNotNullCriteria() {
+		return null;
+	}
+
+	public IsNullCriteria getIsNullCriteria() {
+		return null;
+	}
+
+	public LessCriteria getLessCriteria() {
+		return null;
+	}
+
+	public LessOrEqualCriteria getLessOrEqualCriteria() {
+		return null;
+	}
+
+	public LikeCriteria getLikeCriteria() {
+		return null;
+	}
+
+	public NotEqualCriteria getNotEqualCriteria() {
+		return null;
+	}
+
+	public StartingWithCriteria getStartingWithCriteria() {
+		return null;
+	}
+
+	public List<AbstractCriteria> getCriterias() {
+		for (Object param : params) {
+			if (param instanceof Criteria) {
+				
+			}
+		}
+		return null;
 	}
 	
 	public AbstractOperator getOperator() {
+		return null;	
+	}
+	
+	public AndOperator getAndOperator() {
+		return null;	
+	}
+	
+	public OrOperator getOrOperator() {
+		return null;	
+	}
+
+	public NotOperator getNotOperator() {
 		return null;	
 	}
 

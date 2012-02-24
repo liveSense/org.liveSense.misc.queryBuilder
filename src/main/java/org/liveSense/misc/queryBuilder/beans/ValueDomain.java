@@ -3,10 +3,11 @@ package org.liveSense.misc.queryBuilder.beans;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 public interface ValueDomain  {		
 
-	public enum ValueTypes{Unknown, None, String, Boolean, Integer, Long, Double, Float, Date, Enum, BigInteger, BigDecimal};
+	public enum ValueTypes{Unknown, None, String, Boolean, Integer, Long, Double, Float, Date, Enum, BigInteger, BigDecimal, List};
 	
 	public void setValue(String source);
 
@@ -27,6 +28,32 @@ public interface ValueDomain  {
 	public void setValue(BigInteger source);
 
 	public void setValue(BigDecimal source);
+
+	public void setValue(Object source);
+
+	public void setValue(@SuppressWarnings("rawtypes") List source);
+
+	public void setValueAsString(String source);
+
+	public void setValueAsBoolean(Boolean source);
+
+	public void setValueAsInteger(Integer source);
+
+	public void setValueAsLong(Long source);
+
+	public void setValueAsDouble(Double source);
+
+	public void setValueAsFloat(Float source);
+
+	public void setValueAsDate(Date source);
+
+	public void setValueAsBigInteger(BigInteger source);
+
+	public void setValueAsBigDecimal(BigDecimal source);
+
+	public void setValueAsObject(Object source);
+
+	public void setValueAsList(@SuppressWarnings("rawtypes") List<Value> source);
 
 	public ValueTypes getType();
 	
@@ -50,6 +77,8 @@ public interface ValueDomain  {
 	
 	public BigDecimal getValueAsBigDecimal();
 
+	public List<Value> getValueAsList();
 
+	public Object getValue();
 	
 }

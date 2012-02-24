@@ -40,21 +40,12 @@ public class DistinctFromCriteria extends AbstractCriteria implements Serializab
 	public DistinctFromCriteria(AbstractOperand operand, Object value){
 		this(operand, new Value(value));
 	}
-	
+
 	public Value getValue() {
 		return value;
 	}
 	
 	public void setValue(
-		Value value) {
-		this.value = value;
-	}
-
-	public Value getValueValue() {
-		return value;
-	}
-	
-	public void setValueValue(
 		Value value) {
 		this.value = value;
 	}

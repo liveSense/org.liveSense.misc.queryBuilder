@@ -49,15 +49,6 @@ public class GreaterCriteria extends AbstractCriteria implements Serializable, C
 		this.value = value;
 	}
 
-	public Value getValueValue() {
-		return value;
-	}
-	
-	public void setValueValue(
-		Value value) {
-		this.value = value;
-	}
-
 	public String getQueryTemplate() {
 		return "$field$>$value$";
 	}

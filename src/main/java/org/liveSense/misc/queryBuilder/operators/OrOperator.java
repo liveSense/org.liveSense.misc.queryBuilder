@@ -13,7 +13,7 @@ public class OrOperator extends AbstractOperator implements Serializable {
 	
 	public OrOperator(Object params) {
 		super();
-		setParams(params);
+		addParamsObject(params);
 	}
 
 	public String getParamPreOperation() {

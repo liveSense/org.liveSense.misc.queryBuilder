@@ -25,9 +25,6 @@ public class AbstractOperator implements Operator {
 	@SuppressWarnings("rawtypes")
 	List params = new ArrayList();
 
-//	List<Criteria> criterias = new ArrayList<Criteria>();
-//	List<Operator> operators = new ArrayList<Operator>();
-	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addParamsObject(Object params) {
 		if (params == null) return;
@@ -39,10 +36,6 @@ public class AbstractOperator implements Operator {
 			for (int i = 0; i < ((Object[])params).length; i++) {
 				addParamsObject(((Object[])params)[i]);
 			}
-//		} else if (params instanceof Criteria) {
-//			criterias.add((Criteria)params);
-//		} else if (params instanceof Operator) {
-//			operators.add((Operator)params);
 		} else {
 			this.params.add(params);
 		}
@@ -248,62 +241,140 @@ public class AbstractOperator implements Operator {
 	}
 
 	
+	// Dummy getters. Theese needed for GWT, to able to
+	// create setters - there is no setter without getters
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public AbstractCriteria getCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public BetweenCriteria getBetweenCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public DistinctFromCriteria getDistinctFromCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public EqualCriteria getEqualCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public GreaterCriteria getGreaterCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public GreaterOrEqualCriteria getGreaterOrEqualCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public InCriteria getInCriteria() {
 		return null;
 	}
+
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 
 	public IsNotNullCriteria getIsNotNullCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public IsNullCriteria getIsNullCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public LessCriteria getLessCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public LessOrEqualCriteria getLessOrEqualCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public LikeCriteria getLikeCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public NotEqualCriteria getNotEqualCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public StartingWithCriteria getStartingWithCriteria() {
 		return null;
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public List<AbstractCriteria> getCriterias() {
 		for (Object param : params) {
 			if (param instanceof Criteria) {
@@ -313,22 +384,47 @@ public class AbstractOperator implements Operator {
 		return null;
 	}
 	
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public AbstractOperator getOperator() {
 		return null;	
 	}
 	
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public AndOperator getAndOperator() {
 		return null;	
 	}
 	
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public OrOperator getOrOperator() {
 		return null;	
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public NotOperator getNotOperator() {
 		return null;	
 	}
 
+	/**
+	 * Use getParams();
+	 * @return
+	 */
+	@Deprecated
 	public List<AbstractOperator> getOperators() {
 		return null;
 	}

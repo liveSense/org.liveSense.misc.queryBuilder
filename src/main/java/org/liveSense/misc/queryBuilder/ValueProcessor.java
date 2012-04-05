@@ -15,7 +15,6 @@ public class ValueProcessor {
 		else if (value.getType() == ValueTypes.Double) return value.getValueAsDouble();
 		else if (value.getType() == ValueTypes.BigDecimal) return value.getValueAsBigDecimal();
 		else if (value.getType() == ValueTypes.BigInteger) return value.getValueAsBigInteger();
-		else if (value.getType() == ValueTypes.Enum) return value.getValueAsEnum();
 		else if (value.getType() == ValueTypes.Float) return value.getValueAsFloat();
 		else return ((Value)value).getValueAsObject();
 	}

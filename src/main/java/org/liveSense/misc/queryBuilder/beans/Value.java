@@ -54,10 +54,6 @@ public class Value implements ValueDomain, Serializable {
 		setObjectValue(value);
 	}
 
-	public Value(Enum<?> value) {
-		setObjectValue(value);
-	}
-
 	public Value(BigInteger value) {
 		setObjectValue(value);
 	}
@@ -190,10 +186,6 @@ public class Value implements ValueDomain, Serializable {
 		if (getType() == ValueTypes.Date) return (Date)getValueAsObject(); else return null;
 	}
 
-	public Enum getValueAsEnum() {
-		if (getType() == ValueTypes.Enum) return (Enum)getValueAsObject(); else return null;
-	}
-
 	public BigInteger getValueAsBigInteger() {
 		if (getType() == ValueTypes.BigInteger) return (BigInteger)getValueAsObject(); else return null;
 	}
@@ -230,8 +222,6 @@ public class Value implements ValueDomain, Serializable {
 				return ValueTypes.Boolean;
 			} else if (value instanceof Double) {
 				return ValueTypes.Double;
-			} else if (value instanceof Enum) {
-				return ValueTypes.Enum;
 			} else if (value instanceof Float) {
 				return ValueTypes.Float;
 			} else if (value instanceof Integer) {

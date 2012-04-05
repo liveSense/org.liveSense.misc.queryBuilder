@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ValueDomain  {		
 
-	public enum ValueTypes{Unknown, None, String, Boolean, Integer, Long, Double, Float, Date, Enum, BigInteger, BigDecimal, List};
+	public enum ValueTypes{Unknown, None, String, Boolean, Integer, Long, Double, Float, Date, BigInteger, BigDecimal, List};
 	
 	public void setValue(String source);
 
@@ -22,8 +22,6 @@ public interface ValueDomain  {
 	public void setValue(Float source);
 
 	public void setValue(Date source);
-
-	public void setValue(Enum<?> source);
 
 	public void setValue(BigInteger source);
 
@@ -70,8 +68,6 @@ public interface ValueDomain  {
 	public Float getValueAsFloat();
 	
 	public Date getValueAsDate();
-	
-	public Enum getValueAsEnum();
 	
 	public BigInteger getValueAsBigInteger();
 	

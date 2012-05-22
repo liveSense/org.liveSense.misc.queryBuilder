@@ -63,7 +63,6 @@
 						<Export-Package>
 							org.liveSense.misc.queryBuilder.*
 						</Export-Package>
-						<Embed-Dependency>commons-beanutils</Embed-Dependency>
 					</instructions>
 				</configuration>
 			</plugin>
@@ -80,7 +79,6 @@
 		<dependency>
     		<groupId>commons-beanutils</groupId>
     		<artifactId>commons-beanutils</artifactId>
-    		<version>1.8.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.liveSense</groupId>

@@ -17,7 +17,7 @@
 	<artifactId>org.liveSense.misc.queryBuilder</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>liveSense SQL QueryBuilder</name>
+	<name>liveSense :: Misc :: SQL QueryBuilder</name>
 	<description>liveSense SQL QueryBuilder
 	</description>
 	<build>

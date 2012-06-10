@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
+
+import org.liveSense.core.BaseAnnotationHelper;
 import org.liveSense.misc.queryBuilder.clauses.DefaultLimitClause;
 import org.liveSense.misc.queryBuilder.domains.Criteria;
 import org.liveSense.misc.queryBuilder.domains.LimitClause;
@@ -71,6 +74,7 @@ public abstract class QueryBuilder {
 
 	public void setOrderBy(List<OrderByClause> orderBy) {
 		this.orderBy = orderBy;
+		processOrderBy();
 	}
 
 	public Map<String, Object> getParameters() {
@@ -82,6 +86,18 @@ public abstract class QueryBuilder {
 		this.parameters = parameters;
 	}
 
+	public void processOrderBy() {
+		if (orderBy != null) {
+			for (OrderByClause o : orderBy) {
+				if (clazz != null) {
+					Object[] annotations = BaseAnnotationHelper.findFieldAnnotationByAnnotationClass(clazz, o.getFieldName(), Column.class);
+					if (annotations != null && annotations.length > 0) {
+						o.setFieldName(((Column)annotations[0]).name());
+					}
+				}		
+			}
+		}
+	}
 	
 	//alternate getters and setters
 	public void setOrderBy(OrderByClause[] orderBy) {
@@ -89,6 +105,7 @@ public abstract class QueryBuilder {
 		for (int i = 0; i < orderBy.length; i++) {
 			this.orderBy.add(orderBy[i]);
 		}
+		processOrderBy();
 	}
 	
 	public void setOrderBy(OrderByClause orderBy) {

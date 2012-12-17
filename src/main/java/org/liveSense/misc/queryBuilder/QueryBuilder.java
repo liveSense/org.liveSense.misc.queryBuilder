@@ -118,15 +118,25 @@ public abstract class QueryBuilder {
 	}
 	
 	public String buildWhere(Operator where) throws QueryBuilderException {
-		return buildWhere(null, where);
+		return buildWhere(null, where, null);
+	}
+	
+	public String buildWhere(Operator where, ToSQLStringEvent toSQLStringEvent) throws QueryBuilderException {
+		return buildWhere(null, where, toSQLStringEvent);
 	}
 
 	public String buildWhere(Criteria where) throws QueryBuilderException {
-		return buildWhere(null, where);
+		return buildWhere(null, where, null);		
+	}
+	public String buildWhere(Criteria where, ToSQLStringEvent toSQLStringEvent) throws QueryBuilderException {
+		return buildWhere(null, where, toSQLStringEvent);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public String buildWhere(Class<?> clazz, Operator where) throws QueryBuilderException {
+		return buildWhere(clazz, where, null);
+	}
+		
+	public String buildWhere(Class<?> clazz, Operator where, ToSQLStringEvent toSQLStringEvent) throws QueryBuilderException {
 		if (where == null) return "";
 		if (!(where instanceof Operator)) {
 			where = new AndOperator(where);
@@ -134,14 +144,17 @@ public abstract class QueryBuilder {
 		Class localClass = clazz;
 		if (localClass == null)
 			localClass = this.clazz;
-		return OperatorAndCriteriaProcessor.processOperator(localClass, (Operator)where);
+		return OperatorAndCriteriaProcessor.processOperator(localClass, (Operator)where, toSQLStringEvent);
 	}	
-
-	@SuppressWarnings("rawtypes")
+	
 	public String buildWhere(Class<?> clazz, Criteria where) throws QueryBuilderException {
+		return buildWhere(clazz, where, null);
+	}
+	
+	public String buildWhere(Class<?> clazz, Criteria where, ToSQLStringEvent toSQLStringEvent) throws QueryBuilderException {
 		if (where == null) return "";
 		Operator cond = new AndOperator(where);
-		return buildWhere(clazz, cond);
+		return buildWhere(clazz, cond, toSQLStringEvent);
 	}	
 
 	

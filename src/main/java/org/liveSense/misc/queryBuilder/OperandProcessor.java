@@ -14,9 +14,14 @@ public class OperandProcessor {
 	
 	@SuppressWarnings("rawtypes")
 	public static String getOperandSource(Operand operand, Class clazz) throws Exception {
+		return getOperandSource(operand, clazz, null);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static String getOperandSource(Operand operand, Class clazz, ToSQLStringEvent toSQLString) throws Exception {
 		String source;		
 		if (operand.isLiteral()) {
-			source = new ObjectToSQLLiteral(getOperandValue(operand)).getLiteral();
+			source = new ObjectToSQLLiteral(getOperandValue(operand), toSQLString).getLiteral();
 		}
 		else {
 			String fieldName = (String) getOperandValue(operand);

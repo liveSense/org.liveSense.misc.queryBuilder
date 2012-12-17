@@ -19,12 +19,12 @@ public class OperatorAndCriteriaProcessor {
 	private static Pattern pattern = Pattern.compile("(\\$[\\w||\\']+\\$)", Pattern.COMMENTS);
 
 	@SuppressWarnings("rawtypes")
-	private static String processOperatorParams(Class<?> clazz, Object params, Position pos) throws QueryBuilderException {
+	private static String processOperatorParams(Class<?> clazz, Object params, Position pos, ToSQLStringEvent toSQLString) throws QueryBuilderException {
 	    String clause = "";
 	    if (params instanceof Operator) {
-			clause += processOperator(clazz, (Operator)params);
+			clause += processOperator(clazz, (Operator)params, toSQLString);
 		} else if (params instanceof Criteria) {
-			clause += processCriteria(clazz, (Criteria)params);
+			clause += processCriteria(clazz, (Criteria)params, toSQLString);
 		} else {
 			throw new QueryBuilderException("Parameter data is incompatible. (Operator or Criteria required)");
 		}
@@ -35,7 +35,15 @@ public class OperatorAndCriteriaProcessor {
 		return processCriteria(null, criteria);
 	}
 	
+	public static String processCriteria(Criteria criteria, ToSQLStringEvent toSQLString) throws QueryBuilderException {
+		return processCriteria(null, criteria, toSQLString);
+	}
+		
 	public static String processCriteria(Class<?> clazz, Criteria criteria) throws QueryBuilderException {
+		return processCriteria(clazz, criteria, null);
+	}
+	
+	public static String processCriteria(Class<?> clazz, Criteria criteria, ToSQLStringEvent toSQLString) throws QueryBuilderException {
 		//criteria.setDriverClass(jdbcDriver);
 		
 		Matcher matcher = pattern.matcher(criteria.getQueryTemplate());		
@@ -61,7 +69,7 @@ public class OperatorAndCriteriaProcessor {
 				else {
 					Object o = BeanUtilsBean.getInstance().getPropertyUtils().getNestedProperty(criteria, variableName);
 					if (o instanceof Value) o = ((Value) o).getValueAsObject();
-					ret = ret.replaceAll("\\$"+originalVariableName+"\\$", getAsValue(clazz, o));					
+					ret = ret.replaceAll("\\$"+originalVariableName+"\\$", getAsValue(clazz, o, toSQLString));					
 				}
 			}
 			catch (Exception e) {
@@ -74,8 +82,16 @@ public class OperatorAndCriteriaProcessor {
 	public static String processOperator(Operator operator) throws QueryBuilderException {
 		return processOperator(null, operator);
 	}
-
-	public static String processOperator(Class<?> clazz, Operator operator) throws QueryBuilderException {
+	
+	public static String processOperator(Operator operator, ToSQLStringEvent toSQLString) throws QueryBuilderException {
+		return processOperator(null, operator, toSQLString);
+	}
+	
+	public static String processOperator(Class<?> clazz, Operator operator) throws QueryBuilderException { 
+		return processOperator(clazz, operator, null); 
+	}
+		
+	public static String processOperator(Class<?> clazz, Operator operator, ToSQLStringEvent toSQLString) throws QueryBuilderException {
 		String ret = "";
 		if (operator.getParams() == null) return "";
 		if (operator.getParams().size() == 0) return "";
@@ -87,7 +103,7 @@ public class OperatorAndCriteriaProcessor {
 			} else if (((List<?>)operator.getParams()).size() == 1) {
 				ret = operator.getParamPreOperation()+
 					operator.getFirstParamPreOperation()+
-					processOperatorParams(clazz, ((List<?>)operator.getParams()).get(0), Position.MIDDLE)+
+					processOperatorParams(clazz, ((List<?>)operator.getParams()).get(0), Position.MIDDLE, toSQLString)+
 					operator.getLastParamPostOperation()+
 					operator.getParamPostOperation();
 			} else {
@@ -95,16 +111,16 @@ public class OperatorAndCriteriaProcessor {
 					if (i == 0) {
 						ret = operator.getParamPreOperation()+
 						operator.getFirstParamPreOperation()+
-						processOperatorParams(clazz, ((List<?>)operator.getParams()).get(i), Position.FIRST)+
+						processOperatorParams(clazz, ((List<?>)operator.getParams()).get(i), Position.FIRST, toSQLString)+
 						operator.getFirstParamPostOperation();
 					} else if (i == ((List<?>)operator.getParams()).size()-1) {
 						ret += operator.getLastParamPostOperation()+
-						processOperatorParams(clazz, ((List<?>)operator.getParams()).get(i), Position.LAST)+
+						processOperatorParams(clazz, ((List<?>)operator.getParams()).get(i), Position.LAST, toSQLString)+
 						operator.getLastParamPostOperation()+
 						operator.getParamPostOperation();
 					} else {
 						ret += operator.getMiddleParamPreOperation()+
-						processOperatorParams(clazz, ((List<?>)operator.getParams()).get(i), Position.MIDDLE)+
+						processOperatorParams(clazz, ((List<?>)operator.getParams()).get(i), Position.MIDDLE, toSQLString)+
 						operator.getMiddleParamPostOperation();		
 					}
 				}		
@@ -112,7 +128,7 @@ public class OperatorAndCriteriaProcessor {
 		} else {
 			ret = operator.getParamPreOperation() + 
 					operator.getFirstParamPreOperation()+
-					processOperatorParams(clazz, operator.getParams().get(0), Position.MIDDLE)+
+					processOperatorParams(clazz, operator.getParams().get(0), Position.MIDDLE, toSQLString)+
 					operator.getLastParamPostOperation()+
 					operator.getParamPostOperation();
 
@@ -121,16 +137,16 @@ public class OperatorAndCriteriaProcessor {
 	}
 	
 	@SuppressWarnings({ "rawtypes" })
-	private static String getAsValue(Class clazz, final Object o) throws QueryBuilderException {
+	private static String getAsValue(Class clazz, final Object o, ToSQLStringEvent toSQLString) throws QueryBuilderException {
 		try {
 			if (o instanceof Operand) {
 				if (!((Operand)o).isLiteral()) {
-					return OperandProcessor.getOperandSource(((Operand)o), clazz);
+					return OperandProcessor.getOperandSource(((Operand)o), clazz, toSQLString);
 				}
 			} else if (o instanceof Value) {
-				return new ObjectToSQLLiteral(ValueProcessor.processValue((Value)o)).getLiteral();
+				return new ObjectToSQLLiteral(ValueProcessor.processValue((Value)o), toSQLString).getLiteral();
 			}
-			return new ObjectToSQLLiteral(o).getLiteral();
+			return new ObjectToSQLLiteral(o, toSQLString).getLiteral();
 		}
 		catch (Exception e) {
 			throw new QueryBuilderException(e);

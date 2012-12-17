@@ -55,6 +55,11 @@ public class ObjectToSQLLiteralTest {
 	}
 	
 	@Test
+	public void BooleanLiteral() throws Exception, ParseException {
+		assertTrue(new ObjectToSQLLiteral(true).getLiteral().equals("true"));				
+	}
+	
+	@Test
 	public void OperandSourceLiteral() throws Exception, ParseException {
 		assertTrue(new ObjectToSQLLiteral(new DefaultOperand("", "Homer", true)).getLiteral().equals("'Homer'"));
 		assertTrue(new ObjectToSQLLiteral(new DefaultOperand("", "Homer", false)).getLiteral() == null);
@@ -120,7 +125,33 @@ public class ObjectToSQLLiteralTest {
 		assertTrue(new ObjectToSQLLiteral(o).getLiteral().equals(o.toString()));				
 	}
 	
-	
+	@Test
+	public void toSQLString() throws Exception, ParseException {
+		assertTrue(new ObjectToSQLLiteral(true, new ToSQLStringEvent() {
+			
+			@Override
+			public boolean toSQLString(
+				Object obj,
+				StringBuilder sb)
+				throws Exception {
+			
+				sb.append("1");
+				return true;
+			}
+		}).getLiteral().equals("1"));
+		
+		assertTrue(new ObjectToSQLLiteral(true, new ToSQLStringEvent() {
+			
+			@Override
+			public boolean toSQLString(
+				Object obj,
+				StringBuilder sb)
+				throws Exception {
+			
+				return false;
+			}
+		}).getLiteral().equals("true"));	
+	}	
 	
 
 }

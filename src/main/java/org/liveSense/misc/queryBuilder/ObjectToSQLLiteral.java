@@ -30,16 +30,29 @@ public class ObjectToSQLLiteral {
 
 	
 	private Object obj;
+	private ToSQLStringEvent toSQLSqlStringEvent = null;
 	
 	
 	public ObjectToSQLLiteral(Object obj) {
 		this.obj = obj;
 	}
 	
+	public ObjectToSQLLiteral(Object obj, ToSQLStringEvent toSQLSqlStringEvent) {
+		this.obj = obj;
+		this.toSQLSqlStringEvent = toSQLSqlStringEvent;
+	}
+	
 	
 	@SuppressWarnings("rawtypes")
 	public String getLiteral() throws Exception {
 		String s = "'";
+		
+		if (toSQLSqlStringEvent != null) {
+			StringBuilder sb = new StringBuilder();
+			if  (toSQLSqlStringEvent.toSQLString(this.obj, sb)) {
+				return sb.toString();
+			}
+		}
 		
 		if (obj == null) 
 			return "NULL";		

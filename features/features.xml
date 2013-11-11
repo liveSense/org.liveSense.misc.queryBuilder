@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<features name="liveSense-${liveSense.version}-misc-queryBuilder" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+	<feature name="liveSense-misc-queryBuilder" version="${liveSense.misc.queryBuilder.version}" description="liveSense misc queryBuilder">
+        <feature>liveSense-core-persistence</feature>
+        <feature>liveSense-core-base</feature>
+        <bundle>mvn:com.github.livesense/org.liveSense.misc.queryBuilder/${liveSense.misc.queryBuilder.version}</bundle>
+	</feature>
+</features>

@@ -18,10 +18,10 @@ liveSense SQL QueryBuilder
 ## OSGi Dependencies
 * __[liveSense :: Core - org.liveSense.core (2-SNAPSHOT)](http://github.com/liveSense/org.liveSense.core)__
 	* org.liveSense.core
-* __[liveSense :: Extension :: javax.persistence - org.liveSense.misc.javax.persistence (2-SNAPSHOT)](http://github.com/liveSense/org.liveSense.misc.javax.persistence)__
-	* javax.persistence
 * __Commons BeanUtils - org.apache.commons.beanutils (1.8.3)__
 	* org.apache.commons.beanutils
+* __Apache ServiceMix :: Specs :: Java Persistence API 1.4 - org.apache.servicemix.specs.java-persistence-api-1.1.1 (2.2.0)__
+	* javax.persistence
 
 ## OSGi Embedded JARs
 

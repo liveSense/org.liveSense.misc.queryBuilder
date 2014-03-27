@@ -8,12 +8,12 @@
       <version>2-SNAPSHOT</version>
 		<relativePath>..</relativePath>
   	</parent>
+	<scm>
+		<connection>scm:git:https://github.com/liveSense/org.liveSense.misc.queryBuilder.git</connection>
+		<developerConnection>scm:git:https://github.com/liveSense/org.liveSense.misc.queryBuilder.git</developerConnection>
+		<url>https://github.com/liveSense/org.liveSense.misc.queryBuilder</url>
+	</scm>
 
-  <scm>
-      <connection>scm:git:git://github.com/liveSense/org.liveSense.misc.queryBuilder.git</connection>
-      <developerConnection>scm:git:git://github.com/liveSense/org.liveSense.misc.queryBuilder.git</developerConnection>
-      <url>https://github.com/liveSense/org.liveSense.misc.queryBuilder</url>
-  </scm>  
   
 	<artifactId>org.liveSense.misc.queryBuilder</artifactId>
 	<packaging>bundle</packaging>

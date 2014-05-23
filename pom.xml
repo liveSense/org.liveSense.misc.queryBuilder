@@ -79,7 +79,6 @@
 		<dependency>
 			<groupId>com.github.livesense</groupId>
 			<artifactId>org.liveSense.core</artifactId>
-            <version>${parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
